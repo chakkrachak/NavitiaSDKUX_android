@@ -1,0 +1,143 @@
+package org.kisio.NavitiaSDKUX.Components.Primitive;
+
+import android.graphics.Typeface;
+import android.util.Log;
+
+import com.facebook.litho.ComponentContext;
+import com.facebook.litho.ComponentLayout;
+import com.facebook.litho.widget.Text;
+import com.facebook.yoga.YogaAlign;
+import com.facebook.yoga.YogaEdge;
+
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * NavitiaSDKUX_android
+ *
+ * Created by Johan Rouve on 23/08/2017.
+ * Copyright © 2017 Kisio. All rights reserved.
+ */
+
+public class StylizedComponent {
+    public static ComponentLayout.ContainerBuilder applyStyles(ComponentLayout.ContainerBuilder builder, Map<String, Object> styles) {
+        Map<String, Object> notHandledStyles = new HashMap<>(styles);
+
+        for (String key : styles.keySet()) {
+            final Object value = styles.get(key);
+            Boolean handled = true;
+            switch (key) {
+                case "alignItems":
+                    builder.alignItems((YogaAlign) value);
+                    break;
+                default:
+                    handled = false;
+            }
+
+            if (handled) {
+                notHandledStyles.remove(key);
+            }
+        }
+
+        return (ComponentLayout.ContainerBuilder) StylizedComponent.applyStyles((ComponentLayout.Builder) builder, notHandledStyles);
+    }
+
+    public static ComponentLayout.Builder applyStyles(ComponentLayout.Builder builder, Map<String, Object> styles) {
+        for (String key : styles.keySet()) {
+            final Object value = styles.get(key);
+            switch (key) {
+                case "padding":
+                    builder.paddingDip(YogaEdge.ALL, (int) value);
+                    break;
+                case "paddingTop":
+                    builder.paddingDip(YogaEdge.TOP, (int) value);
+                    break;
+                case "paddingRight":
+                    builder.paddingDip(YogaEdge.RIGHT, (int) value);
+                    break;
+                case "paddingBottom":
+                    builder.paddingDip(YogaEdge.BOTTOM, (int) value);
+                    break;
+                case "paddingLeft":
+                    builder.paddingDip(YogaEdge.LEFT, (int) value);
+                    break;
+                case "marginTop":
+                    builder.marginDip(YogaEdge.TOP, (int) value);
+                    break;
+                case "marginRight":
+                    builder.marginDip(YogaEdge.RIGHT, (int) value);
+                    break;
+                case "marginBottom":
+                    builder.marginDip(YogaEdge.BOTTOM, (int) value);
+                    break;
+                case "marginLeft":
+                    builder.marginDip(YogaEdge.LEFT, (int) value);
+                    break;
+                case "marginEnd":
+                    builder.marginDip(YogaEdge.END, (int) value);
+                    break;
+                case "borderRadius":
+                    // not supported;
+                    break;
+                case "width":
+                    builder.widthDip((int) value);
+                    break;
+                case "height":
+                    builder.heightDip((int) value);
+                    break;
+                case "backgroundColor":
+                    builder.backgroundColor((int) value);
+                    break;
+                default:
+                    Log.d("LayoutBuilder", key + " not handle");
+            }
+        }
+
+        return builder;
+    }
+
+    public static ComponentLayout.Builder applyStyles(Text.Builder builder, Map<String, Object> styles) {
+        Map<String, Object> notHandledStyles = new HashMap<>(styles);
+
+        for (String key : styles.keySet()) {
+            final Object value = styles.get(key);
+            Boolean handled = true;
+            switch (key) {
+                case "color":
+                    builder.textColor((int) value);
+                    break;
+                case "fontFamily":
+                    builder.typeface((Typeface) value);
+                    break;
+                case "fontSize":
+                    builder.textSizeDip((int) value);
+                    break;
+                case "fontWeight":
+                    builder.textStyle(Typeface.BOLD);
+                    break;
+                default:
+                    handled = false;
+            }
+
+            if (handled) {
+                notHandledStyles.remove(key);
+            }
+        }
+
+        return StylizedComponent.applyStyles(builder.withLayout(), notHandledStyles);
+    }
+
+    public static Map<String, Object> mergeStyles(Map<String, Object> defaultStyles, Map<String, Object> styles) {
+        for (String key : styles.keySet()) {
+            defaultStyles.put(key, styles.get(key));
+        }
+
+        return defaultStyles;
+    }
+
+    public static Typeface getFont(ComponentContext c, String fontName) {
+        return Typeface.createFromAsset(c.getAssets(),  "fonts/" + fontName + ".ttf");
+    }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NavitiaSDKUX</string>
+    <string name="component.DateTimeButtonComponent.representation.departure">Departure</string>
+</resources>
