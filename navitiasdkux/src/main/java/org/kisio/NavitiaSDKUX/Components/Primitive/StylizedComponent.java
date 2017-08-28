@@ -8,6 +8,7 @@ import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.widget.Text;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaEdge;
+import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 
@@ -31,6 +32,9 @@ public class StylizedComponent {
             switch (key) {
                 case "alignItems":
                     builder.alignItems((YogaAlign) value);
+                    break;
+                case "justifyContent":
+                    builder.justifyContent((YogaJustify) value);
                     break;
                 default:
                     handled = false;
@@ -87,8 +91,14 @@ public class StylizedComponent {
                 case "height":
                     builder.heightDip((int) value);
                     break;
+                case "flexGrow":
+                    builder.flexGrow((int) value);
+                    break;
                 case "backgroundColor":
                     builder.backgroundColor((int) value);
+                    break;
+                case "shadowElevation":
+                    builder.shadowElevationDip((int) value);
                     break;
                 default:
                     Log.d("LayoutBuilder", key + " not handle");

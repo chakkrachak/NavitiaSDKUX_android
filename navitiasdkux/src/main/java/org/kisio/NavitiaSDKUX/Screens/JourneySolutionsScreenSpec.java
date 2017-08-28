@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Screens;
 
+import android.support.v7.widget.OrientationHelper;
 import android.util.Log;
 
 import com.facebook.litho.Component;
@@ -13,18 +14,30 @@ import com.facebook.litho.annotations.OnUpdateState;
 import com.facebook.litho.annotations.Param;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.State;
+import com.facebook.litho.widget.LinearLayoutInfo;
+import com.facebook.litho.widget.Recycler;
+import com.facebook.litho.widget.RecyclerBinder;
+import com.facebook.yoga.YogaEdge;
 
 import org.kisio.NavitiaSDK.NavitiaConfiguration;
 import org.kisio.NavitiaSDK.NavitiaSDK;
 import org.kisio.NavitiaSDK.invokers.ApiCallback;
 import org.kisio.NavitiaSDK.invokers.ApiException;
+import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Journeys;
+import org.kisio.NavitiaSDKUX.Components.AlertComponent;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.DateTimeButtonComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneyFormComponent;
+import org.kisio.NavitiaSDKUX.Components.JourneySolutionComponent;
+import org.kisio.NavitiaSDKUX.Components.JourneySolutionLoadingComponent;
+import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
+import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,11 +95,15 @@ public class JourneySolutionsScreenSpec {
         @State Boolean loaded,
         @State Boolean error) {
 
-        final List<Component.Builder> journeyComponents = new ArrayList<>();
+        Component<?> journeyComponent;
         if (journeys != null) {
-            // journeyComponents = getJourneyComponents(journeys);
+            journeyComponent = getJourneyComponent(c, journeys);
+        } else if (error){
+            journeyComponent = AlertComponent.create(c)
+                .text(c.getString(R.string.screen_JourneySolutionsScreen_error))
+                .build();
         } else {
-            // journeyComponents.add(JourneySolutionLoadingComponent.create(c));
+            journeyComponent = JourneySolutionLoadingComponent.create(c).build();
         }
 
 
@@ -105,8 +122,27 @@ public class JourneySolutionsScreenSpec {
                         }).build()
                     })
             )
+            .child(
+                ScrollViewComponent.create(c)
+                    .child(journeyComponent)
+            )
             .build()
         ;
+    }
+
+    static Component<?> getJourneyComponent(ComponentContext c, Journeys journeys) {
+        List<Component<?>> components = new ArrayList<>();
+        for (Journey journey : journeys.getJourneys()) {
+            components.add(
+                JourneySolutionComponent.create(c)
+                    .journey(journey)
+                    .build()
+            );
+        }
+
+        return ListViewComponent.create(c)
+            .children(components.toArray(new Component<?>[components.size()]))
+            .build();
     }
 
     static Map<String, Object> headerStyles = new HashMap<>();

@@ -36,7 +36,7 @@ public class DurationComponentSpec {
         builder
         .child(
             TextComponent.create(c)
-                .text("24")
+                .text(String.valueOf((int) Math.ceil(seconds / 60)))
                 .styles(digitsStyles)
         )
         .child(
