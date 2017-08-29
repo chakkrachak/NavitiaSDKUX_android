@@ -100,15 +100,19 @@ public class JourneySolutionsScreenSpec {
         @State Boolean loaded,
         @State Boolean error) {
 
-        Component<?> journeyComponent;
+        Component<?>[] journeyComponent;
         if (journeys != null) {
             journeyComponent = getJourneyComponent(c, journeys);
         } else if (error){
-            journeyComponent = AlertComponent.create(c)
-                .text(c.getString(R.string.screen_JourneySolutionsScreen_error))
-                .build();
+            journeyComponent = new Component<?>[]{
+                AlertComponent.create(c)
+                    .text(c.getString(R.string.screen_JourneySolutionsScreen_error))
+                    .build()
+            };
         } else {
-            journeyComponent = JourneySolutionLoadingComponent.create(c).build();
+            journeyComponent = new Component<?>[]{
+                JourneySolutionLoadingComponent.create(c).build()
+            };
         }
 
 
@@ -129,13 +133,16 @@ public class JourneySolutionsScreenSpec {
             )
             .child(
                 ScrollViewComponent.create(c)
-                    .child(journeyComponent)
+                    .child(
+                        ListViewComponent.create(c)
+                            .children(journeyComponent)
+                    )
             )
             .build()
         ;
     }
 
-    static Component<?> getJourneyComponent(ComponentContext c, Journeys journeys) {
+    static Component<?>[] getJourneyComponent(ComponentContext c, Journeys journeys) {
         List<Component<?>> components = new ArrayList<>();
         for (Journey journey : journeys.getJourneys()) {
             components.add(
@@ -145,9 +152,7 @@ public class JourneySolutionsScreenSpec {
             );
         }
 
-        return ListViewComponent.create(c)
-            .children(components.toArray(new Component<?>[components.size()]))
-            .build();
+        return components.toArray(new Component<?>[components.size()]);
     }
 
     static Map<String, Object> headerStyles = new HashMap<>();
@@ -181,7 +186,6 @@ public class JourneySolutionsScreenSpec {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
                         JourneySolutionsScreen.updateErrorAsync(c, true);
-                        Log.d("HTTP Fail", e.getLocalizedMessage());
                     }
 
                     @Override

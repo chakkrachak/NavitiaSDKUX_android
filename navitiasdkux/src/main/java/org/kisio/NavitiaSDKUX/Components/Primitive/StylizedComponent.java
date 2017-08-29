@@ -100,6 +100,12 @@ public class StylizedComponent {
                 case "backgroundColor":
                     builder.backgroundColor((int) value);
                     break;
+                case "borderColor":
+                    builder.borderColor((int) value);
+                    break;
+                case "borderWidth":
+                    builder.borderWidthDip(YogaEdge.ALL, (int) value);
+                    break;
                 case "alignSelf":
                     builder.alignSelf((YogaAlign) value);
                     break;

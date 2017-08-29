@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Config;
 
+import android.graphics.Color;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,22 +25,22 @@ public class Configuration {
     }
 
     public static class colors {
-        public static Integer primary = 0xff666666;
-        public static Integer primaryText = 0xffffffff;
-        public static Integer secondary = 0xfff1f1f1;
-        public static Integer secondaryText = 0xffffffff;
-        public static Integer tertiary = 0xff009ee0;
-        public static Integer tertiaryText = 0xffffffff;
-        public static Integer brightText = 0xffffffff;
-        public static Integer darkText = 0xff000000;
-        public static Integer white = 0xffffffff;
-        public static Integer lighterGray = 0xfff1f1f1;
-        public static Integer lightGray = 0xffcdcdcd;
-        public static Integer gray = 0xff9a9a9a;
-        public static Integer darkGray = 0xff404040;
-        public static Integer darkerGray = 0xff202020;
-        public static Integer origin = 0xff99be27;
-        public static Integer destination = 0xffe0137b;
+        public static Integer primary = Color.parseColor("#666666");
+        public static Integer primaryText = Color.parseColor("#ffffff");
+        public static Integer secondary = Color.parseColor("#f1f1f1");
+        public static Integer secondaryText = Color.parseColor("#ffffff");
+        public static Integer tertiary = Color.parseColor("#009ee0");
+        public static Integer tertiaryText = Color.parseColor("#ffffff");
+        public static Integer brightText = Color.parseColor("#ffffff");
+        public static Integer darkText = Color.parseColor("#000000");
+        public static Integer white = Color.parseColor("#ffffff");
+        public static Integer lighterGray = Color.parseColor("#f1f1f1");
+        public static Integer lightGray = Color.parseColor("#cdcdcd");
+        public static Integer gray = Color.parseColor("#9a9a9a");
+        public static Integer darkGray = Color.parseColor("#404040");
+        public static Integer darkerGray = Color.parseColor("#202020");
+        public static Integer origin = Color.parseColor("#99be27");
+        public static Integer destination = Color.parseColor("#e0137b");
     }
 
     public static Map<String, String> iconFontCodes = new HashMap<>();
