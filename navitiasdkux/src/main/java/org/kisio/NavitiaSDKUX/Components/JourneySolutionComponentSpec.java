@@ -71,7 +71,7 @@ public class JourneySolutionComponentSpec {
     static Integer getWalkingDistance(List<Section> sections) {
         int distance = 0;
         for (Section section : sections) {
-            if (section.getType() == "street_network" && section.getMode() == "walking") {
+            if (section.getType().equals("street_network") && section.getMode().equals("walking")) {
                 for (Path segment : section.getPath()) {
                     distance += segment.getLength();
                 }

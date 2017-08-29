@@ -75,7 +75,7 @@ public class JourneySectionAbstractComponentSpec {
 
     static Map<String, Object> containerStyles = new HashMap<>();
     static {
-        containerStyles.put("fontSize", 16);
+        // containerStyles.put("fontSize", 16);
         containerStyles.put("marginEnd", Configuration.metrics.margin);
     }
 

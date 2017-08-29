@@ -6,18 +6,13 @@ import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
-import com.facebook.yoga.YogaAlign;
-import com.facebook.yoga.YogaJustify;
 
-import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,16 +37,16 @@ public class JourneyWalkingAbstractComponentSpec {
         builder
             .child(
                 TextComponent.create(c)
-                    .text(c.getString(R.string.component_JourneyWalkingAbstractComponent_With))
+                    .text(c.getString(R.string.component_JourneyWalkingAbstractComponent_With) + " ")
             )
             .child(
                 TextComponent.create(c)
-                    .text(duration.toString())
+                    .text(String.valueOf(duration / 60) + " min")
                     .styles(durationStyles)
             )
             .child(
                 TextComponent.create(c)
-                    .text(c.getString(R.string.component_JourneyWalkingAbstractComponent_With) + " (" + distance.toString() + ")")
+                    .text(" " + c.getString(R.string.component_JourneyWalkingAbstractComponent_walking) + " (" + Metrics.distanceText(distance) + ")")
             )
         ;
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);

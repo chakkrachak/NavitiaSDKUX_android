@@ -27,14 +27,18 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // Litho
-    compile 'com.facebook.litho:litho-core:0.6.0'
-    compile 'com.facebook.litho:litho-widget:0.6.0'
-    provided 'com.facebook.litho:litho-annotations:0.6.0'
+    compile 'com.facebook.litho:litho-core:0.6.1'
+    compile 'com.facebook.litho:litho-widget:0.6.1'
+    provided 'com.facebook.litho:litho-annotations:0.6.1'
 
-    annotationProcessor 'com.facebook.litho:litho-processor:0.6.0'
+    annotationProcessor 'com.facebook.litho:litho-processor:0.6.1'
 
     // SoLoader
     compile 'com.facebook.soloader:soloader:0.2.0'
+
+    // Optional
+    // For debugging
+    debugCompile 'com.facebook.litho:litho-stetho:0.6.1'
 
     implementation 'com.android.support:appcompat-v7:26.0.1'
     testImplementation 'junit:junit:4.12'

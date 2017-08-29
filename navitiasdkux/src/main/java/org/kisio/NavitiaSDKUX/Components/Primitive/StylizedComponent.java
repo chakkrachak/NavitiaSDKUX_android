@@ -91,14 +91,17 @@ public class StylizedComponent {
                 case "height":
                     builder.heightDip((int) value);
                     break;
+                case "heightPx":
+                    builder.heightPx((int) value);
+                    break;
                 case "flexGrow":
                     builder.flexGrow((int) value);
                     break;
                 case "backgroundColor":
                     builder.backgroundColor((int) value);
                     break;
-                case "shadowElevation":
-                    builder.shadowElevationDip((int) value);
+                case "alignSelf":
+                    builder.alignSelf((YogaAlign) value);
                     break;
                 default:
                     Log.d("LayoutBuilder", key + " not handle");
@@ -140,11 +143,12 @@ public class StylizedComponent {
     }
 
     public static Map<String, Object> mergeStyles(Map<String, Object> defaultStyles, Map<String, Object> styles) {
+        Map<String, Object> baseStyles = new HashMap<>(defaultStyles);
         for (String key : styles.keySet()) {
-            defaultStyles.put(key, styles.get(key));
+            baseStyles.put(key, styles.get(key));
         }
 
-        return defaultStyles;
+        return baseStyles;
     }
 
     public static Typeface getFont(ComponentContext c, String fontName) {

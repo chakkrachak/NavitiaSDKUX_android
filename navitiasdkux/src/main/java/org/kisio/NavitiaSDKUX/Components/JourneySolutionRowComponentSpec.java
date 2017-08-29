@@ -15,6 +15,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,7 @@ public class JourneySolutionRowComponentSpec {
     }
 
     static ComponentLayout.ContainerBuilder getHeaderComponent(ComponentContext c, String departureTime, String arrivalTime, Integer totalDuration) {
-        final String timesText = "10h00 - 20h00";
+        final String timesText = Metrics.timeText(departureTime) + " - " + Metrics.timeText(arrivalTime);
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder
             .child(
@@ -75,7 +76,12 @@ public class JourneySolutionRowComponentSpec {
                     .styles(durationStyles)
             );
 
-        return builder;
+        return StylizedComponent.applyStyles(builder, journeyHeaderStyles);
+    }
+
+    static Map<String, Object> journeyHeaderStyles = new HashMap<>();
+    static {
+        journeyHeaderStyles.put("alignItems", YogaAlign.CENTER);
     }
 
     static Map<String, Object> timesStyles = new HashMap<>();
