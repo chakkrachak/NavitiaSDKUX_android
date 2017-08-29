@@ -1,5 +1,10 @@
 package org.kisio.NavitiaSDKUX.Util;
 
+import org.kisio.NavitiaSDKUX.Config.Configuration;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * NavitiaSDKUX_android
  *
@@ -14,6 +19,18 @@ public class Metrics {
         final String minutes = timeData[1].substring(2, 4);
 
         return hours + ":" + minutes;
+    }
+
+    public static String longDateText(Date datetime) {
+        String pattern = Configuration.metrics.longDateFormat;
+
+        return new SimpleDateFormat(pattern).format(datetime);
+    }
+
+    public static String getIsoDatetime(Date datetime) {
+        String pattern = "yyyyMMdd'T'HHmmss";
+
+        return new SimpleDateFormat(pattern).format(datetime);
     }
 
     public static String distanceText(Integer meters) {

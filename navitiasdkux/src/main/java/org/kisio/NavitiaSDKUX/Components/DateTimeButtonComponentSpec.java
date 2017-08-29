@@ -14,7 +14,9 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +48,7 @@ public class DateTimeButtonComponentSpec {
 
     static ComponentLayout.Builder getLabelComponent(ComponentContext c) {
         Text.Builder builder = LabelComponent.create(c)
-            .text(c.getString(R.string.component_DateTimeButtonComponent_representation_departure));
+            .text(c.getString(R.string.component_DateTimeButtonComponent_representation_departure) + " " + Metrics.longDateText(new Date()));
 
         return StylizedComponent.applyStyles(builder, textStyles);
     }

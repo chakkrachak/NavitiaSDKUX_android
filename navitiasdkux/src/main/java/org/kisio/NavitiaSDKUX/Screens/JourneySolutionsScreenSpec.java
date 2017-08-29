@@ -38,8 +38,10 @@ import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +65,7 @@ public class JourneySolutionsScreenSpec {
         StateValue<Journeys> journeys,
         StateValue<Boolean> loaded,
         StateValue<Boolean> error,
+        StateValue<Date> datetime,
         @Prop(optional = true) String initOrigin,
         @Prop String initOriginId,
         @Prop(optional = true) String initDestination,
@@ -74,11 +77,12 @@ public class JourneySolutionsScreenSpec {
         destinationId.set(initDestinationId);
         loaded.set(false);
         error.set(false);
+        datetime.set(new Date());
 
         final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration("0de19ce5-e0eb-4524-a074-bda3c6894c19");
         try {
             final NavitiaSDK navitiaSDK = new NavitiaSDK(navitiaConfiguration);
-            retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get());
+            retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get(), datetime.get());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,6 +95,7 @@ public class JourneySolutionsScreenSpec {
         @State String originId,
         @State String destination,
         @State String destinationId,
+        @State Date datetime,
         @State Journeys journeys,
         @State Boolean loaded,
         @State Boolean error) {
@@ -166,11 +171,12 @@ public class JourneySolutionsScreenSpec {
 
     // Http
 
-    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, String originId, String destinationId) {
+    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, String originId, String destinationId, Date datetime) {
         try {
             navitiaSDK.journeysApi.newJourneysRequestBuilder()
                 .withFrom(originId)
                 .withTo(destinationId)
+                .withDatetime(Metrics.getIsoDatetime(datetime))
                 .get(new ApiCallback<Journeys>() {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
