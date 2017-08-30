@@ -86,7 +86,7 @@ public class JourneySolutionRowComponentSpec {
 
     static Map<String, Object> timesStyles = new HashMap<>();
     static {
-        timesStyles.put("color", Configuration.colors.darkerGray);
+        timesStyles.put("color", Configuration.colors.getDarkerGray());
         timesStyles.put("fontWeight", "bold");
     }
 

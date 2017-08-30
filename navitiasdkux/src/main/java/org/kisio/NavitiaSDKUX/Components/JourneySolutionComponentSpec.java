@@ -56,7 +56,7 @@ public class JourneySolutionComponentSpec {
 
     static Map<String, Object> listStyles = new HashMap<>();
     static {
-        listStyles.put("backgroundColor", Configuration.colors.white);
+        listStyles.put("backgroundColor", Color.WHITE);
         listStyles.put("padding", Configuration.metrics.marginL);
         listStyles.put("paddingTop", 4);
         listStyles.put("marginBottom", Configuration.metrics.margin);

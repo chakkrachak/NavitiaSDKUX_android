@@ -39,6 +39,6 @@ public class SeparatorComponentSpec {
     static Map<String, Object> lineStyles = new HashMap<>();
     static {
         lineStyles.put("heightPx", 1);
-        lineStyles.put("backgroundColor", Configuration.colors.secondary);
+        lineStyles.put("backgroundColor", Configuration.colors.getSecondary());
     }
 }

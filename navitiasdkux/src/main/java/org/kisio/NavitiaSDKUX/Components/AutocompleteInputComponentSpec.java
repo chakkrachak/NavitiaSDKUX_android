@@ -28,7 +28,7 @@ import java.util.Map;
 public class AutocompleteInputComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
     @PropDefault static final String icon = "";
-    @PropDefault static final Integer iconColor = Configuration.colors.tertiary;
+    @PropDefault static final Integer iconColor = Configuration.colors.getTertiary();
     @PropDefault static final String placeName = "";
 
     @OnCreateLayout

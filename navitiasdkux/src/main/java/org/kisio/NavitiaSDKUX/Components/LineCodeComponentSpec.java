@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components;
 
+import android.graphics.Color;
+
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -52,7 +54,7 @@ public class LineCodeComponentSpec {
 
     static Map<String, Object> textStyles = new HashMap<>();
     static {
-        textStyles.put("color", Configuration.colors.white);
+        textStyles.put("color", Color.WHITE);
         textStyles.put("fontSize", 12);
         textStyles.put("fontWeight", "bold");
     }

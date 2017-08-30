@@ -50,7 +50,7 @@ public class DurationComponentSpec {
 
     static Map<String, Object> digitsStyles = new HashMap<>();
     static {
-        digitsStyles.put("color", Configuration.colors.tertiary);
+        digitsStyles.put("color", Configuration.colors.getTertiary());
         digitsStyles.put("fontSize", 26);
         digitsStyles.put("fontWeight", "bold");
         digitsStyles.put("marginBottom", -4);
@@ -58,7 +58,7 @@ public class DurationComponentSpec {
 
     static Map<String, Object> abbrStyles = new HashMap<>();
     static {
-        abbrStyles.put("color", Configuration.colors.tertiary);
+        abbrStyles.put("color", Configuration.colors.getTertiary());
         abbrStyles.put("fontSize", 12);
         abbrStyles.put("marginBottom", 4);
     }

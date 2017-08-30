@@ -41,6 +41,6 @@ public class ModeComponentSpec {
 
     static Map<String, Object> iconStyles = new HashMap<>();
     static {
-        iconStyles.put("color", Configuration.colors.darkerGray);
+        iconStyles.put("color", Configuration.colors.getDarkerGray());
     }
 }

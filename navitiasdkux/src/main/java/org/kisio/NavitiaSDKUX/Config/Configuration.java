@@ -25,22 +25,113 @@ public class Configuration {
     }
 
     public static class colors {
-        public static Integer primary = Color.parseColor("#666666");
-        public static Integer primaryText = Color.parseColor("#ffffff");
-        public static Integer secondary = Color.parseColor("#f1f1f1");
-        public static Integer secondaryText = Color.parseColor("#ffffff");
-        public static Integer tertiary = Color.parseColor("#009ee0");
-        public static Integer tertiaryText = Color.parseColor("#ffffff");
-        public static Integer brightText = Color.parseColor("#ffffff");
-        public static Integer darkText = Color.parseColor("#000000");
-        public static Integer white = Color.parseColor("#ffffff");
-        public static Integer lighterGray = Color.parseColor("#f1f1f1");
-        public static Integer lightGray = Color.parseColor("#cdcdcd");
-        public static Integer gray = Color.parseColor("#9a9a9a");
-        public static Integer darkGray = Color.parseColor("#404040");
-        public static Integer darkerGray = Color.parseColor("#202020");
-        public static Integer origin = Color.parseColor("#99be27");
-        public static Integer destination = Color.parseColor("#e0137b");
+        static Integer primary = Color.parseColor("#666666");
+        static Integer primaryText = Color.parseColor("#ffffff");
+        static Integer secondary = Color.parseColor("#f1f1f1");
+        static Integer secondaryText = Color.parseColor("#ffffff");
+        static Integer tertiary = Color.parseColor("#009ee0");
+        static Integer tertiaryText = Color.parseColor("#ffffff");
+        static Integer brightText = Color.parseColor("#ffffff");
+        static Integer darkText = Color.parseColor("#000000");
+        static Integer white = Color.parseColor("#ffffff");
+        static Integer lighterGray = Color.parseColor("#f1f1f1");
+        static Integer lightGray = Color.parseColor("#cdcdcd");
+        static Integer gray = Color.parseColor("#9a9a9a");
+        static Integer darkGray = Color.parseColor("#404040");
+        static Integer darkerGray = Color.parseColor("#202020");
+        static Integer origin = Color.parseColor("#99be27");
+        static Integer destination = Color.parseColor("#e0137b");
+
+        public static Integer getPrimary() {
+            return primary;
+        }
+
+        public static void setPrimary(Integer primary) {
+            colors.primary = primary;
+            colors.primaryText = org.kisio.NavitiaSDKUX.Util.Color.contrastColor(primary);
+        }
+
+        public static Integer getPrimaryText() {
+            return primaryText;
+        }
+
+        public static Integer getSecondary() {
+            return secondary;
+        }
+
+        public static void setSecondary(Integer secondary) {
+            colors.secondary = secondary;
+            colors.secondaryText = org.kisio.NavitiaSDKUX.Util.Color.contrastColor(secondary);
+        }
+
+        public static Integer getSecondaryText() {
+            return secondaryText;
+        }
+
+        public static Integer getTertiary() {
+            return tertiary;
+        }
+
+        public static void setTertiary(Integer tertiary) {
+            colors.tertiary = tertiary;
+            colors.tertiaryText = org.kisio.NavitiaSDKUX.Util.Color.contrastColor(tertiary);
+        }
+
+        public static Integer getTertiaryText() {
+            return tertiaryText;
+        }
+
+        public static Integer getBrightText() {
+            return brightText;
+        }
+
+        public static void setBrightText(Integer brightText) {
+            colors.brightText = brightText;
+        }
+
+        public static Integer getDarkText() {
+            return darkText;
+        }
+
+        public static void setDarkText(Integer darkText) {
+            colors.darkText = darkText;
+        }
+
+        public static Integer getLighterGray() {
+            return lighterGray;
+        }
+
+        public static Integer getLightGray() {
+            return lightGray;
+        }
+
+        public static Integer getGray() {
+            return gray;
+        }
+
+        public static Integer getDarkGray() {
+            return darkGray;
+        }
+
+        public static Integer getDarkerGray() {
+            return darkerGray;
+        }
+
+        public static Integer getOrigin() {
+            return origin;
+        }
+
+        public static void setOrigin(Integer origin) {
+            colors.origin = origin;
+        }
+
+        public static Integer getDestination() {
+            return destination;
+        }
+
+        public static void setDestination(Integer destination) {
+            colors.destination = destination;
+        }
     }
 
     public static Map<String, String> iconFontCodes = new HashMap<>();

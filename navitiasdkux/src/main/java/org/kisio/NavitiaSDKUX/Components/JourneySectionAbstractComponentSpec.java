@@ -29,7 +29,7 @@ import java.util.Map;
 public class JourneySectionAbstractComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
     @PropDefault static final String lineCode = "";
-    @PropDefault static final Integer color = Configuration.colors.darkerGray;
+    @PropDefault static final Integer color = Configuration.colors.getDarkerGray();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(

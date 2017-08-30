@@ -63,7 +63,7 @@ public class DateTimeButtonComponentSpec {
 
     static Map<String, Object> textStyles = new HashMap<>();
     static {
-        textStyles.put("color", Configuration.colors.tertiaryText);
+        textStyles.put("color", Configuration.colors.getTertiaryText());
         textStyles.put("fontWeight", "bold");
     }
 }

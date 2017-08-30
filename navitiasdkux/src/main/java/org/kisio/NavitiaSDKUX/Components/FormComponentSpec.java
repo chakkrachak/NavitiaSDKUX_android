@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components;
 
+import android.graphics.Color;
+
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -44,7 +46,7 @@ public class FormComponentSpec {
 
     static Map<String, Object> formStyles = new HashMap<>();
     static {
-        formStyles.put("backgroundColor", Configuration.colors.white);
+        formStyles.put("backgroundColor", Color.WHITE);
         formStyles.put("borderRadius", Configuration.metrics.radius);
     }
 }

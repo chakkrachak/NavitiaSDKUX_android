@@ -40,13 +40,13 @@ public class JourneyFormComponentSpec {
             .children(new Component<?>[]{
                 AutocompleteInputComponent.create(c)
                     .icon("origin")
-                    .iconColor(Configuration.colors.origin)
+                    .iconColor(Configuration.colors.getOrigin())
                     .placeName(origin)
                     .build(),
                 SeparatorComponent.create(c).build(),
                 AutocompleteInputComponent.create(c)
                     .icon("destination")
-                    .iconColor(Configuration.colors.destination)
+                    .iconColor(Configuration.colors.getDestination())
                     .placeName(destination)
                     .build(),
             });

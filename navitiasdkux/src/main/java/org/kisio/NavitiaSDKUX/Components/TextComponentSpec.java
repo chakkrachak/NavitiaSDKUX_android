@@ -42,6 +42,6 @@ public class TextComponentSpec {
 
     static Map<String, Object> textStyles = new HashMap<>();
     static {
-        textStyles.put("color", Configuration.colors.primary);
+        textStyles.put("color", Configuration.colors.getPrimary());
     }
 }

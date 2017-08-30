@@ -157,7 +157,7 @@ public class JourneySolutionsScreenSpec {
 
     static Map<String, Object> headerStyles = new HashMap<>();
     static {
-        headerStyles.put("backgroundColor", Configuration.colors.tertiary);
+        headerStyles.put("backgroundColor", Configuration.colors.getTertiary());
     }
 
     // State Update
