@@ -35,7 +35,7 @@ public class IconComponentSpec {
 
         final Text.Builder builder = LabelComponent.create(c)
             .text(Icons.fontString(name));
-        // iconStyles.put("fontFamily", StylizedComponent.getFont(c,"SDKIcons"));
+        iconStyles.put("fontFamily", StylizedComponent.getFont(c,"SDKIcons"));
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(iconStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();

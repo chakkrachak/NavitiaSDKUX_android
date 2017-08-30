@@ -135,7 +135,7 @@ public class Configuration {
     }
 
     public static Map<String, String> iconFontCodes = new HashMap<>();
-    {
+    static {
         iconFontCodes.put("address", "\uea02");
         iconFontCodes.put("administrative-region", "\uea03");
         iconFontCodes.put("air", "\uea04");
@@ -164,7 +164,6 @@ public class Configuration {
         iconFontCodes.put("metro", "\uea1b");
         iconFontCodes.put("notice", "\uea1c");
         iconFontCodes.put("origin", "\uea1d");
-        // iconFontCodes.put("origin", "\uffff");
         iconFontCodes.put("poi", "\uea1e");
         iconFontCodes.put("realtime", "\uea1f");
         iconFontCodes.put("stop", "\uea21");
