@@ -71,9 +71,9 @@ public class JourneySolutionsScreenSpec {
         @Prop(optional = true) String initDestination,
         @Prop String initDestinationId) {
 
-        origin.set((initOrigin != null) ? initOrigin : initOriginId);
+        origin.set((initOrigin != null) ? initOrigin : "");
         originId.set(initOriginId);
-        destination.set((initDestination != null) ? initDestination : initDestinationId);
+        destination.set((initDestination != null) ? initDestination : "");
         destinationId.set(initDestinationId);
         loaded.set(false);
         error.set(false);
@@ -124,8 +124,8 @@ public class JourneySolutionsScreenSpec {
                         ContainerComponent.create(c)
                             .children(new Component<?>[]{
                             JourneyFormComponent.create(c)
-                                .origin(origin)
-                                .destination(destination)
+                                .origin(origin.isEmpty()? originId : origin)
+                                .destination(destination.isEmpty()? destinationId : destination)
                                 .build(),
                             DateTimeButtonComponent.create(c).build(),
                         }).build()
@@ -163,9 +163,22 @@ public class JourneySolutionsScreenSpec {
     // State Update
 
     @OnUpdateState
-    static void updateJourneys(StateValue<Journeys> journeys, StateValue<Boolean> loaded, @Param Journeys result) {
+    static void updateJourneys(StateValue<Journeys> journeys, StateValue<Boolean> loaded, StateValue<String> origin, StateValue<String> destination, @Param Journeys result) {
         journeys.set(result);
         loaded.set(true);
+
+        if (result.getJourneys().isEmpty() == false) {
+            final Journey journey = result.getJourneys().get(0);
+
+            if (journey.getSections().isEmpty() == false) {
+                if (origin.get().isEmpty()) {
+                    origin.set(journey.getSections().get(0).getFrom().getName());
+                }
+                if (destination.get().isEmpty()) {
+                    destination.set(journey.getSections().get(journey.getSections().size() - 1).getFrom().getName());
+                }
+            }
+        }
     }
 
     @OnUpdateState
