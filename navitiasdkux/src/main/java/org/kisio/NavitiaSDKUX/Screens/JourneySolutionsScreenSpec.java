@@ -1,8 +1,5 @@
 package org.kisio.NavitiaSDKUX.Screens;
 
-import android.support.v7.widget.OrientationHelper;
-import android.util.Log;
-
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -14,10 +11,6 @@ import com.facebook.litho.annotations.OnUpdateState;
 import com.facebook.litho.annotations.Param;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.State;
-import com.facebook.litho.widget.LinearLayoutInfo;
-import com.facebook.litho.widget.Recycler;
-import com.facebook.litho.widget.RecyclerBinder;
-import com.facebook.yoga.YogaEdge;
 
 import org.kisio.NavitiaSDK.NavitiaConfiguration;
 import org.kisio.NavitiaSDK.NavitiaSDK;
@@ -35,7 +28,6 @@ import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
-import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
@@ -111,7 +103,10 @@ public class JourneySolutionsScreenSpec {
             };
         } else {
             journeyComponent = new Component<?>[]{
-                JourneySolutionLoadingComponent.create(c).build()
+                JourneySolutionLoadingComponent.create(c).build(),
+                JourneySolutionLoadingComponent.create(c).build(),
+                JourneySolutionLoadingComponent.create(c).build(),
+                JourneySolutionLoadingComponent.create(c).build(),
             };
         }
 

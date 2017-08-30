@@ -1,6 +1,5 @@
 package org.kisio.NavitiaSDKUX.Components;
 
-import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
