@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), JourneySolutionsActivity.class);
+
+                intent.putExtra("initOriginId", "2.3665844;48.8465337");
+                intent.putExtra("initDestinationId", "2.2979169;48.8848719");
+
                 startActivity(intent);
             }
         });
