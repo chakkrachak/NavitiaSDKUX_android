@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">NavitiaSDKUX</string>
     <string name="controller.JourneySolutionsController.title">Solutions list</string>
     <string name="component.JourneyWalkingAbstractComponent.With">With</string>
     <string name="component.JourneyWalkingAbstractComponent.walking">walking</string>

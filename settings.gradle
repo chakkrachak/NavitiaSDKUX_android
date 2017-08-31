@@ -1,1 +1,2 @@
 include ':navitiasdkux'
+include ':sample'

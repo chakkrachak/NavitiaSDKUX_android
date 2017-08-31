@@ -1,8 +1,11 @@
 package org.kisio.NavitiaSDKUX.Controllers;
 
-import android.graphics.Color;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
+import android.view.MenuItem;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.LithoView;
@@ -17,9 +20,14 @@ public class JourneySolutionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.getSupportActionBar().setElevation(0);
-        this.getSupportActionBar().setTitle(R.string.controller_JourneySolutionsController_title);
-        Configuration.colors.setTertiary(Color.parseColor("#0E3356"));
+        final ActionBar actionBar = this.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setElevation(0);
+            actionBar.setTitle(R.string.controller_JourneySolutionsController_title);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        }
+        Configuration.colors.setTertiary(fetchPrimaryColor());
 
         final ComponentContext c = new ComponentContext(this);
 
@@ -32,5 +40,27 @@ public class JourneySolutionsActivity extends AppCompatActivity {
         );
 
         setContentView(lithoView);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private int fetchPrimaryColor() {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NavitiaSDKUX</string>
     <string name="component.DateTimeButtonComponent.representation.departure">Depart :</string>
     <string name="screen.JourneySolutionsScreen.error">Aucun itinéraire trouvé</string>
     <string name="controller.JourneySolutionsController.title">Liste de solutions</string>
