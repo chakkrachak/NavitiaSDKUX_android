@@ -5,4 +5,5 @@
     <string name="controller.JourneySolutionsController.title">Liste de solutions</string>
     <string name="component.JourneyWalkingAbstractComponent.walking">à pied</string>
     <string name="component.JourneyWalkingAbstractComponent.With">Dont</string>
+    <string name="controller.JourneySolutionRoadmapController.title">Détail de l'itinéraire</string>
 </resources>

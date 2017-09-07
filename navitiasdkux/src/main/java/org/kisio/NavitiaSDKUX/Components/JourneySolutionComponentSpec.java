@@ -1,6 +1,9 @@
 package org.kisio.NavitiaSDKUX.Components;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -13,12 +16,15 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.Primitive.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * NavitiaSDKUX_android
@@ -37,9 +43,16 @@ public class JourneySolutionComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Journey journey) {
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
+        final Context context = c;
 
-        final ListRowComponent.Builder builder = ListRowComponent.create(c);
-        builder
+        final ActionComponent.Builder actionBuilder = ActionComponent.create(c).actionToCall(new Callable<Void>() {
+            public Void call() {
+                final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
+                context.startActivity(intent);
+                return null;
+            }
+        }).child(ListRowComponent.create(c)
+            .styles(listStyles)
             .child(
                 JourneySolutionRowComponent.create(c)
                     .departureTime(journey.getDepartureDateTime())
@@ -49,8 +62,11 @@ public class JourneySolutionComponentSpec {
                     .walkingDistance(getWalkingDistance(journey.getSections()))
                     .sections(journey.getSections())
                     .build()
-            );
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), computedStyles);
+            )
+        );
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(actionBuilder.withLayout(), new HashMap<String, Object>());
+
         return styledBuilder.build();
     }
 
