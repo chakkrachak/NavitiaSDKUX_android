@@ -11,6 +11,7 @@ import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.LithoView;
 
+import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionRoadmapScreen;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionsScreen;
@@ -32,6 +33,8 @@ public class JourneySolutionRoadmapActivity extends AppCompatActivity {
         final ComponentContext c = new ComponentContext(this);
         final JourneySolutionRoadmapScreen.Builder builder = JourneySolutionRoadmapScreen.create(c);
 
+        setProps(builder);
+
         try {
             final Component<JourneySolutionRoadmapScreen> screenComponent = builder.build();
             final LithoView lithoView = LithoView.create(this, screenComponent);
@@ -51,5 +54,14 @@ public class JourneySolutionRoadmapActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setProps(JourneySolutionRoadmapScreen.Builder builder) {
+        final Intent intent = getIntent();
+
+        final Journey journey = (Journey)intent.getParcelableExtra("journey");
+        if (journey != null) {
+            builder.initJourney(journey);
+        }
     }
 }

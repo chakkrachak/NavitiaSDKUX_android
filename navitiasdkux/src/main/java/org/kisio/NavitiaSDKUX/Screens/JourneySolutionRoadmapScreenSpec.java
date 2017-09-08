@@ -12,11 +12,13 @@ import com.facebook.litho.annotations.Param;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.State;
 
+import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Journeys;
 import org.kisio.NavitiaSDKUX.Components.AlertComponent;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.DateTimeButtonComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneyFormComponent;
+import org.kisio.NavitiaSDKUX.Components.JourneySolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneySolutionLoadingComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -24,6 +26,7 @@ import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.R;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -36,12 +39,21 @@ import java.util.Date;
 @LayoutSpec
 public class JourneySolutionRoadmapScreenSpec {
     @OnCreateInitialState
-    static void createInitialState(ComponentContext c) {
-
+    static void createInitialState(
+        ComponentContext c,
+        StateValue<Journey> journey,
+        @Prop Journey initJourney) {
+        journey.set(initJourney);
     }
 
     @OnCreateLayout
-    static ComponentLayout onCreateLayout(ComponentContext c) {
-        return ViewComponent.create(c).build();
+    static ComponentLayout onCreateLayout(
+        ComponentContext c,
+        @State Journey journey) {
+        return ViewComponent.create(c)
+            .child(
+                JourneySolutionComponent.create(c).journey(journey)
+            )
+            .build();
     }
 }
