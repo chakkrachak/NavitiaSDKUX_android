@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,6 +14,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Insert your Navitia token
+        Configuration.token = "";
+
         setContentView(R.layout.activity_main);
 
         final Button button = findViewById(R.id.sdk_open);

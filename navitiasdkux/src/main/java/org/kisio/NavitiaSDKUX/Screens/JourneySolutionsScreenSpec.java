@@ -71,11 +71,13 @@ public class JourneySolutionsScreenSpec {
         error.set(false);
         datetime.set(new Date());
 
-        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration("0de19ce5-e0eb-4524-a074-bda3c6894c19");
+        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration(Configuration.token);
         try {
             final NavitiaSDK navitiaSDK = new NavitiaSDK(navitiaConfiguration);
             retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get(), datetime.get());
         } catch (Exception e) {
+            error.set(true);
+            loaded.set(true);
             e.printStackTrace();
         }
     }

@@ -13,6 +13,8 @@ import java.util.Map;
  */
 
 public class Configuration {
+    public static String token = "";
+
     public static class metrics {
         public static Integer space = 4;
         public static Integer radius = 5;
