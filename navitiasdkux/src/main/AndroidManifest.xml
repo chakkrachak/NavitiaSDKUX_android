@@ -7,7 +7,6 @@
     <application
         android:name="org.kisio.NavitiaSDKUX.NavitiaSDKUX">
 
-        <activity android:name="org.kisio.NavitiaSDKUX.Controllers.JourneySolutionsActivity"></activity>
+        <activity android:name="org.kisio.NavitiaSDKUX.Controllers.JourneySolutionsActivity" />
     </application>
-
 </manifest>
