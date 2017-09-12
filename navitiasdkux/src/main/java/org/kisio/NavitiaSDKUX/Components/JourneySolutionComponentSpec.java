@@ -44,12 +44,11 @@ public class JourneySolutionComponentSpec {
         @Prop final Journey journey) {
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
         final Context context = c;
-        final Journey parcelableJourney = journey;
 
         final ActionComponent.Builder actionBuilder = ActionComponent.create(c).actionToCall(new Callable<Void>() {
             public Void call() {
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
-                intent.putExtra("journey", parcelableJourney);
+                intent.putExtra("journey", journey);
                 context.startActivity(intent);
                 return null;
             }

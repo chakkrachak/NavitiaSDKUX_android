@@ -29,13 +29,9 @@ import java.util.logging.Logger;
 
 @LayoutSpec
 public class ActionComponentSpec {
-    static Callable<?> action;
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(ComponentContext c, @Prop Component<?> child, @Prop Callable<?> actionToCall) {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
-
-        action = actionToCall;
 
         return builder
             .child(child)
@@ -44,9 +40,9 @@ public class ActionComponentSpec {
     }
 
     @OnEvent(ClickEvent.class)
-    static void onClick(ComponentContext c, @FromEvent View view) {
+    static void onClick(ComponentContext c, @FromEvent View view, @Prop Callable<?> actionToCall) {
         try {
-            action.call();
+            actionToCall.call();
         } catch (Exception e) {
             Log.e("ActionComponentEx", e.getMessage());
         }
