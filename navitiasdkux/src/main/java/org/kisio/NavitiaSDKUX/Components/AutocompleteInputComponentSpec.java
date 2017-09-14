@@ -69,7 +69,7 @@ public class AutocompleteInputComponentSpec {
         iconComputedStyles.put("color", iconColor);
 
         return IconComponent.create(c)
-            .name(icon)
+            .name("location-pin")
             .styles(iconComputedStyles);
     }
 

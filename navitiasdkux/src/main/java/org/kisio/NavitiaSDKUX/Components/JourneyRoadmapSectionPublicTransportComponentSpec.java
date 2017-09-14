@@ -8,7 +8,6 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
 import java.util.HashMap;
@@ -26,9 +25,14 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
         @Prop Section section) {
 
         return ViewComponent.create(c).child(
-            LabelComponent.create(c).text(section.getType()).build()
+            TextComponent.create(c)
+                .styles(typeStyles)
+                .text(section.getType())
+                .build()
         ).child(
-            SeparatorComponent.create(c).build()
+            SeparatorComponent.create(c)
+                .styles(separatorStyles)
+                .build()
         ).child(
             JourneyRoadmapSectionStopPointComponent.create(c)
                 .section(section)
@@ -44,5 +48,15 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
                 .sectionWay("arrival")
                 .build()
         ).build();
+    }
+
+    static Map<String, Object> separatorStyles = new HashMap<>();
+    static {
+        separatorStyles.put("marginBottom", 10);
+    }
+
+    static Map<String, Object> typeStyles = new HashMap<>();
+    static {
+        typeStyles.put("fontWeight", "bold");
     }
 }

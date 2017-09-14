@@ -9,7 +9,6 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Place;
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
@@ -37,7 +36,8 @@ public class JourneyRoadmapSectionDefaultComponentSpec {
         }
 
         return ViewComponent.create(c).child(
-            LabelComponent.create(c)
+            TextComponent.create(c)
+                .styles(typeStyles)
                 .text(section.getType())
                 .build()
         ).child(
@@ -45,28 +45,23 @@ public class JourneyRoadmapSectionDefaultComponentSpec {
                 .styles(separatorStyles)
                 .build()
         ).child(
-            LabelComponent.create(c)
+            TextComponent.create(c)
                 .text(fromText)
                 .build()
         ).child(
-            LabelComponent.create(c)
+            TextComponent.create(c)
                 .text(toText)
                 .build()
         ).build();
     }
 
-    static Map<String, Object> sectionStyles = new HashMap<>();
+    static Map<String, Object> separatorStyles = new HashMap<>();
     static {
-        sectionStyles.put("marginBottom", 10);
+        separatorStyles.put("marginBottom", 10);
     }
 
     static Map<String, Object> typeStyles = new HashMap<>();
     static {
-        typeStyles.put("marginBottom", 10);
-    }
-
-    static Map<String, Object> separatorStyles = new HashMap<>();
-    static {
-        separatorStyles.put("marginBottom", 10);
+        typeStyles.put("fontWeight", "bold");
     }
 }

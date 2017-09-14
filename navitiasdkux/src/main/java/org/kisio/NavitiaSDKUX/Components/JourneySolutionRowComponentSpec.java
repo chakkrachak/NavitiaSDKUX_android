@@ -7,6 +7,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
+import com.facebook.yoga.YogaFlexDirection;
 import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDK.models.Section;
@@ -80,7 +81,8 @@ public class JourneySolutionRowComponentSpec {
 
     static Map<String, Object> journeyHeaderStyles = new HashMap<>();
     static {
-        journeyHeaderStyles.put("alignItems", YogaAlign.CENTER);
+        journeyHeaderStyles.put("paddingTop", 16);
+        journeyHeaderStyles.put("paddingBottom", 16);
     }
 
     static Map<String, Object> timesStyles = new HashMap<>();

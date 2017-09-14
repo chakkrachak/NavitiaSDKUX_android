@@ -7,6 +7,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -32,17 +33,20 @@ public class DurationComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) Integer seconds) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder
         .child(
             TextComponent.create(c)
                 .text(String.valueOf((int) Math.ceil(seconds / 60)))
                 .styles(digitsStyles)
-        )
-        .child(
+        ).child(
             TextComponent.create(c)
                 .text("min")
                 .styles(abbrStyles)
+        ).child(
+            IconComponent.create(c)
+                .name("arrow-right")
+                .styles(arrowStyles)
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
@@ -51,15 +55,20 @@ public class DurationComponentSpec {
     static Map<String, Object> digitsStyles = new HashMap<>();
     static {
         digitsStyles.put("color", Configuration.colors.getTertiary());
-        digitsStyles.put("fontSize", 26);
         digitsStyles.put("fontWeight", "bold");
-        digitsStyles.put("marginBottom", -4);
+        digitsStyles.put("paddingRight", 4);
     }
 
     static Map<String, Object> abbrStyles = new HashMap<>();
     static {
         abbrStyles.put("color", Configuration.colors.getTertiary());
-        abbrStyles.put("fontSize", 12);
-        abbrStyles.put("marginBottom", 4);
+        abbrStyles.put("paddingRight", 8);
+    }
+
+    static Map<String, Object> arrowStyles = new HashMap<>();
+    static {
+        arrowStyles.put("color", Configuration.colors.getTertiary());
+        arrowStyles.put("fontSize", 16);
+        arrowStyles.put("marginRight", -4);
     }
 }

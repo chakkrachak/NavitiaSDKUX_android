@@ -80,6 +80,30 @@ class ShimCardContentComponentSpec {
         return builder.build();
     }
 
+    static ComponentLayout.ContainerBuilder getJourneyHeaderComponent(ComponentContext c) {
+        final ComponentLayout.ContainerBuilder durationBuilder = ViewComponent.create(c);
+        durationBuilder
+            .child(
+                ShimComponent.create(c)
+                    .width(64)
+                    .height(17)
+            );
+
+
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
+        builder
+            .child(
+                ShimComponent.create(c)
+                    .width(95)
+                    .height(17)
+            )
+            .child(
+                StylizedComponent.applyStyles(durationBuilder, journeyDurationStyles)
+            );
+
+        return StylizedComponent.applyStyles(builder, journeyHeaderStyles);
+    }
+
     static ComponentLayout.ContainerBuilder getJourneyFriezeComponent(ComponentContext c) {
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder
@@ -100,35 +124,6 @@ class ShimCardContentComponentSpec {
         return StylizedComponent.applyStyles(builder, journeyFriezeStyle);
     }
 
-    static ComponentLayout.ContainerBuilder getJourneyHeaderComponent(ComponentContext c) {
-        final ComponentLayout.ContainerBuilder durationBuilder = ViewComponent.create(c);
-        durationBuilder
-            .child(
-                ShimComponent.create(c)
-                    .width(34)
-                    .height(26)
-            )
-            .child(
-                ShimComponent.create(c)
-                    .width(21)
-                    .height(12)
-            );
-
-
-        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
-        builder
-            .child(
-                ShimComponent.create(c)
-                    .width(95)
-                    .height(17)
-            )
-            .child(
-                StylizedComponent.applyStyles(durationBuilder, journeyDurationStyles)
-            );
-
-        return StylizedComponent.applyStyles(builder, journeyHeaderStyles);
-    }
-
     static Map<String, Object> journeyHeaderStyles = new HashMap<>();
     static {
         journeyHeaderStyles.put("alignItems", YogaAlign.CENTER);
@@ -138,9 +133,6 @@ class ShimCardContentComponentSpec {
 
     static Map<String, Object> journeyDurationStyles = new HashMap<>();
     static {
-        journeyDurationStyles.put("alignSelf", YogaAlign.STRETCH);
-        journeyDurationStyles.put("justifyContent", YogaJustify.SPACE_AROUND);
-        journeyDurationStyles.put("alignItems", YogaAlign.FLEX_END);
     }
 
     static Map<String, Object> journeyFriezeStyle = new HashMap<>();

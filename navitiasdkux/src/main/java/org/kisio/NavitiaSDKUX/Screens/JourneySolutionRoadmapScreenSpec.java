@@ -25,6 +25,7 @@ import org.kisio.NavitiaSDKUX.Components.JourneyFormComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneyRoadmapSectionComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneySolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.JourneySolutionLoadingComponent;
+import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
@@ -73,9 +74,9 @@ public class JourneySolutionRoadmapScreenSpec {
                 }).build()
             )
             .child(
-                ScrollViewComponent.create(c).child(ListViewComponent.create(c).children(new Component<?>[] {
-                    ListViewComponent.create(c).children(getJourneySectionComponents(c, journey)).build()
-                }))
+                ScrollViewComponent.create(c).child(ListViewComponent.create(c).children(
+                    getJourneySectionComponents(c, journey)
+                ).build())
             )
             .build();
     }
@@ -84,11 +85,11 @@ public class JourneySolutionRoadmapScreenSpec {
         List<Component<?>> components = new ArrayList<>();
 
         for (Section section : journey.getSections()) {
-            components.add(
+            components.add(ListRowComponent.create(c).child(
                 JourneyRoadmapSectionComponent.create(c)
                     .section(section)
                     .build()
-            );
+            ).build());
         }
 
         return components.toArray(new Component<?>[components.size()]);
