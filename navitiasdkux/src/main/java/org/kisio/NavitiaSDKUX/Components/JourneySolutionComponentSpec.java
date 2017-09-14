@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -18,6 +19,7 @@ import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
@@ -41,32 +43,36 @@ public class JourneySolutionComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop final Journey journey) {
+        @Prop final Journey journey,
+        @Prop Boolean isTouchable) {
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
         final Context context = c;
 
-        final ActionComponent.Builder actionBuilder = ActionComponent.create(c).actionToCall(new Callable<Void>() {
-            public Void call() {
+        final ComponentLayout.Builder styledBuilder;
+
+        final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(listStyles).child(
+            JourneySolutionRowComponent.create(c)
+                .departureTime(journey.getDepartureDateTime())
+                .arrivalTime(journey.getArrivalDateTime())
+                .totalDuration(journey.getDuration())
+                .walkingDuration(journey.getDurations().getWalking())
+                .walkingDistance(getWalkingDistance(journey.getSections()))
+                .sections(journey.getSections())
+                .build()
+        );
+
+        if (isTouchable) {
+            ActionComponent.Builder actionBuilder = ActionComponent.create(c).actionToCall(new Callable<Void>() { public Void call() {
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
                 intent.putExtra("journey", journey);
                 context.startActivity(intent);
                 return null;
-            }
-        }).child(ListRowComponent.create(c)
-            .styles(listStyles)
-            .child(
-                JourneySolutionRowComponent.create(c)
-                    .departureTime(journey.getDepartureDateTime())
-                    .arrivalTime(journey.getArrivalDateTime())
-                    .totalDuration(journey.getDuration())
-                    .walkingDuration(journey.getDurations().getWalking())
-                    .walkingDistance(getWalkingDistance(journey.getSections()))
-                    .sections(journey.getSections())
-                    .build()
-            )
-        );
+            }}).child(listRowBuilder);
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(actionBuilder.withLayout(), new HashMap<String, Object>());
+            styledBuilder = StylizedComponent.applyStyles(actionBuilder.withLayout(), new HashMap<String, Object>());
+        } else {
+            styledBuilder = ViewComponent.create(c).child(listRowBuilder);
+        }
 
         return styledBuilder.build();
     }
