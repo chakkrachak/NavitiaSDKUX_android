@@ -34,9 +34,10 @@ public class DateTimeButtonComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles) {
 
-        final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder
             .child(
                 DateTimeButtonComponentSpec.getLabelComponent(c)

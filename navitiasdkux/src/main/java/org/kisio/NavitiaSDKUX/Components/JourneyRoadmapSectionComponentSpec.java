@@ -28,10 +28,11 @@ public class JourneyRoadmapSectionComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        return ViewComponent.create(c).child(
+        return ViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
                 getTypedSectionComponent(c, section)
             })

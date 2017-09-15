@@ -21,9 +21,10 @@ public class JourneyRoadmapSectionDescriptionComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        return ViewComponent.create(c).build();
+        return ViewComponent.create(c).testKey(testKey).build();
     }
 }

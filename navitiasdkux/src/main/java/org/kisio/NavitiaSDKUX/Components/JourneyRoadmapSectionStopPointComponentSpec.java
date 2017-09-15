@@ -22,6 +22,7 @@ public class JourneyRoadmapSectionStopPointComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
         @Prop String sectionWay) {
@@ -37,7 +38,7 @@ public class JourneyRoadmapSectionStopPointComponentSpec {
             }
         }
 
-        return ViewComponent.create(c).child(
+        return ViewComponent.create(c).testKey(testKey).child(
             TextComponent.create(c)
                 .text(pointText)
                 .build()

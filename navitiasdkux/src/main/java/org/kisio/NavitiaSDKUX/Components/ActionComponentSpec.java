@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Primitive;
+package org.kisio.NavitiaSDKUX.Components;
 
 import android.content.Intent;
 import android.support.annotation.AttrRes;
@@ -20,7 +20,9 @@ import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.OnEvent;
 import com.facebook.litho.annotations.Prop;
+import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
 import java.util.concurrent.Callable;
@@ -30,8 +32,13 @@ import java.util.logging.Logger;
 @LayoutSpec
 public class ActionComponentSpec {
     @OnCreateLayout
-    static ComponentLayout onCreateLayout(ComponentContext c, @Prop Component<?> child, @Prop Callable<?> actionToCall) {
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+    static ComponentLayout onCreateLayout(
+        ComponentContext c,
+        @Prop(optional = true) String testKey,
+        @Prop Component<?> child,
+        @Prop Callable<?> actionToCall) {
+
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
 
         return builder
             .child(child)

@@ -62,23 +62,26 @@ public class JourneySolutionRoadmapScreenSpec {
         ComponentContext c,
         @State Journey journey) {
 
-        return ViewComponent.create(c)
-            .child(
-                ContainerComponent.create(c).styles(headerStyles).children(new Component<?>[]{}).build()
-            )
-            .child(ContainerComponent.create(c).styles(summaryStyles).children(new Component<?>[]{
-                JourneySolutionComponent.create(c)
-                    .journey(journey)
-                    .isTouchable(false)
-                    .build()
-                }).build()
-            )
-            .child(
-                ScrollViewComponent.create(c).child(ListViewComponent.create(c).children(
-                    getJourneySectionComponents(c, journey)
-                ).build())
-            )
-            .build();
+        return ViewComponent.create(c).testKey("roadmap").child(
+            ContainerComponent.create(c)
+                .styles(headerStyles)
+                .children(new Component<?>[]{})
+                .build()
+        ).child(
+            ContainerComponent.create(c)
+                .styles(summaryStyles)
+                .testKey("summary")
+                .children(new Component<?>[]{
+                    JourneySolutionComponent.create(c)
+                        .journey(journey)
+                        .isTouchable(false)
+                        .build()})
+                .build()
+        ).child(
+            ScrollViewComponent.create(c).child(ListViewComponent.create(c).children(
+                getJourneySectionComponents(c, journey)
+            ).build())
+        ).build();
     }
 
     static Component<?>[] getJourneySectionComponents(ComponentContext c, Journey journey) {

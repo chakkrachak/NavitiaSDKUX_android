@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <instrumentation
+        android:name="com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+        android:targetPackage="org.kisio.NavitiaSDKUX" />
+
     <application
         android:name="org.kisio.NavitiaSDKUX.NavitiaSDKUX">
         <activity android:name="org.kisio.NavitiaSDKUX.Controllers.JourneySolutionsActivity"></activity>

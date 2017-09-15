@@ -34,13 +34,14 @@ public class JourneySectionAbstractComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop String modeIcon,
         @Prop Integer duration,
         @Prop(optional = true) String lineCode,
         @Prop(optional = true) Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         containerStyles.put("flexGrow", duration);
         builder
             .child(

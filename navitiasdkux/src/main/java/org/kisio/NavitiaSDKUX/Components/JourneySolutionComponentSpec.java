@@ -17,7 +17,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ActionComponent;
+import org.kisio.NavitiaSDKUX.Components.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -42,12 +42,13 @@ public class JourneySolutionComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop final Journey journey,
         @Prop Boolean isTouchable) {
+
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
         final Context context = c;
-
         final ComponentLayout.Builder styledBuilder;
 
         final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(listStyles).child(
@@ -62,7 +63,7 @@ public class JourneySolutionComponentSpec {
         );
 
         if (isTouchable) {
-            ActionComponent.Builder actionBuilder = ActionComponent.create(c).actionToCall(new Callable<Void>() { public Void call() {
+            ActionComponent.Builder actionBuilder = ActionComponent.create(c).testKey(testKey).actionToCall(new Callable<Void>() { public Void call() {
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
                 intent.putExtra("journey", journey);
                 context.startActivity(intent);
