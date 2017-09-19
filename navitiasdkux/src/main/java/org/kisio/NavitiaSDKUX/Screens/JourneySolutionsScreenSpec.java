@@ -141,12 +141,16 @@ public class JourneySolutionsScreenSpec {
 
     static Component<?>[] getJourneyComponent(ComponentContext c, Journeys journeys) {
         List<Component<?>> components = new ArrayList<>();
+        Integer index = 1;
         for (Journey journey : journeys.getJourneys()) {
             components.add(
                 JourneySolutionComponent.create(c)
+                    .testKey("result-" + index)
                     .journey(journey)
+                    .isTouchable(true)
                     .build()
             );
+            index++;
         }
 
         return components.toArray(new Component<?>[components.size()]);
