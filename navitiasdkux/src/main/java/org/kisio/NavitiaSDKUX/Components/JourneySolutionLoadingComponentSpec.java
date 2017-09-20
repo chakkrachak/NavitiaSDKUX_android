@@ -96,9 +96,6 @@ class ShimCardContentComponentSpec {
                 ShimComponent.create(c)
                     .width(95)
                     .height(17)
-            )
-            .child(
-                StylizedComponent.applyStyles(durationBuilder, journeyDurationStyles)
             );
 
         return StylizedComponent.applyStyles(builder, journeyHeaderStyles);
@@ -129,10 +126,6 @@ class ShimCardContentComponentSpec {
         journeyHeaderStyles.put("alignItems", YogaAlign.CENTER);
         journeyHeaderStyles.put("justifyContent", YogaJustify.SPACE_BETWEEN);
         journeyHeaderStyles.put("height", 46);
-    }
-
-    static Map<String, Object> journeyDurationStyles = new HashMap<>();
-    static {
     }
 
     static Map<String, Object> journeyFriezeStyle = new HashMap<>();

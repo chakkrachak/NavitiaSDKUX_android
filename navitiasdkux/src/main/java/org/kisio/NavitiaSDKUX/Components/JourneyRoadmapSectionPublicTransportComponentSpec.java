@@ -8,6 +8,8 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
+import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
 import java.util.HashMap;
@@ -25,7 +27,7 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        return ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             TextComponent.create(c)
                 .styles(typeStyles)
                 .text(section.getType())
@@ -37,18 +39,17 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
         ).child(
             JourneyRoadmapSectionStopPointComponent.create(c)
                 .section(section)
-                .sectionWay("departure")
-                .build()
-        ).child(
-            JourneyRoadmapSectionDescriptionComponent.create(c)
-                .section(section)
+                .sectionWay(SectionStopPointType.departure)
                 .build()
         ).child(
             JourneyRoadmapSectionStopPointComponent.create(c)
                 .section(section)
-                .sectionWay("arrival")
+                .sectionWay(SectionStopPointType.arrival)
                 .build()
-        ).build();
+        );
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        return styledBuilder.build();
     }
 
     static Map<String, Object> separatorStyles = new HashMap<>();

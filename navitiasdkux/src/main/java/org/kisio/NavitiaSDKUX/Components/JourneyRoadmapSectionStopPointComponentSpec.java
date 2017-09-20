@@ -8,6 +8,8 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
+import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
@@ -25,23 +27,25 @@ public class JourneyRoadmapSectionStopPointComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
-        @Prop String sectionWay) {
+        @Prop SectionStopPointType sectionWay) {
 
         String pointText = "";
-        if (sectionWay == "departure") {
+        if (sectionWay == SectionStopPointType.departure) {
             if (section.getDepartureDateTime() != null && section.getFrom() != null) {
-                pointText = "(" + Metrics.timeText(section.getDepartureDateTime()) + ") : (" + section.getFrom().getName() + ")";
+                pointText = Metrics.timeText(section.getDepartureDateTime()) + " : " + section.getFrom().getName();
             }
-        } else if (sectionWay == "arrival") {
+        } else if (sectionWay == SectionStopPointType.arrival) {
             if (section.getArrivalDateTime() != null && section.getTo() != null) {
-                pointText = "(" + Metrics.timeText(section.getArrivalDateTime()) + ") : (" + section.getTo().getName() + ")";
+                pointText = Metrics.timeText(section.getArrivalDateTime()) + " : " + section.getTo().getName();
             }
         }
 
-        return ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             TextComponent.create(c)
                 .text(pointText)
                 .build()
-        ).build();
+        );
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        return styledBuilder.build();
     }
 }

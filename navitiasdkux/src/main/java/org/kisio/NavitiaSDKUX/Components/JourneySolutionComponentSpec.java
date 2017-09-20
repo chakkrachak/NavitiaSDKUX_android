@@ -3,10 +3,7 @@ package org.kisio.NavitiaSDKUX.Components;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
-import android.view.View;
 
-import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -17,7 +14,6 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -51,7 +47,7 @@ public class JourneySolutionComponentSpec {
         final Context context = c;
         final ComponentLayout.Builder styledBuilder;
 
-        final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(listStyles).child(
+        final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(computedStyles).child(
             JourneySolutionRowComponent.create(c)
                 .departureTime(journey.getDepartureDateTime())
                 .arrivalTime(journey.getArrivalDateTime())

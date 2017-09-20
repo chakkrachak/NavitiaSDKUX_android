@@ -7,7 +7,6 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
-import com.facebook.yoga.YogaFlexDirection;
 import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDK.models.Section;

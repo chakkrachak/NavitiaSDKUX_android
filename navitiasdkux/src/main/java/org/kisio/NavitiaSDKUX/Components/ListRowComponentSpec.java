@@ -10,7 +10,6 @@ import com.facebook.litho.annotations.PropDefault;
 import com.facebook.litho.widget.Card;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;

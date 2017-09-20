@@ -1,12 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components;
 
-import android.content.Intent;
 import android.support.annotation.AttrRes;
 import android.support.annotation.StyleRes;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
 
@@ -20,17 +15,15 @@ import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.OnEvent;
 import com.facebook.litho.annotations.Prop;
-import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @LayoutSpec
 public class ActionComponentSpec {
+    private static final String TAG = ActionComponentSpec.class.getName();
+
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
@@ -51,18 +44,7 @@ public class ActionComponentSpec {
         try {
             actionToCall.call();
         } catch (Exception e) {
-            Log.e("ActionComponentEx", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
-    }
-
-    public static ComponentLayout.ContainerBuilder create(
-            ComponentContext c,
-            @AttrRes int defStyleAttr,
-            @StyleRes int defStyleRes) {
-        return Column.create(c, defStyleAttr, defStyleRes);
-    }
-
-    public static ComponentLayout.ContainerBuilder create(ComponentContext c) {
-        return create(c, 0, 0);
     }
 }

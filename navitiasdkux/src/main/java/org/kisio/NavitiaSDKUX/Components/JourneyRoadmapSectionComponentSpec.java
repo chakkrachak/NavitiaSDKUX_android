@@ -5,15 +5,13 @@ import android.graphics.Color;
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
-import com.facebook.litho.StateValue;
 import com.facebook.litho.annotations.LayoutSpec;
-import com.facebook.litho.annotations.OnCreateInitialState;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
-import com.facebook.litho.annotations.State;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -32,11 +30,13 @@ public class JourneyRoadmapSectionComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        return ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
                 getTypedSectionComponent(c, section)
             })
-        ).build();
+        );
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        return styledBuilder.build();
     }
 
     static Component<?> getTypedSectionComponent(ComponentContext c, Section section) {
