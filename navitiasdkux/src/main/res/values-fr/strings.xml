@@ -2,7 +2,8 @@
 <resources>
     <string name="component.DateTimeButtonComponent.representation.departure">Depart :</string>
     <string name="screen.JourneySolutionsScreen.error">Aucun itinéraire trouvé</string>
-    <string name="controller.JourneySolutionsController.title">Liste de solutions</string>
+    <string name="controller.JourneySolutionsController.title">Itinéraires</string>
     <string name="component.JourneyWalkingAbstractComponent.walking">à pied</string>
     <string name="component.JourneyWalkingAbstractComponent.With">Dont</string>
+    <string name="controller.JourneySolutionRoadmapController.title">Feuille de route</string>
 </resources>

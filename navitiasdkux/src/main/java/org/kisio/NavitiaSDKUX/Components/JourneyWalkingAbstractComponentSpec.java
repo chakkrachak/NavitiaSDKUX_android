@@ -29,11 +29,12 @@ public class JourneyWalkingAbstractComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Integer duration,
         @Prop Integer distance) {
 
-        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c).testKey(testKey);
         builder
             .child(
                 TextComponent.create(c)

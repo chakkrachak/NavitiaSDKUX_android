@@ -31,7 +31,7 @@ public class Configuration {
         static Integer primaryText = Color.parseColor("#ffffff");
         static Integer secondary = Color.parseColor("#f1f1f1");
         static Integer secondaryText = Color.parseColor("#ffffff");
-        static Integer tertiary = Color.parseColor("#009ee0");
+        static Integer tertiary = Color.parseColor("#40958e");
         static Integer tertiaryText = Color.parseColor("#ffffff");
         static Integer brightText = Color.parseColor("#ffffff");
         static Integer darkText = Color.parseColor("#000000");
@@ -41,8 +41,8 @@ public class Configuration {
         static Integer gray = Color.parseColor("#9a9a9a");
         static Integer darkGray = Color.parseColor("#404040");
         static Integer darkerGray = Color.parseColor("#202020");
-        static Integer origin = Color.parseColor("#99be27");
-        static Integer destination = Color.parseColor("#e0137b");
+        static Integer origin = Color.parseColor("#00bb75");
+        static Integer destination = Color.parseColor("#ffa036");
 
         public static Integer getPrimary() {
             return primary;
@@ -163,6 +163,7 @@ public class Configuration {
         iconFontCodes.put("funicular", "\uea18");
         iconFontCodes.put("geolocation", "\uea19");
         iconFontCodes.put("home", "\uea1a");
+        iconFontCodes.put("location-pin", "\uea15");
         iconFontCodes.put("metro", "\uea1b");
         iconFontCodes.put("notice", "\uea1c");
         iconFontCodes.put("origin", "\uea1d");

@@ -7,14 +7,10 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
-import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,10 +27,11 @@ public class JourneySectionSegmentComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         containerStyles.put("backgroundColor", color);
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(containerStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);

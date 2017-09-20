@@ -10,8 +10,6 @@ import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaEdge;
 import com.facebook.yoga.YogaJustify;
 
-import org.kisio.NavitiaSDKUX.Components.TextComponent;
-
 import java.util.HashMap;
 import java.util.Map;
 

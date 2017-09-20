@@ -1,6 +1,5 @@
 package org.kisio.NavitiaSDKUX.Components;
 
-import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -8,14 +7,12 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
-import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,13 +31,14 @@ public class JourneySectionAbstractComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop String modeIcon,
         @Prop Integer duration,
         @Prop(optional = true) String lineCode,
         @Prop(optional = true) Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         containerStyles.put("flexGrow", duration);
         builder
             .child(

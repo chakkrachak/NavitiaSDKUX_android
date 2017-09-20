@@ -11,7 +11,6 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,11 +30,12 @@ public class LineCodeComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop String code,
         @Prop Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         builder.child(
             TextComponent.create(c)
                 .text(code)

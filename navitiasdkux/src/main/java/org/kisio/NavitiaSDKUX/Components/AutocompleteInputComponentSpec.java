@@ -27,19 +27,19 @@ import java.util.Map;
 @LayoutSpec
 public class AutocompleteInputComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
-    @PropDefault static final String icon = "";
     @PropDefault static final Integer iconColor = Configuration.colors.getTertiary();
     @PropDefault static final String placeName = "";
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) String icon,
         @Prop(optional = true) Integer iconColor,
         @Prop(optional = true) String placeName) {
 
-        final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder.child(
             ViewComponent.create(c)
                 .child(
@@ -69,7 +69,7 @@ public class AutocompleteInputComponentSpec {
         iconComputedStyles.put("color", iconColor);
 
         return IconComponent.create(c)
-            .name(icon)
+            .name("location-pin")
             .styles(iconComputedStyles);
     }
 

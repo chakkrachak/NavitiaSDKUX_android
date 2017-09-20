@@ -35,6 +35,7 @@ public class JourneySolutionRowComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop String departureTime,
         @Prop String arrivalTime,
@@ -43,7 +44,7 @@ public class JourneySolutionRowComponentSpec {
         @Prop Integer walkingDistance,
         @Prop List<Section> sections) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         builder
             .child(getHeaderComponent(c, departureTime, arrivalTime, totalDuration))
             .child(SeparatorComponent.create(c))
@@ -80,7 +81,8 @@ public class JourneySolutionRowComponentSpec {
 
     static Map<String, Object> journeyHeaderStyles = new HashMap<>();
     static {
-        journeyHeaderStyles.put("alignItems", YogaAlign.CENTER);
+        journeyHeaderStyles.put("paddingTop", 16);
+        journeyHeaderStyles.put("paddingBottom", 16);
     }
 
     static Map<String, Object> timesStyles = new HashMap<>();

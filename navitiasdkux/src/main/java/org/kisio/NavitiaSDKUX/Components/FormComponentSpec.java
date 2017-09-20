@@ -13,7 +13,6 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
-import org.kisio.NavitiaSDKUX.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +31,11 @@ public class FormComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Component<?>[] children) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         for (Component<?> child : children) {
             builder.child(child);
         }

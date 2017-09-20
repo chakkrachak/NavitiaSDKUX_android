@@ -1,8 +1,9 @@
 package org.kisio.NavitiaSDKUX.Components;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 
-import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -14,11 +15,14 @@ import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * NavitiaSDKUX_android
@@ -34,23 +38,39 @@ public class JourneySolutionComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
+        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Journey journey) {
-        final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
+        @Prop final Journey journey,
+        @Prop Boolean isTouchable) {
 
-        final ListRowComponent.Builder builder = ListRowComponent.create(c);
-        builder
-            .child(
-                JourneySolutionRowComponent.create(c)
-                    .departureTime(journey.getDepartureDateTime())
-                    .arrivalTime(journey.getArrivalDateTime())
-                    .totalDuration(journey.getDuration())
-                    .walkingDuration(journey.getDurations().getWalking())
-                    .walkingDistance(getWalkingDistance(journey.getSections()))
-                    .sections(journey.getSections())
-                    .build()
-            );
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), computedStyles);
+        final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
+        final Context context = c;
+        final ComponentLayout.Builder styledBuilder;
+
+        final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(computedStyles).child(
+            JourneySolutionRowComponent.create(c)
+                .departureTime(journey.getDepartureDateTime())
+                .arrivalTime(journey.getArrivalDateTime())
+                .totalDuration(journey.getDuration())
+                .walkingDuration(journey.getDurations().getWalking())
+                .walkingDistance(getWalkingDistance(journey.getSections()))
+                .sections(journey.getSections())
+                .build()
+        );
+
+        if (isTouchable) {
+            ActionComponent.Builder actionBuilder = ActionComponent.create(c).testKey(testKey).actionToCall(new Callable<Void>() { public Void call() {
+                final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
+                intent.putExtra("journey", journey);
+                context.startActivity(intent);
+                return null;
+            }}).child(listRowBuilder);
+
+            styledBuilder = StylizedComponent.applyStyles(actionBuilder.withLayout(), new HashMap<String, Object>());
+        } else {
+            styledBuilder = ViewComponent.create(c).child(listRowBuilder);
+        }
+
         return styledBuilder.build();
     }
 

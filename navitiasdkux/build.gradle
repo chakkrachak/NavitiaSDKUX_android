@@ -22,8 +22,14 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://dl.bintray.com/navitiasdkteam/NavitiaSDK"
+    }
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'org.kisio.sdk:navitia-sdk:0.2.0'
 
     // Litho
     compile 'com.facebook.litho:litho-core:0.6.1'
