@@ -28,18 +28,13 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            TextComponent.create(c)
-                .styles(typeStyles)
-                .text(section.getType())
-                .build()
-        ).child(
-            SeparatorComponent.create(c)
-                .styles(separatorStyles)
-                .build()
-        ).child(
             JourneyRoadmapSectionStopPointComponent.create(c)
                 .section(section)
                 .sectionWay(SectionStopPointType.departure)
+                .build()
+        ).child(
+            JourneyRoadmapSectionDescriptionComponent.create(c)
+                .section(section)
                 .build()
         ).child(
             JourneyRoadmapSectionStopPointComponent.create(c)
