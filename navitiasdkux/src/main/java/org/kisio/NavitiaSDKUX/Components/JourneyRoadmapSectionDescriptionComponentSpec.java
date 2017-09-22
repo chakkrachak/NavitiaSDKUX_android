@@ -62,19 +62,18 @@ class DescriptionComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .first(
+                .firstComponent(
                     DescriptionModeIconComponent.create(c)
                         .section(section)
                         .build())
-                .second(
+                .secondComponent(
                     LineDiagramComponent.create(c)
                         .color(section.getDisplayInformations().getColor())
                         .build())
-                .third(
+                .thirdComponent(
                     DescriptionContentComponent.create(c)
                         .section(section)
                         .build())
-
         );
 
         Map<String, Object> innerStyles = new HashMap<>();
@@ -140,14 +139,14 @@ class DetailsHeaderComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .first(
+                .firstComponent(
                     ContainerComponent.create(c)
                         .build())
-                .second(
+                .secondComponent(
                     LineDiagramComponent.create(c)
                         .color(section.getDisplayInformations().getColor())
                         .build())
-                .third(
+                .thirdComponent(
                     ContentContainerForDetailsHeaderComponent.create(c)
                         .build())
         );
@@ -320,14 +319,14 @@ class DetailsFooterComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .first(
+                .firstComponent(
                     ContainerComponent.create(c)
                         .build())
-                .second(
+                .secondComponent(
                     LineDiagramComponent.create(c)
                         .color(section.getDisplayInformations().getColor())
                         .build())
-                .third(
+                .thirdComponent(
                     ContentContainerForDetailsHeaderComponent.create(c)
                         .build())
         );

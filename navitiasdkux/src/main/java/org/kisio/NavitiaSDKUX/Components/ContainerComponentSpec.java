@@ -39,7 +39,7 @@ public class ContainerComponentSpec {
                 builder.child(child);
             }
         }
-        
+
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(smallStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
