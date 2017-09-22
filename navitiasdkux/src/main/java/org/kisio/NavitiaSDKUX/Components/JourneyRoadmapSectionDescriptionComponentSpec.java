@@ -16,8 +16,6 @@ import org.kisio.NavitiaSDK.models.StopDateTime;
 import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Layout.JourneyLayoutContainerBuilderComponent;
-import org.kisio.NavitiaSDKUX.NavitiaSDKUX;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +41,10 @@ public class JourneyRoadmapSectionDescriptionComponentSpec {
                 .section(section)
         );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        Map<String, Object> innerStyles = new HashMap<>();
+        innerStyles.put("backgroundColor", Color.YELLOW);
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
         return styledBuilder.build();
     }
 }
@@ -59,23 +60,27 @@ class DescriptionComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        JourneyLayoutContainerBuilderComponent components = new JourneyLayoutContainerBuilderComponent();
-        components.firstComponent = DescriptionModeIconComponent.create(c)
-            .section(section)
-            .build();
-        components.secondComponent = LineDiagramComponent.create(c)
-            .color(section.getDisplayInformations().getColor())
-            .build();
-        components.thirdComponent = DescriptionContentComponent.create(c)
-            .section(section)
-            .build();
-
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .components(components)
+                .first(
+                    DescriptionModeIconComponent.create(c)
+                        .section(section)
+                        .build())
+                .second(
+                    LineDiagramComponent.create(c)
+                        .color(section.getDisplayInformations().getColor())
+                        .build())
+                .third(
+                    DescriptionContentComponent.create(c)
+                        .section(section)
+                        .build())
+
         );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        Map<String, Object> innerStyles = new HashMap<>();
+        innerStyles.put("backgroundColor", Color.BLUE);
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
         return styledBuilder.build();
     }
 }
@@ -102,7 +107,10 @@ class DetailsComponentSpec {
                 .section(section)
         );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        Map<String, Object> innerStyles = new HashMap<>();
+        innerStyles.put("backgroundColor", Color.GREEN);
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
         return styledBuilder.build();
     }
 
@@ -130,19 +138,18 @@ class DetailsHeaderComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        JourneyLayoutContainerBuilderComponent components = new JourneyLayoutContainerBuilderComponent();
-        components.firstComponent = ContainerComponent.create(c)
-            .children(new Component<?>[]{})
-            .build();
-        components.secondComponent = LineDiagramComponent.create(c)
-            .color(section.getDisplayInformations().getColor())
-            .build();
-        components.thirdComponent = ContentContainerForDetailsHeaderComponent.create(c)
-            .build();
-
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .components(components)
+                .first(
+                    ContainerComponent.create(c)
+                        .build())
+                .second(
+                    LineDiagramComponent.create(c)
+                        .color(section.getDisplayInformations().getColor())
+                        .build())
+                .third(
+                    ContentContainerForDetailsHeaderComponent.create(c)
+                        .build())
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
@@ -311,19 +318,18 @@ class DetailsFooterComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        JourneyLayoutContainerBuilderComponent components = new JourneyLayoutContainerBuilderComponent();
-        components.firstComponent = ContainerComponent.create(c)
-            .children(new Component<?>[]{})
-            .build();
-        components.secondComponent = LineDiagramComponent.create(c)
-            .color(section.getDisplayInformations().getColor())
-            .build();
-        components.thirdComponent = ContentContainerForDetailsHeaderComponent.create(c)
-            .build();
-
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             JourneyRoadmapSectionLayoutComponent.create(c)
-                .components(components)
+                .first(
+                    ContainerComponent.create(c)
+                        .build())
+                .second(
+                    LineDiagramComponent.create(c)
+                        .color(section.getDisplayInformations().getColor())
+                        .build())
+                .third(
+                    ContentContainerForDetailsHeaderComponent.create(c)
+                        .build())
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);

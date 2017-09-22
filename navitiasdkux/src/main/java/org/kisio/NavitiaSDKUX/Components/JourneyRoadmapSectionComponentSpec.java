@@ -51,7 +51,7 @@ public class JourneyRoadmapSectionComponentSpec {
     static Map<String, Object> containerStyles = new HashMap<>();
     static {
         containerStyles.put("backgroundColor", Color.WHITE);
-        containerStyles.put("padding", Configuration.metrics.marginL);
+        containerStyles.put("padding", 0);
         containerStyles.put("paddingTop", 4);
         containerStyles.put("marginBottom", Configuration.metrics.margin);
     }

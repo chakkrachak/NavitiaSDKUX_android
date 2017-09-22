@@ -65,6 +65,9 @@ public class StylizedComponent {
                 case "paddingLeft":
                     builder.paddingDip(YogaEdge.LEFT, (int) value);
                     break;
+                case "margin":
+                    builder.marginDip(YogaEdge.ALL, (int) value);
+                    break;
                 case "marginTop":
                     builder.marginDip(YogaEdge.TOP, (int) value);
                     break;

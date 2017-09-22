@@ -30,12 +30,16 @@ public class ContainerComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Component<?>[] children) {
+        @Prop(optional = true) Component<?>[] children) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
-        for (Component<?> child : children) {
-            builder.child(child);
+
+        if (children != null) {
+            for (Component<?> child : children) {
+                builder.child(child);
+            }
         }
+        
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(smallStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
