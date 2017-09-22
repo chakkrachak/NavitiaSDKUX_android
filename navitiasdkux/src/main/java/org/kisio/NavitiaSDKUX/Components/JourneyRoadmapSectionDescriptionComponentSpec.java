@@ -99,6 +99,7 @@ class DetailsComponentSpec {
                 .children(getIntermediateStops(c, section))
         ).child(
             DetailsFooterComponent.create(c)
+                .section(section)
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
@@ -307,9 +308,23 @@ class DetailsFooterComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles) {
+        @Prop(optional = true) Map<String, Object> styles,
+        @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        JourneyLayoutContainerBuilderComponent components = new JourneyLayoutContainerBuilderComponent();
+        components.firstComponent = ContainerComponent.create(c)
+            .children(new Component<?>[]{})
+            .build();
+        components.secondComponent = LineDiagramComponent.create(c)
+            .color(section.getDisplayInformations().getColor())
+            .build();
+        components.thirdComponent = ContentContainerForDetailsHeaderComponent.create(c)
+            .build();
+
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+            JourneyRoadmapSectionLayoutComponent.create(c)
+                .components(components)
+        );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
