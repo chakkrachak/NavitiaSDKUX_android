@@ -169,6 +169,8 @@ class DescriptionModeIconComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
 
+        builder.child(ModeComponent.create(c).section(section));
+
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }

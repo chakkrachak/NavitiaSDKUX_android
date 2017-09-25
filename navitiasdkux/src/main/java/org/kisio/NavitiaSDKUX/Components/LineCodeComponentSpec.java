@@ -1,7 +1,5 @@
 package org.kisio.NavitiaSDKUX.Components;
 
-import android.graphics.Color;
-
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -9,8 +7,10 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,19 +32,27 @@ public class LineCodeComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop String code,
-        @Prop Integer color) {
+        @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
-        builder.child(
-            TextComponent.create(c)
-                .text(code)
-                .styles(textStyles)
-        );
-        codeStyles.put("backgroundColor", color);
-        final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(codeStyles, styles);
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
-        return styledBuilder.build();
+
+        if (section.getDisplayInformations() != null && section.getDisplayInformations().getCode() != null) {
+            String code = section.getDisplayInformations().getCode();
+            codeStyles.put("backgroundColor", Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()));
+            textStyles.put("color", Color.getColorFromHexadecimal(section.getDisplayInformations().getTextColor()));
+
+            builder.child(
+                TextComponent.create(c)
+                    .text(code)
+                    .styles(textStyles)
+            );
+
+            final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(codeStyles, styles);
+            final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
+            return styledBuilder.build();
+        } else {
+            return builder.build();
+        }
     }
 
     static Map<String, Object> codeStyles = new HashMap<>();
@@ -54,7 +62,6 @@ public class LineCodeComponentSpec {
 
     static Map<String, Object> textStyles = new HashMap<>();
     static {
-        textStyles.put("color", Color.WHITE);
         textStyles.put("fontSize", 12);
         textStyles.put("fontWeight", "bold");
     }

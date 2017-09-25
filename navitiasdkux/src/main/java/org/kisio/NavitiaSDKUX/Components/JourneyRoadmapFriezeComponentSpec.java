@@ -9,6 +9,7 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.LinkSchema;
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.Modes;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -62,17 +63,8 @@ public class JourneyRoadmapFriezeComponentSpec {
     }
 
     static JourneySectionAbstractComponent.Builder getSectionComponents(ComponentContext c, Section section) {
-        final JourneySectionAbstractComponent.Builder builder = JourneySectionAbstractComponent.create(c)
-            .modeIcon(getModeIcon(section))
-            .duration(section.getDuration());
-
-        if (section.getDisplayInformations() != null) {
-            builder
-                .lineCode(section.getDisplayInformations().getCode())
-                .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()));
-        }
-
-        return builder;
+        return JourneySectionAbstractComponent.create(c)
+            .section(section);
     }
 
     static Map<String, Object> modeListStyles = new HashMap<>();
@@ -81,33 +73,5 @@ public class JourneyRoadmapFriezeComponentSpec {
         modeListStyles.put("paddingBottom", Configuration.metrics.marginL);
         modeListStyles.put("flexGrow", 1);
         modeListStyles.put("marginEnd", Configuration.metrics.margin * -1);
-    }
-
-    static String getModeIcon(Section section) {
-        switch (section.getType()) {
-            case "public_transport":
-                return getPhysicalMode(section.getLinks());
-            case "transfer":
-                return section.getTransferType();
-            case "waiting":
-                return section.getType();
-            default:
-                return section.getMode();
-        }
-    }
-
-    static String getPhysicalMode(List<LinkSchema> links) {
-        final String id = getPhysicalModeId(links);
-        final String[] modeData = id.split(":");
-        return (modeData.length > 1) ? modeData[1].toLowerCase() : "";
-    }
-
-    private static String getPhysicalModeId(List<LinkSchema> links) {
-        for (LinkSchema link : links) {
-            if (link.getType().equals("physical_mode")) {
-                return link.getId();
-            }
-        }
-        return "<not_found>";
     }
 }

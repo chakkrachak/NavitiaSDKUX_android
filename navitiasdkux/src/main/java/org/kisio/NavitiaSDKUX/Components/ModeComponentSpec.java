@@ -7,6 +7,8 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.Modes;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -28,12 +30,12 @@ public class ModeComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop String name) {
+        @Prop Section section) {
 
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(iconStyles, styles);
 
         return IconComponent.create(c)
-            .name(name)
+            .name(Modes.getModeIcon(section))
             .styles(computedStyles)
             .buildWithLayout();
     }

@@ -7,8 +7,11 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +32,12 @@ public class JourneySectionSegmentComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Integer color) {
+        @Prop Section section) {
+
+        Integer color = Configuration.colors.getDarkerGray();
+        if (section.getDisplayInformations() != null) {
+            color = Color.getColorFromHexadecimal(section.getDisplayInformations().getColor());
+        }
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
         containerStyles.put("backgroundColor", color);
