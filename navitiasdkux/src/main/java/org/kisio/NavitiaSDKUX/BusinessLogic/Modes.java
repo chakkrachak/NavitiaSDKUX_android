@@ -16,7 +16,7 @@ public class Modes {
     public static String getModeIcon(Section section) {
         switch (section.getType()) {
             case "public_transport":
-                return getPhysicalMode(section.getLinks());
+                return getPhysicalMode(section).toLowerCase();
             case "transfer":
                 return section.getTransferType();
             case "waiting":
@@ -26,10 +26,10 @@ public class Modes {
         }
     }
 
-    static String getPhysicalMode(List<LinkSchema> links) {
-        final String id = getPhysicalModeId(links);
+    public static String getPhysicalMode(Section section) {
+        final String id = getPhysicalModeId(section.getLinks());
         final String[] modeData = id.split(":");
-        return (modeData.length > 1) ? modeData[1].toLowerCase() : "";
+        return (modeData.length > 1) ? modeData[1] : "";
     }
 
     private static String getPhysicalModeId(List<LinkSchema> links) {

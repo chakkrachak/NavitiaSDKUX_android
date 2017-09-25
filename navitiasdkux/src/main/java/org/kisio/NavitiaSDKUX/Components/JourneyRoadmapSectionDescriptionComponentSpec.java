@@ -1,7 +1,5 @@
 package org.kisio.NavitiaSDKUX.Components;
 
-import android.graphics.Color;
-
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -10,10 +8,12 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
+import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDK.models.StopDateTime;
-import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
+import org.kisio.NavitiaSDKUX.BusinessLogic.Modes;
+import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
@@ -41,10 +41,7 @@ public class JourneyRoadmapSectionDescriptionComponentSpec {
                 .section(section)
         );
 
-        Map<String, Object> innerStyles = new HashMap<>();
-        innerStyles.put("backgroundColor", Color.YELLOW);
-
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 }
@@ -76,10 +73,7 @@ class DescriptionComponentSpec {
                         .build())
         );
 
-        Map<String, Object> innerStyles = new HashMap<>();
-        innerStyles.put("backgroundColor", Color.BLUE);
-
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 }
@@ -106,10 +100,7 @@ class DetailsComponentSpec {
                 .section(section)
         );
 
-        Map<String, Object> innerStyles = new HashMap<>();
-        innerStyles.put("backgroundColor", Color.GREEN);
-
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, innerStyles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
@@ -158,58 +149,66 @@ class DetailsHeaderComponentSpec {
 
 @LayoutSpec
 class DescriptionModeIconComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
 
-        builder.child(ModeComponent.create(c).section(section));
+        builder.child(
+            ModeComponent.create(c)
+                .section(section)
+                .styles(modeStyles)
+        );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, containerStyles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("flexGrow", 1);
+        containerStyles.put("alignItems", YogaAlign.CENTER);
+        containerStyles.put("justifyContent", YogaJustify.CENTER);
+    }
+
+    static Map<String, Object> modeStyles = new HashMap<>();
+    static {
+        modeStyles.put("height", 28);
     }
 }
 
 @LayoutSpec
 class LineDiagramComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles,
         @Prop String color) {
 
-        Map<String, Object> innerStyles = new HashMap<>();
-        innerStyles.put("backgroundColor", Color.WHITE);
-        innerStyles.put("flexGrow", 1);
-        innerStyles.put("alignItems", YogaAlign.CENTER);
+        final ComponentLayout.ContainerBuilder innerBuilder = ViewComponent.create(c);
+        innerStyles.put("backgroundColor", org.kisio.NavitiaSDKUX.Util.Color.getColorFromHexadecimal(color));
+        final ComponentLayout.Builder innerStyledBuilder = StylizedComponent.applyStyles(innerBuilder, innerStyles);
 
-        Map<String, Object> outerStyles = new HashMap<>();
-        outerStyles.put("backgroundColor", org.kisio.NavitiaSDKUX.Util.Color.getColorFromHexadecimal(color));
-        outerStyles.put("flexGrow", 1);
-        outerStyles.put("width", 4);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c)
+            .child(innerStyledBuilder);
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).child(
-            ContainerComponent.create(c)
-                .testKey(testKey)
-                .styles(outerStyles)
-                .children(new Component<?>[]{
-                    ContainerComponent.create(c)
-                        .children(new Component<?>[]{})
-                        .styles(innerStyles)
-                        .build()
-                }));
-
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, containerStyles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("flexGrow", 1);
+        containerStyles.put("alignItems", YogaAlign.CENTER);
+    }
+
+    static Map<String, Object> innerStyles = new HashMap<>();
+    static {
+        innerStyles.put("flexGrow", 1);
+        innerStyles.put("width", 4);
     }
 }
 
@@ -232,44 +231,119 @@ class LineDiagramForIntermediateStopPointComponentSpec {
 
 @LayoutSpec
 class DescriptionContentComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ContentContainerComponent.Builder builder = ContentContainerComponent.create(c).testKey(testKey)
+            .children(new Component<?>[] {
+                DescriptionContentModeComponent.create(c)
+                    .section(section)
+                    .build(),
+                DescriptionContentDirectionComponent.create(c)
+                    .section(section)
+                    .build()
+            });
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        return builder.buildWithLayout();
+    }
+}
+
+@LayoutSpec
+class DescriptionContentModeComponentSpec {
+    @OnCreateLayout
+    static ComponentLayout onCreateLayout(
+        ComponentContext c,
+        @Prop Section section) {
+
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
+
+        builder
+            .child(
+                TextComponent.create(c)
+                    .text(Modes.getPhysicalMode(section))
+                    .styles(modeStyles))
+            .child(
+                LineCodeComponent.create(c)
+                    .section(section));
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, containerStyles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("alignItems", YogaAlign.CENTER);
+    }
+
+    static Map<String, Object> modeStyles = new HashMap<>();
+    static {
+        modeStyles.put("fontSize", 15);
+        modeStyles.put("marginRight", 5);
+    }
+}
+
+@LayoutSpec
+class DescriptionContentDirectionComponentSpec {
+    @OnCreateLayout
+    static ComponentLayout onCreateLayout(
+        ComponentContext c,
+        @Prop Section section) {
+
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
+
+        builder
+            .child(
+                IconComponent.create(c)
+                    .name("direction")
+                    .styles(iconStyles))
+            .child(
+                TextComponent.create(c)
+                    .text(section.getDisplayInformations().getDirection())
+                    .styles(directionStyles));
+
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, containerStyles);
+        return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("alignItems", YogaAlign.CENTER);
+    }
+
+    static Map<String, Object> iconStyles = new HashMap<>();
+    static {
+        iconStyles.put("fontSize", 12);
+        iconStyles.put("marginRight", 5);
+    }
+
+    static Map<String, Object> directionStyles = new HashMap<>();
+    static {
+        directionStyles.put("fontSize", 15);
     }
 }
 
 @LayoutSpec
 class ContentContainerForDetailsHeaderComponentSpec {
-    static Boolean collapsed = true;
-
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles) {
+        @Prop(optional = true) Component<?>[] children) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            IconComponent.create(c)
-                .name(collapsed ? "arrow-details-down" : "arrow-details-up")
-        ).child(
-            LabelComponent.create(c)
-                .text("component.JourneyRoadmapSectionDescriptionComponent.detailsHeaderTitle")
-        );
+        final ContainerComponent.Builder builder = ContainerComponent.create(c).testKey(testKey)
+            .children(children)
+            .styles(containerStyles);
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
-        return styledBuilder.build();
+        return builder.buildWithLayout();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("padding", 5);
+        containerStyles.put("paddingTop", 0);
     }
 }
 
@@ -340,17 +414,23 @@ class DetailsFooterComponentSpec {
 
 @LayoutSpec
 class ContentContainerComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles) {
+        @Prop(optional = true) Component<?>[] children) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ContainerComponent.Builder builder = ContainerComponent.create(c).testKey(testKey)
+            .children(children)
+            .styles(containerStyles);
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
-        return styledBuilder.build();
+        return builder.buildWithLayout();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("paddingHorizontal", 5);
+        containerStyles.put("paddingTop", 14);
+        containerStyles.put("paddingBottom", 18);
     }
 }
