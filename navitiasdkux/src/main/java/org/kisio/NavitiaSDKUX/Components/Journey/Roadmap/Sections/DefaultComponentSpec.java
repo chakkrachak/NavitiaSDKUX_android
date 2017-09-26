@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -8,15 +8,17 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class JourneyRoadmapSectionPublicTransportComponentSpec {
+public class DefaultComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 
@@ -27,19 +29,31 @@ public class JourneyRoadmapSectionPublicTransportComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
+        String fromText = "";
+        String toText = "";
+        if (section.getDepartureDateTime() != null && section.getFrom() != null) {
+            fromText = Metrics.timeText(section.getDepartureDateTime()) + " : " + section.getFrom().getName();
+        }
+        if (section.getArrivalDateTime() != null && section.getTo() != null) {
+            toText = Metrics.timeText(section.getArrivalDateTime()) + " : " + section.getTo().getName();
+        }
+
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            JourneyRoadmapSectionStopPointComponent.create(c)
-                .section(section)
-                .sectionWay(SectionStopPointType.departure)
+            TextComponent.create(c)
+                .styles(typeStyles)
+                .text(section.getType())
                 .build()
         ).child(
-            JourneyRoadmapSectionDescriptionComponent.create(c)
-                .section(section)
+            SeparatorComponent.create(c)
+                .styles(separatorStyles)
                 .build()
         ).child(
-            JourneyRoadmapSectionStopPointComponent.create(c)
-                .section(section)
-                .sectionWay(SectionStopPointType.arrival)
+            TextComponent.create(c)
+                .text(fromText)
+                .build()
+        ).child(
+            TextComponent.create(c)
+                .text(toText)
                 .build()
         );
 

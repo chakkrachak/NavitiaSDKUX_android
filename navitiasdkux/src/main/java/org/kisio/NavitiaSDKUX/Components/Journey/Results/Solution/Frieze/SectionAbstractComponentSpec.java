@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.Frieze;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -8,6 +8,8 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.LineCodeComponent;
+import org.kisio.NavitiaSDKUX.Components.ModeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -16,15 +18,8 @@ import org.kisio.NavitiaSDKUX.Config.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 28/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class JourneySectionAbstractComponentSpec {
+public class SectionAbstractComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
@@ -41,7 +36,7 @@ public class JourneySectionAbstractComponentSpec {
                 getSymbolComponents(c, section)
             )
             .child(
-                JourneySectionSegmentComponent.create(c)
+                SectionSegmentComponent.create(c)
                     .section(section)
             );
 

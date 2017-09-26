@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class JourneyRoadmapSectionLayoutComponentSpec {
+public class LayoutComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout

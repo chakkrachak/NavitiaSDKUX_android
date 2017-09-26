@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -8,21 +8,17 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDKUX.Components.AutocompleteInputComponent;
+import org.kisio.NavitiaSDKUX.Components.FormComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
+import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 25/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class JourneyFormComponentSpec {
+public class FormComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
     @PropDefault static final String origin = "";
