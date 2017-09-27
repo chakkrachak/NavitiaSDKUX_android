@@ -21,9 +21,9 @@ import org.kisio.NavitiaSDK.models.Journeys;
 import org.kisio.NavitiaSDKUX.Components.AlertComponent;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.DateTimeButtonComponent;
-import org.kisio.NavitiaSDKUX.Components.JourneyFormComponent;
-import org.kisio.NavitiaSDKUX.Components.JourneySolutionComponent;
-import org.kisio.NavitiaSDKUX.Components.JourneySolutionLoadingComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.FormComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.LoadingComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
@@ -71,7 +71,7 @@ public class JourneySolutionsScreenSpec {
         error.set(false);
         datetime.set(new Date());
 
-        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration(Configuration.token);
+        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration("44bd6791-00c4-4163-be48-73b5555ae89f");
         try {
             final NavitiaSDK navitiaSDK = new NavitiaSDK(navitiaConfiguration);
             retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get(), datetime.get());
@@ -105,13 +105,12 @@ public class JourneySolutionsScreenSpec {
             };
         } else {
             journeyComponent = new Component<?>[]{
-                JourneySolutionLoadingComponent.create(c).build(),
-                JourneySolutionLoadingComponent.create(c).build(),
-                JourneySolutionLoadingComponent.create(c).build(),
-                JourneySolutionLoadingComponent.create(c).build(),
+                LoadingComponent.create(c).build(),
+                LoadingComponent.create(c).build(),
+                LoadingComponent.create(c).build(),
+                LoadingComponent.create(c).build(),
             };
         }
-
 
         return ViewComponent.create(c)
             .child(
@@ -120,7 +119,7 @@ public class JourneySolutionsScreenSpec {
                     .children(new Component<?>[]{
                         ContainerComponent.create(c)
                             .children(new Component<?>[]{
-                            JourneyFormComponent.create(c)
+                            FormComponent.create(c)
                                 .origin(origin.isEmpty()? originId : origin)
                                 .destination(destination.isEmpty()? destinationId : destination)
                                 .build(),
@@ -144,7 +143,7 @@ public class JourneySolutionsScreenSpec {
         Integer index = 1;
         for (Journey journey : journeys.getJourneys()) {
             components.add(
-                JourneySolutionComponent.create(c)
+                SolutionComponent.create(c)
                     .testKey("result-" + index)
                     .journey(journey)
                     .isTouchable(true)

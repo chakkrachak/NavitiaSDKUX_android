@@ -10,8 +10,8 @@ import com.facebook.litho.annotations.Prop;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
-import org.kisio.NavitiaSDKUX.Components.JourneyRoadmapSectionComponent;
-import org.kisio.NavitiaSDKUX.Components.JourneySolutionComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.SectionComponent;
 import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -22,13 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * NavitiaSDKUX_android
- *
- * Created by Thomas Noury on 05/09/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
 
 @LayoutSpec
 public class JourneySolutionRoadmapScreenSpec {
@@ -47,7 +40,7 @@ public class JourneySolutionRoadmapScreenSpec {
                 .styles(summaryStyles)
                 .testKey("summary")
                 .children(new Component<?>[]{
-                    JourneySolutionComponent.create(c)
+                    SolutionComponent.create(c)
                         .journey(journey)
                         .isTouchable(false)
                         .build()})
@@ -64,7 +57,7 @@ public class JourneySolutionRoadmapScreenSpec {
 
         for (Section section : journey.getSections()) {
             components.add(ListRowComponent.create(c).child(
-                JourneyRoadmapSectionComponent.create(c)
+                SectionComponent.create(c)
                     .section(section)
                     .build()
             ).build());

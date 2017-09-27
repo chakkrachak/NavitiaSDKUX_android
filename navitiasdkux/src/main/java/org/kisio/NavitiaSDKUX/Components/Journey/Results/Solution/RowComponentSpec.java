@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -10,9 +10,12 @@ import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.DurationComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
@@ -20,15 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 28/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class JourneySolutionRowComponentSpec {
+public class RowComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 
@@ -49,11 +45,11 @@ public class JourneySolutionRowComponentSpec {
             .child(getHeaderComponent(c, departureTime, arrivalTime, totalDuration))
             .child(SeparatorComponent.create(c))
             .child(
-                JourneyRoadmapFriezeComponent.create(c)
+                FriezeComponent.create(c)
                     .sections(sections)
             )
             .child(
-                JourneyWalkingAbstractComponent.create(c)
+                WalkingAbstractComponent.create(c)
                     .distance(walkingDistance)
                     .duration(walkingDuration)
             );

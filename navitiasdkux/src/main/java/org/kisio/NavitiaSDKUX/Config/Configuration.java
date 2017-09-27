@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class Configuration {
-    public static String token = "";
+    public static String token = "44bd6791-00c4-4163-be48-73b5555ae89f";
 
     public static class metrics {
         public static Integer space = 4;

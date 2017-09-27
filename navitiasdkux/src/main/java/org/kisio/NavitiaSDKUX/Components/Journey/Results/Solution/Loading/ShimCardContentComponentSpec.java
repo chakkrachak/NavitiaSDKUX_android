@@ -1,59 +1,20 @@
-package org.kisio.NavitiaSDKUX.Components;
-
-import android.graphics.Color;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.Loading;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
-import com.facebook.litho.annotations.Prop;
-import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 25/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
-@LayoutSpec
-public class JourneySolutionLoadingComponentSpec {
-    @PropDefault
-    static final Map<String, Object> styles = new HashMap<>();
-
-    @OnCreateLayout
-    static ComponentLayout onCreateLayout(
-        ComponentContext c,
-        @Prop(optional = true) Map<String, Object> styles) {
-
-        final ListRowComponent.Builder builder = ListRowComponent.create(c);
-        builder
-            .child(
-                ShimCardContentComponent.create(c)
-            )
-            .styles(listStyles);
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), styles);
-        return styledBuilder.build();
-    }
-
-    static Map<String, Object> listStyles = new HashMap<>();
-    static {
-        listStyles.put("backgroundColor", Color.WHITE);
-        listStyles.put("padding", Configuration.metrics.marginL);
-        listStyles.put("paddingTop", 9);
-        listStyles.put("marginBottom", Configuration.metrics.margin);
-    }
-}
 
 @LayoutSpec
 class ShimCardContentComponentSpec {
@@ -134,58 +95,5 @@ class ShimCardContentComponentSpec {
         journeyFriezeStyle.put("alignItems", YogaAlign.CENTER);
         journeyFriezeStyle.put("justifyContent", YogaJustify.SPACE_BETWEEN);
         journeyFriezeStyle.put("height", 80);
-    }
-}
-
-@LayoutSpec
-class ShimComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-
-    @OnCreateLayout
-    static ComponentLayout onCreateLayout(
-        ComponentContext c,
-        @Prop(optional = true) Map<String, Object> styles,
-        @Prop(optional = true) Integer width,
-        @Prop(optional = true) Integer height) {
-
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
-
-        if (width != null) {
-            shimStyles.put("width", width);
-        }
-        if (height != null) {
-            shimStyles.put("height", height);
-        }
-
-        final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(shimStyles, styles);
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
-        return styledBuilder.build();
-    }
-
-    static Map<String, Object> shimStyles = new HashMap<>();
-    static {
-        shimStyles.put("backgroundColor", Configuration.colors.getLighterGray());
-    }
-}
-
-@LayoutSpec
-class FriezeShimComponentSpec {
-    @OnCreateLayout
-    static ComponentLayout onCreateLayout(
-        ComponentContext c,
-        @Prop Integer duration) {
-
-        final ShimComponent.Builder builder = ShimComponent.create(c);
-
-        shimStyles.put("flexGrow", duration);
-
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), shimStyles);
-        return styledBuilder.build();
-    }
-
-    static Map<String, Object> shimStyles = new HashMap<>();
-    static {
-        shimStyles.put("height", 45);
-        shimStyles.put("marginEnd", Configuration.metrics.margin);
     }
 }

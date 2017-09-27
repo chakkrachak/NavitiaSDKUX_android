@@ -1,8 +1,5 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
-import android.graphics.Color;
-
-import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -11,15 +8,15 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class JourneyRoadmapSectionComponentSpec {
+public class PublicTransportComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 
@@ -31,28 +28,32 @@ public class JourneyRoadmapSectionComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section)
-            })
+            StopPointComponent.create(c)
+                .section(section)
+                .sectionWay(SectionStopPointType.departure)
+                .build()
+        ).child(
+            DescriptionComponent.create(c)
+                .section(section)
+                .build()
+        ).child(
+            StopPointComponent.create(c)
+                .section(section)
+                .sectionWay(SectionStopPointType.arrival)
+                .build()
         );
+
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section) {
-        switch (section.getType()) {
-            case "public_transport":
-                return JourneyRoadmapSectionPublicTransportComponent.create(c).section(section).build();
-            default:
-                return JourneyRoadmapSectionDefaultComponent.create(c).section(section).build();
-        }
+    static Map<String, Object> separatorStyles = new HashMap<>();
+    static {
+        separatorStyles.put("marginBottom", 10);
     }
 
-    static Map<String, Object> containerStyles = new HashMap<>();
+    static Map<String, Object> typeStyles = new HashMap<>();
     static {
-        containerStyles.put("backgroundColor", Color.WHITE);
-        containerStyles.put("padding", 0);
-        containerStyles.put("paddingTop", 4);
-        containerStyles.put("marginBottom", Configuration.metrics.margin);
+        typeStyles.put("fontWeight", "bold");
     }
 }
