@@ -21,15 +21,16 @@ class FriezeShimComponentSpec {
 
         final ShimComponent.Builder builder = ShimComponent.create(c);
 
+        Map<String, Object> shimStyles = new HashMap<>(shimBaseStyles);
         shimStyles.put("flexGrow", duration);
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), shimStyles);
         return styledBuilder.build();
     }
 
-    static Map<String, Object> shimStyles = new HashMap<>();
+    static Map<String, Object> shimBaseStyles = new HashMap<>();
     static {
-        shimStyles.put("height", 45);
-        shimStyles.put("marginEnd", Configuration.metrics.margin);
+        shimBaseStyles.put("height", 45);
+        shimBaseStyles.put("marginEnd", Configuration.metrics.margin);
     }
 }

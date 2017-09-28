@@ -33,14 +33,15 @@ public class SectionSegmentComponentSpec {
         }
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
         containerStyles.put("backgroundColor", color);
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(containerStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
     }
 
-    static Map<String, Object> containerStyles = new HashMap<>();
+    static Map<String, Object> containerBaseStyles = new HashMap<>();
     static {
-        containerStyles.put("height", 5);
+        containerBaseStyles.put("height", 5);
     }
 }

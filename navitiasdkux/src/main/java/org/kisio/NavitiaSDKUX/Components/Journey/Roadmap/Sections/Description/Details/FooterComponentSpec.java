@@ -10,7 +10,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Content.ContainerForDetailsHeaderComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.LineDiagramComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;

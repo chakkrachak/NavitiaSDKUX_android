@@ -9,6 +9,7 @@ import com.facebook.litho.widget.Text;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaEdge;
 import com.facebook.yoga.YogaJustify;
+import com.facebook.yoga.YogaPositionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +57,9 @@ public class StylizedComponent {
                 case "paddingTop":
                     builder.paddingDip(YogaEdge.TOP, (int) value);
                     break;
+                case "paddingHorizontal":
+                    builder.paddingDip(YogaEdge.HORIZONTAL, (int) value);
+                    break;
                 case "paddingRight":
                     builder.paddingDip(YogaEdge.RIGHT, (int) value);
                     break;
@@ -86,6 +90,21 @@ public class StylizedComponent {
                 case "borderRadius":
                     // not supported;
                     break;
+                case "position":
+                    builder.positionType((YogaPositionType) value);
+                    break;
+                case "start":
+                    builder.positionDip(YogaEdge.START, (int) value);
+                    break;
+                case "bottom":
+                    builder.positionDip(YogaEdge.BOTTOM, (int) value);
+                    break;
+                case "top":
+                    builder.positionDip(YogaEdge.TOP, (int) value);
+                    break;
+                case "end":
+                    builder.positionDip(YogaEdge.END, (int) value);
+                    break;
                 case "width":
                     builder.widthDip((int) value);
                     break;
@@ -97,6 +116,9 @@ public class StylizedComponent {
                     break;
                 case "flexGrow":
                     builder.flexGrow((int) value);
+                    break;
+                case "flexShrink":
+                    builder.flexShrink((int) value);
                     break;
                 case "backgroundColor":
                     builder.backgroundColor((int) value);

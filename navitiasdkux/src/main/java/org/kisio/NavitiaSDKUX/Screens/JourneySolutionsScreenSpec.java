@@ -71,7 +71,7 @@ public class JourneySolutionsScreenSpec {
         error.set(false);
         datetime.set(new Date());
 
-        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration("44bd6791-00c4-4163-be48-73b5555ae89f");
+        final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration(Configuration.token);
         try {
             final NavitiaSDK navitiaSDK = new NavitiaSDK(navitiaConfiguration);
             retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get(), datetime.get());

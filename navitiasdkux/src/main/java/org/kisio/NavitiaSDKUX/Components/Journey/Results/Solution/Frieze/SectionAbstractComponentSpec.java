@@ -30,6 +30,7 @@ public class SectionAbstractComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
         containerStyles.put("flexGrow", section.getDuration());
         builder
             .child(
@@ -58,10 +59,10 @@ public class SectionAbstractComponentSpec {
         return StylizedComponent.applyStyles(builder, viewStyles);
     }
 
-    static Map<String, Object> containerStyles = new HashMap<>();
+    static Map<String, Object> containerBaseStyles = new HashMap<>();
     static {
-        // containerStyles.put("fontSize", 16);
-        containerStyles.put("marginEnd", Configuration.metrics.margin);
+        // containerBaseStyles.put("fontSize", 16);
+        containerBaseStyles.put("marginEnd", Configuration.metrics.margin);
     }
 
     static Map<String, Object> viewStyles = new HashMap<>();

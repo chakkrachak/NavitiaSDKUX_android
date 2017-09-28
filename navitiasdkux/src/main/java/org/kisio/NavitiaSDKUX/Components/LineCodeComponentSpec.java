@@ -38,7 +38,9 @@ public class LineCodeComponentSpec {
 
         if (section.getDisplayInformations() != null && section.getDisplayInformations().getCode() != null) {
             String code = section.getDisplayInformations().getCode();
+            Map<String, Object> codeStyles = new HashMap<>(codeBaseStyles);
             codeStyles.put("backgroundColor", Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()));
+            Map<String, Object> textStyles = new HashMap<>(textBaseStyles);
             textStyles.put("color", Color.getColorFromHexadecimal(section.getDisplayInformations().getTextColor()));
 
             builder.child(
@@ -55,14 +57,14 @@ public class LineCodeComponentSpec {
         }
     }
 
-    static Map<String, Object> codeStyles = new HashMap<>();
+    static Map<String, Object> codeBaseStyles = new HashMap<>();
     static {
-        codeStyles.put("padding", 6);
+        codeBaseStyles.put("padding", 6);
     }
 
-    static Map<String, Object> textStyles = new HashMap<>();
+    static Map<String, Object> textBaseStyles = new HashMap<>();
     static {
-        textStyles.put("fontSize", 12);
-        textStyles.put("fontWeight", "bold");
+        textBaseStyles.put("fontSize", 12);
+        textBaseStyles.put("fontWeight", "bold");
     }
 }
