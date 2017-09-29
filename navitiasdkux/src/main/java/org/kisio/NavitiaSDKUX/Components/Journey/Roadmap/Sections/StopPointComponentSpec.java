@@ -14,14 +14,14 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDi
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.TimeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.DescriptionComponent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
 public class StopPointComponentSpec {
-    @PropDefault
-    static final Map<String, Object> styles = new HashMap<>();
+    @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
@@ -30,6 +30,13 @@ public class StopPointComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
         @Prop SectionStopPointType sectionWay) {
+
+        String stopPointLabel;
+        if (sectionWay == SectionStopPointType.departure) {
+            stopPointLabel = section.getFrom().getName();
+        } else {
+            stopPointLabel = section.getTo().getName();
+        }
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             LayoutComponent.create(c)
@@ -40,7 +47,9 @@ public class StopPointComponentSpec {
                     LineDiagramComponent.create(c)
                         .color(section.getDisplayInformations().getColor())
                 )
-                .thirdComponent(ContainerComponent.create(c))
+                .thirdComponent(DescriptionComponent.create(c)
+                    .stopPointLabel(stopPointLabel)
+                )
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
