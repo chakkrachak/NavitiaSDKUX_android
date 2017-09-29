@@ -8,6 +8,9 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.StopDateTime;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramForIntermediateStopPointComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramStopPointIconComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
@@ -24,9 +27,19 @@ class IntermediateStopPointComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop StopDateTime stopDateTime) {
+        @Prop StopDateTime stopDateTime,
+        @Prop String color) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+
+        builder.child(
+            LayoutComponent.create(c)
+                .secondComponent(
+                    LineDiagramForIntermediateStopPointComponent.create(c)
+                        .color(color)
+                        .build()
+                )
+        );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();

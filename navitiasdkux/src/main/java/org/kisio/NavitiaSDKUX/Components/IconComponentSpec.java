@@ -35,14 +35,15 @@ public class IconComponentSpec {
 
         final Text.Builder builder = LabelComponent.create(c)
             .text(Icons.fontString(name));
+        Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
         iconStyles.put("fontFamily", StylizedComponent.getFont(c,"SDKIcons"));
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(iconStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
     }
 
-    static Map<String, Object> iconStyles = new HashMap<>();
+    static Map<String, Object> iconBaseStyles = new HashMap<>();
     static {
-        iconStyles.put("fontSize", 24);
+        iconBaseStyles.put("fontSize", 24);
     }
 }

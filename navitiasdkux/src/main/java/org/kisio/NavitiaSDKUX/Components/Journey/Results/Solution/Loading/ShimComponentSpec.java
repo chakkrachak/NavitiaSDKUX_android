@@ -28,6 +28,7 @@ class ShimComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
+        Map<String, Object> shimStyles = new HashMap<>(shimBaseStyles);
         if (width != null) {
             shimStyles.put("width", width);
         }
@@ -40,8 +41,8 @@ class ShimComponentSpec {
         return styledBuilder.build();
     }
 
-    static Map<String, Object> shimStyles = new HashMap<>();
+    static Map<String, Object> shimBaseStyles = new HashMap<>();
     static {
-        shimStyles.put("backgroundColor", Configuration.colors.getLighterGray());
+        shimBaseStyles.put("backgroundColor", Configuration.colors.getLighterGray());
     }
 }

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class Configuration {
-    public static String token = "44bd6791-00c4-4163-be48-73b5555ae89f";
+    public static String token = "";
 
     public static class metrics {
         public static Integer space = 4;
@@ -150,6 +150,7 @@ public class Configuration {
         iconFontCodes.put("arrow-right-long", "\uea0b");
         iconFontCodes.put("arrow-right", "\uea0c");
         iconFontCodes.put("bike", "\uea0d");
+        iconFontCodes.put("circle-filled", "\ue901");
         iconFontCodes.put("ferry", "\uea0e");
         iconFontCodes.put("bss", "\uea0f");
         iconFontCodes.put("bus", "\uea10");
