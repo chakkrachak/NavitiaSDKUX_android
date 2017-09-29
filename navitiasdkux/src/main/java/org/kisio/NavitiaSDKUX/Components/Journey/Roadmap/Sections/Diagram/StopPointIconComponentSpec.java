@@ -39,18 +39,24 @@ public class StopPointIconComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
-        builder.child(
-            getOuterCircleContainer(c, color)
-        );
+        builder
+            .child(
+                getOuterCircleContainer(c, color, outerFontSize)
+            )
+            .child(
+                getInnerCircleContainer(c, innerFontSize)
+            );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, stopPointIconContainerStyle);
         return styledBuilder.build();
     }
 
-    static private ComponentLayout.Builder getOuterCircleContainer(ComponentContext c, String color) {
+    static private ComponentLayout.Builder getOuterCircleContainer(ComponentContext c, String color, Integer outerFontSize) {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
+        Map<String, Object> outerCircleStyle = new HashMap<>();
         outerCircleStyle.put("color", Color.getColorFromHexadecimal(color));
+        outerCircleStyle.put("fontSize", outerFontSize);
 
         builder.child(
             IconComponent.create(c)
@@ -61,8 +67,10 @@ public class StopPointIconComponentSpec {
         return StylizedComponent.applyStyles(builder, circleContainerStyle);
     }
 
-    static private ComponentLayout.Builder getInnerCircleContainer(ComponentContext c) {
+    static private ComponentLayout.Builder getInnerCircleContainer(ComponentContext c, Integer innerFontSize) {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+
+        innerCircleStyle.put("fontSize", innerFontSize);
 
         builder.child(
             IconComponent.create(c)
@@ -90,14 +98,8 @@ public class StopPointIconComponentSpec {
         circleContainerStyle.put("justifyContent", YogaJustify.CENTER);
     }
 
-    static Map<String, Object> outerCircleStyle = new HashMap<>();
-    static {
-        outerCircleStyle.put("fontSize", outerFontSize);
-    }
-
     static Map<String, Object> innerCircleStyle = new HashMap<>();
     static {
         innerCircleStyle.put("color", android.graphics.Color.WHITE);
-        innerCircleStyle.put("fontSize", innerFontSize);
     }
 }
