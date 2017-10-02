@@ -15,6 +15,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LayoutComponen
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,8 @@ class IntermediateStopPointComponentSpec {
     static Map<String, Object> stopPointLabelStyles = new HashMap<>();
     static {
         stopPointLabelStyles.put("fontSize", 12);
+        stopPointLabelStyles.put("fontWeight", "bold");
+        stopPointLabelStyles.put("color", Configuration.colors.getDarkerGray());
         stopPointLabelStyles.put("paddingLeft", 5);
         stopPointLabelStyles.put("paddingRight", 10);
         stopPointLabelStyles.put("maxLines", 1);
