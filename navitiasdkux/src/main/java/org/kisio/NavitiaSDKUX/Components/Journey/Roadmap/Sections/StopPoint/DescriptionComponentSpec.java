@@ -29,19 +29,20 @@ public class DescriptionComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop String stopPointLabel) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            ContainerComponent.create(c)
-                .styles(containerStyles)
-                .children(new Component<?>[] {
-                    TextComponent.create(c)
-                        .styles(labelStyles)
-                        .text(stopPointLabel)
-                        .build()
-                })
+        final Map<String, Object> computedContainerStyles = StylizedComponent.mergeStyles(containerStyles, styles);
 
+        final ContainerComponent.Builder builder = ContainerComponent.create(c)
+            .testKey(testKey)
+            .styles(computedContainerStyles)
+            .children(new Component<?>[] {
+                TextComponent.create(c)
+                    .styles(labelStyles)
+                    .text(stopPointLabel)
+                    .build()
+            }
         );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), computedContainerStyles);
         return styledBuilder.build();
     }
 

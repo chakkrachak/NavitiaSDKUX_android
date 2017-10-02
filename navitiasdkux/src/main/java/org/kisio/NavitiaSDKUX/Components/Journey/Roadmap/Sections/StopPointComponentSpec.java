@@ -37,21 +37,21 @@ public class StopPointComponentSpec {
             stopPointLabel = section.getTo().getName();
         }
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            LayoutComponent.create(c)
-                .firstComponent(TimeComponent.create(c)
-                    .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
-                    .build())
-                .secondComponent(
-                    LineDiagramComponent.create(c)
-                        .color(section.getDisplayInformations().getColor())
-                        .sectionWay(sectionWay)
-                )
-                .thirdComponent(DescriptionComponent.create(c)
-                    .stopPointLabel(stopPointLabel)
-                )
-        );
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        final LayoutComponent.Builder builder = LayoutComponent.create(c)
+            .testKey(testKey)
+            .firstComponent(TimeComponent.create(c)
+                .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
+                .build())
+            .secondComponent(
+                LineDiagramComponent.create(c)
+                    .color(section.getDisplayInformations().getColor())
+                    .sectionWay(sectionWay)
+            )
+            .thirdComponent(DescriptionComponent.create(c)
+                .stopPointLabel(stopPointLabel)
+            );
+        
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), styles);
         return styledBuilder.build();
     }
 }
