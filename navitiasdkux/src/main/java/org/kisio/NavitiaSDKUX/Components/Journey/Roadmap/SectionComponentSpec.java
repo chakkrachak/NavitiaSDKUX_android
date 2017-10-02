@@ -45,9 +45,13 @@ public class SectionComponentSpec {
     static Component<?> getTypedSectionComponent(ComponentContext c, Section section) {
         switch (section.getType()) {
             case "public_transport":
-                return PublicTransportComponent.create(c).section(section).build();
+                return PublicTransportComponent.create(c)
+                    .section(section)
+                    .build();
             default:
-                return DefaultComponent.create(c).section(section).build();
+                return DefaultComponent.create(c)
+                    .section(section)
+                    .build();
         }
     }
 

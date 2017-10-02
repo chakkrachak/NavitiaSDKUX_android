@@ -23,8 +23,8 @@ public class DescriptionComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
+        @Prop(optional = true) String testKey,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(

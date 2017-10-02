@@ -55,12 +55,15 @@ public class JourneySolutionRoadmapScreenSpec {
     static Component<?>[] getJourneySectionComponents(ComponentContext c, Journey journey) {
         List<Component<?>> components = new ArrayList<>();
 
+        int index = 0;
         for (Section section : journey.getSections()) {
             components.add(ListRowComponent.create(c).child(
                 SectionComponent.create(c)
+                    .key("journey_roadmap_section_" + index)
                     .section(section)
                     .build()
             ).build());
+            index++;
         }
 
         return components.toArray(new Component<?>[components.size()]);
