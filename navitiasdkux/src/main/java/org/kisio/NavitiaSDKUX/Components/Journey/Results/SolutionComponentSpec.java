@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.ActionComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.RowComponent;
+import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -24,15 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 28/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class JourneySolutionComponentSpec {
+public class SolutionComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
@@ -48,7 +44,7 @@ public class JourneySolutionComponentSpec {
         final ComponentLayout.Builder styledBuilder;
 
         final ListRowComponent.Builder listRowBuilder = ListRowComponent.create(c).styles(computedStyles).child(
-            JourneySolutionRowComponent.create(c)
+            RowComponent.create(c)
                 .departureTime(journey.getDepartureDateTime())
                 .arrivalTime(journey.getArrivalDateTime())
                 .totalDuration(journey.getDuration())

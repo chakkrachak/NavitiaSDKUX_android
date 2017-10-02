@@ -8,22 +8,16 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 24/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class ContainerComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
+public class HorizontalContainerComponentSpec {
+    @PropDefault
+    static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
@@ -32,7 +26,7 @@ public class ContainerComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) Component<?>[] children) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c).testKey(testKey);
 
         if (children != null) {
             for (Component<?> child : children) {
@@ -40,13 +34,7 @@ public class ContainerComponentSpec {
             }
         }
 
-        final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(smallStyles, styles);
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
-    }
-
-    static Map<String, Object> smallStyles = new HashMap<>();
-    static {
-        smallStyles.put("padding", 10);
     }
 }

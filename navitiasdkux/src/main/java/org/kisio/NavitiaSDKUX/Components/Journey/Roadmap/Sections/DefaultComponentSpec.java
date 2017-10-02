@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -10,13 +10,15 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class JourneyRoadmapSectionDefaultComponentSpec {
+public class DefaultComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 

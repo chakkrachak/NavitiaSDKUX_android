@@ -1,6 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components.Primitive;
 
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.litho.ComponentContext;
@@ -9,6 +10,7 @@ import com.facebook.litho.widget.Text;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaEdge;
 import com.facebook.yoga.YogaJustify;
+import com.facebook.yoga.YogaPositionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +67,15 @@ public class StylizedComponent {
                 case "paddingLeft":
                     builder.paddingDip(YogaEdge.LEFT, (int) value);
                     break;
+                case "paddingHorizontal":
+                    builder.paddingDip(YogaEdge.HORIZONTAL, (int) value);
+                    break;
+                case "paddingVertical":
+                    builder.paddingDip(YogaEdge.VERTICAL, (int) value);
+                    break;
+                case "margin":
+                    builder.marginDip(YogaEdge.ALL, (int) value);
+                    break;
                 case "marginTop":
                     builder.marginDip(YogaEdge.TOP, (int) value);
                     break;
@@ -83,6 +94,21 @@ public class StylizedComponent {
                 case "borderRadius":
                     // not supported;
                     break;
+                case "position":
+                    builder.positionType((YogaPositionType) value);
+                    break;
+                case "start":
+                    builder.positionDip(YogaEdge.START, (int) value);
+                    break;
+                case "bottom":
+                    builder.positionDip(YogaEdge.BOTTOM, (int) value);
+                    break;
+                case "top":
+                    builder.positionDip(YogaEdge.TOP, (int) value);
+                    break;
+                case "end":
+                    builder.positionDip(YogaEdge.END, (int) value);
+                    break;
                 case "width":
                     builder.widthDip((int) value);
                     break;
@@ -94,6 +120,9 @@ public class StylizedComponent {
                     break;
                 case "flexGrow":
                     builder.flexGrow((int) value);
+                    break;
+                case "flexShrink":
+                    builder.flexShrink((int) value);
                     break;
                 case "backgroundColor":
                     builder.backgroundColor((int) value);
@@ -133,6 +162,12 @@ public class StylizedComponent {
                     break;
                 case "fontWeight":
                     builder.textStyle(Typeface.BOLD);
+                    break;
+                case "maxLines":
+                    builder.maxLines((int) value);
+                    break;
+                case "ellipsis":
+                    builder.ellipsize((TextUtils.TruncateAt) value);
                     break;
                 default:
                     handled = false;

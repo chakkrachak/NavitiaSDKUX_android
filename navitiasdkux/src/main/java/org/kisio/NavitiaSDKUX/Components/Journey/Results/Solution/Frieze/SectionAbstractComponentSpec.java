@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.Frieze;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -7,6 +7,9 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.LineCodeComponent;
+import org.kisio.NavitiaSDKUX.Components.ModeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -15,38 +18,27 @@ import org.kisio.NavitiaSDKUX.Config.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 28/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
-public class JourneySectionAbstractComponentSpec {
+public class SectionAbstractComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
-    @PropDefault static final String lineCode = "";
-    @PropDefault static final Integer color = Configuration.colors.getDarkerGray();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop String modeIcon,
-        @Prop Integer duration,
-        @Prop(optional = true) String lineCode,
-        @Prop(optional = true) Integer color) {
+        @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
-        containerStyles.put("flexGrow", duration);
+        Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
+        containerStyles.put("flexGrow", section.getDuration());
         builder
             .child(
-                getSymbolComponents(c, modeIcon, lineCode, color)
+                getSymbolComponents(c, section)
             )
             .child(
-                JourneySectionSegmentComponent.create(c)
-                    .color(color)
+                SectionSegmentComponent.create(c)
+                    .section(section)
             );
 
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(containerStyles, styles);
@@ -54,27 +46,23 @@ public class JourneySectionAbstractComponentSpec {
         return styledBuilder.build();
     }
 
-    static ComponentLayout.ContainerBuilder getSymbolComponents(ComponentContext c, String modeIcon, String lineCode, Integer color) {
+    static ComponentLayout.ContainerBuilder getSymbolComponents(ComponentContext c, Section section) {
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder.child(
             ModeComponent.create(c)
-                .name(modeIcon)
+                .section(section)
                 .styles(modeStyles)
+        ).child(
+            LineCodeComponent.create(c)
+                .section(section)
         );
-        if (!lineCode.isEmpty()) {
-            builder.child(
-                LineCodeComponent.create(c)
-                    .code(lineCode)
-                    .color(color)
-            );
-        }
         return StylizedComponent.applyStyles(builder, viewStyles);
     }
 
-    static Map<String, Object> containerStyles = new HashMap<>();
+    static Map<String, Object> containerBaseStyles = new HashMap<>();
     static {
-        // containerStyles.put("fontSize", 16);
-        containerStyles.put("marginEnd", Configuration.metrics.margin);
+        // containerBaseStyles.put("fontSize", 16);
+        containerBaseStyles.put("marginEnd", Configuration.metrics.margin);
     }
 
     static Map<String, Object> viewStyles = new HashMap<>();

@@ -150,6 +150,7 @@ public class Configuration {
         iconFontCodes.put("arrow-right-long", "\uea0b");
         iconFontCodes.put("arrow-right", "\uea0c");
         iconFontCodes.put("bike", "\uea0d");
+        iconFontCodes.put("circle-filled", "\ue901");
         iconFontCodes.put("ferry", "\uea0e");
         iconFontCodes.put("bss", "\uea0f");
         iconFontCodes.put("bus", "\uea10");

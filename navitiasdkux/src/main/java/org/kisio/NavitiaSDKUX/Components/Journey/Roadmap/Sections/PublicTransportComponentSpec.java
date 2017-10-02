@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -11,13 +11,12 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class JourneyRoadmapSectionStopPointComponentSpec {
+public class PublicTransportComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 
@@ -26,26 +25,35 @@ public class JourneyRoadmapSectionStopPointComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section,
-        @Prop SectionStopPointType sectionWay) {
-
-        String pointText = "";
-        if (sectionWay == SectionStopPointType.departure) {
-            if (section.getDepartureDateTime() != null && section.getFrom() != null) {
-                pointText = Metrics.timeText(section.getDepartureDateTime()) + " : " + section.getFrom().getName();
-            }
-        } else if (sectionWay == SectionStopPointType.arrival) {
-            if (section.getArrivalDateTime() != null && section.getTo() != null) {
-                pointText = Metrics.timeText(section.getArrivalDateTime()) + " : " + section.getTo().getName();
-            }
-        }
+        @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            TextComponent.create(c)
-                .text(pointText)
+            StopPointComponent.create(c)
+                .section(section)
+                .sectionWay(SectionStopPointType.departure)
+                .build()
+        ).child(
+            DescriptionComponent.create(c)
+                .section(section)
+                .build()
+        ).child(
+            StopPointComponent.create(c)
+                .section(section)
+                .sectionWay(SectionStopPointType.arrival)
                 .build()
         );
+
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> separatorStyles = new HashMap<>();
+    static {
+        separatorStyles.put("marginBottom", 10);
+    }
+
+    static Map<String, Object> typeStyles = new HashMap<>();
+    static {
+        typeStyles.put("fontWeight", "bold");
     }
 }
