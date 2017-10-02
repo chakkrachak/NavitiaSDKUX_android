@@ -9,8 +9,7 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
-import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.LineDiagramComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.TimeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
@@ -46,6 +45,7 @@ public class StopPointComponentSpec {
                 .secondComponent(
                     LineDiagramComponent.create(c)
                         .color(section.getDisplayInformations().getColor())
+                        .sectionWay(sectionWay)
                 )
                 .thirdComponent(DescriptionComponent.create(c)
                     .stopPointLabel(stopPointLabel)
