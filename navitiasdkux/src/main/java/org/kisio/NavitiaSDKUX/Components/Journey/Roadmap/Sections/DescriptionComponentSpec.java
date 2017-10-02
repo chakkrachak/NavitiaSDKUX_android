@@ -25,7 +25,6 @@ public class DescriptionComponentSpec {
         ComponentContext c,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) String componentKey,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
@@ -33,7 +32,6 @@ public class DescriptionComponentSpec {
                 .section(section)
         ).child(
             DetailsComponent.create(c)
-                .key(componentKey + "_details")
                 .section(section)
         );
 

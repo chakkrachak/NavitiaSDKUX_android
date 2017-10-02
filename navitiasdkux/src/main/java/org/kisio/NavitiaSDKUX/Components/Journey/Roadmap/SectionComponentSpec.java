@@ -30,24 +30,22 @@ public class SectionComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) String componentKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section, componentKey)
+                getTypedSectionComponent(c, section)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, String componentKey) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
-                    .componentKey(componentKey)
                     .section(section)
                     .build();
             default:

@@ -59,7 +59,7 @@ public class JourneySolutionRoadmapScreenSpec {
         for (Section section : journey.getSections()) {
             components.add(ListRowComponent.create(c).child(
                 SectionComponent.create(c)
-                    .componentKey("journey_roadmap_section_" + index)
+                    .key("journey_roadmap_section_" + index)
                     .section(section)
                     .build()
             ).build());

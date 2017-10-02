@@ -24,7 +24,6 @@ public class PublicTransportComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) String componentKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
@@ -35,7 +34,6 @@ public class PublicTransportComponentSpec {
                 .build()
         ).child(
             DescriptionComponent.create(c)
-                .componentKey(componentKey + "_description")
                 .section(section)
                 .build()
         ).child(
