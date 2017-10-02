@@ -27,7 +27,7 @@ class LineDiagramForIntermediateStopPointComponentSpec {
         builder
             .child(
                 SubLineDiagramComponent.create(c)
-                    .color("0000FF")
+                    .color(color)
             )
             .child(
                 LineDiagramStopPointIconComponent.create(c)

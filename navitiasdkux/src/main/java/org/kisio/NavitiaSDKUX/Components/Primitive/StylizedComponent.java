@@ -1,6 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components.Primitive;
 
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.litho.ComponentContext;
@@ -158,6 +159,12 @@ public class StylizedComponent {
                     break;
                 case "fontWeight":
                     builder.textStyle(Typeface.BOLD);
+                    break;
+                case "maxLines":
+                    builder.maxLines((int) value);
+                    break;
+                case "ellipsis":
+                    builder.ellipsize((TextUtils.TruncateAt) value);
                     break;
                 default:
                     handled = false;
