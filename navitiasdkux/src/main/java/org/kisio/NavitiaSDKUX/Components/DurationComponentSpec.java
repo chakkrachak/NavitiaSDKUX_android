@@ -10,6 +10,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,20 +35,35 @@ public class DurationComponentSpec {
         @Prop(optional = true) Integer seconds) {
 
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c).testKey(testKey);
-        builder
-        .child(
-            TextComponent.create(c)
-                .text(String.valueOf((int) Math.ceil(seconds / 60)))
-                .styles(digitsStyles)
-        ).child(
-            TextComponent.create(c)
-                .text("min")
-                .styles(abbrStyles)
-        ).child(
+
+
+        if (seconds >= 3600) {
+            final String text = Metrics.durationText(seconds);
+            builder
+                .child(
+                    TextComponent.create(c)
+                        .text(text)
+                        .styles(digitsStyles)
+                );
+        } else {
+            builder
+                .child(
+                    TextComponent.create(c)
+                        .text(String.valueOf((int) Math.ceil(seconds / 60)))
+                        .styles(digitsStyles)
+                ).child(
+                    TextComponent.create(c)
+                        .text("min")
+                    .styles(abbrStyles)
+                );
+        }
+
+        builder.child(
             IconComponent.create(c)
                 .name("arrow-right")
                 .styles(arrowStyles)
         );
+
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }

@@ -40,4 +40,21 @@ public class Metrics {
             return String.valueOf(meters / 1000) + " km";
         }
     }
+
+    public static String durationText(Integer seconds) {
+        if (seconds < 60) {
+            return "< 1 min";
+        } else if (seconds < 3600) {
+            Integer minutes = seconds / 60;
+            return String.valueOf(minutes) + " min";
+        } else {
+            Integer hours = seconds / 3600;
+            Integer remainingMinutes = (seconds / 60) - (hours * 60);
+            String minutes = String.valueOf(remainingMinutes);
+            if (remainingMinutes < 10) {
+                minutes = "0" + String.valueOf(remainingMinutes);
+            }
+            return String.valueOf(hours) + "h" + minutes;
+        }
+    }
 }
