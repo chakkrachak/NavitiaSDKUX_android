@@ -37,8 +37,7 @@ public class StopPointComponentSpec {
             stopPointLabel = section.getTo().getName();
         }
 
-        final LayoutComponent.Builder builder = LayoutComponent
-            .create(c)
+        final LayoutComponent.Builder builder = LayoutComponent.create(c)
             .testKey(testKey)
             .firstComponent(TimeComponent.create(c)
                 .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
@@ -50,8 +49,7 @@ public class StopPointComponentSpec {
             )
             .thirdComponent(DescriptionComponent.create(c)
                 .stopPointLabel(stopPointLabel)
-            )
-        );
+            );
         
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), styles);
         return styledBuilder.build();
