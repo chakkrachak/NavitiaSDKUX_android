@@ -1,5 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
 
 android {
     compileSdkVersion 26
@@ -62,6 +72,31 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
+def pomConfig = {
+    licenses {
+        license {
+            name "GNU General Public License, Version 3"
+            url "https://www.navitia.io/api-term-of-use"
+            distribution "repo"
+        }
+    }
+
+    developers {
+        developer {
+            name "Kisio Digital SDK"
+            email "team.sdk@kisio.org"
+            organization "Kisio Digital"
+            organizationUrl "http://www.kisiodigital.com/"
+        }
+    }
+
+    scm {
+        connection "scm:git:git://github.com/CanalTP/NavitiaSDKUX_android.git"
+        developerConnection "scm:git:ssh://github.com:CanalTP/NavitiaSDKUX_android.git"
+        url "https://github.com/CanalTP/NavitiaSDKUX_android/tree/master"
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -76,7 +111,12 @@ publishing {
             artifact androidSourcesJar
 
             pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
+                def root = asNode()
+                root.appendNode('description', 'NavitiaSDKUX android 0.2.0')
+                root.appendNode('name', 'navitia-sdk-ux')
+                root.appendNode('url', 'https://github.com/CanalTP/NavitiaSDKUX_android')
+
+                def dependenciesNode = root.appendNode('dependencies')
 
                 // List all compile dependencies and write to POM
                 configurations.compile.getAllDependencies().each { Dependency dep ->
@@ -103,6 +143,32 @@ publishing {
                         }
                     }
                 }
+
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+// "gradle -Puser=someuser -Pkey=ASDFASDFASDF androidSourcesJar androidJavadocsJar bundleRelease bintrayUpload" to build and send to jcenter
+bintray {
+    user = project.hasProperty('user') ? property('user') : ''
+    key = project.hasProperty('key') ? property('key') : ''
+    publications = ['maven']
+    dryRun = false //[Default: false] Whether to run this as dry-run, without deploying
+    publish = false //[Default: false] Whether version should be auto published after an upload
+    pkg {
+        repo = 'NavitiaSDK'
+        name = 'navitia-sdk-ux'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/CanalTP/NavitiaSDKUX_android.git'
+        version {
+            name = '0.2.0'
+            desc = 'NavitiaSDKUX android 0.2.0'
+            released  = new Date()
+            vcsTag = '0.2.0'
+            gpg {
+                sign = true
             }
         }
     }
