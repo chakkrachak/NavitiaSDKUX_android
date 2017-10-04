@@ -57,8 +57,14 @@ public class DefaultComponentSpec {
                 .build()
         );
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
+        final Map<String, Object> computedStyle = StylizedComponent.mergeStyles(containerStyles, styles);
+        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyle);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("padding", 10);
     }
 
     static Map<String, Object> separatorStyles = new HashMap<>();
