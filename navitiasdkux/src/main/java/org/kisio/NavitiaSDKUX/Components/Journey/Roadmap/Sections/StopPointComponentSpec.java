@@ -1,7 +1,5 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
-import android.util.Log;
-
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -11,11 +9,10 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.LineDiagramComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.PlaceComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.TimeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StopPoint.DescriptionComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,18 +41,19 @@ public class StopPointComponentSpec {
             pointColor = section.getDisplayInformations().getColor();
         }
 
-        final LayoutComponent.Builder builder = LayoutComponent.create(c)
+        final SectionRowLayoutComponent.Builder builder = SectionRowLayoutComponent.create(c)
             .testKey(testKey)
-            .firstComponent(TimeComponent.create(c)
-                .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
-                .build())
+            .firstComponent(
+                TimeComponent.create(c)
+                    .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
+                    .build())
             .secondComponent(
-                LineDiagramComponent.create(c)
+                StopPointIconComponent.create(c)
                     .color(pointColor)
-                    .sectionWay(sectionWay)
             )
-            .thirdComponent(DescriptionComponent.create(c)
-                .stopPointLabel(stopPointLabel)
+            .thirdComponent(
+                PlaceComponent.create(c)
+                    .stopPointLabel(stopPointLabel)
             );
         
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder.withLayout(), styles);

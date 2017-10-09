@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -17,13 +17,6 @@ import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 27/09/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
 
 @LayoutSpec
 public class StopPointIconComponentSpec {

@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
+import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -9,6 +10,10 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
+import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.PlainComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
@@ -28,32 +33,49 @@ public class PublicTransportComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            StopPointComponent.create(c)
-                .section(section)
-                .sectionWay(SectionStopPointType.departure)
+            PlainComponent.create(c)
+                .color(section.getDisplayInformations().getColor())
                 .build()
         ).child(
-            DescriptionComponent.create(c)
-                .section(section)
-                .build()
-        ).child(
-            StopPointComponent.create(c)
-                .section(section)
-                .sectionWay(SectionStopPointType.arrival)
-                .build()
+            SectionLayoutComponent.create(c)
+                .header(
+                    StopPointComponent.create(c)
+                        .styles(stopPointStyles)
+                        .section(section)
+                        .sectionWay(SectionStopPointType.departure)
+                )
+                .body(
+                    ContainerComponent.create(c)
+                        .styles(bodyContainerStyles)
+                        .children(new Component<?>[] {
+                            DescriptionComponent.create(c)
+                                .section(section)
+                                .build(),
+                            DetailsComponent.create(c)
+                                .section(section)
+                                .build()
+                    })
+                )
+                .footer(
+                    StopPointComponent.create(c)
+                        .styles(stopPointStyles)
+                        .section(section)
+                        .sectionWay(SectionStopPointType.arrival)
+                )
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Map<String, Object> separatorStyles = new HashMap<>();
+    static Map<String, Object> bodyContainerStyles = new HashMap<>();
     static {
-        separatorStyles.put("marginBottom", 10);
+        bodyContainerStyles.put("padding", 0);
+        bodyContainerStyles.put("zIndex", 1);
     }
 
-    static Map<String, Object> typeStyles = new HashMap<>();
+    static Map<String, Object> stopPointStyles = new HashMap<>();
     static {
-        typeStyles.put("fontWeight", "bold");
+        stopPointStyles.put("zIndex", 2);
     }
 }

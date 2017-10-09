@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Details;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -12,8 +12,7 @@ import com.facebook.yoga.YogaAlign;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LayoutComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
@@ -23,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-class HeaderComponentSpec {
+class DetailButtonComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
@@ -35,26 +34,18 @@ class HeaderComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
-            LayoutComponent.create(c)
-                .secondComponent(
-                    LineDiagramComponent.create(c)
-                        .color(section.getDisplayInformations().getColor())
+            HorizontalContainerComponent.create(c)
+                .styles(detailsHeaderContainerStyle)
+                .children(new Component<?>[] {
+                    IconComponent.create(c)
+                        .styles(collapserWayIconStyles)
+                        .name(collapsed ? "arrow-details-down" : "arrow-details-up")
+                        .build(),
+                    TextComponent.create(c)
+                        .styles(detailsHeaderTitleStyle)
+                        .text("Détails")
                         .build()
-                )
-                .thirdComponent(
-                    HorizontalContainerComponent.create(c)
-                        .styles(detailsHeaderContainerStyle)
-                        .children(new Component<?>[] {
-                            IconComponent.create(c)
-                                .styles(collapserWayIconStyles)
-                                .name(collapsed ? "arrow-details-down" : "arrow-details-up")
-                                .build(),
-                            TextComponent.create(c)
-                                .styles(detailsHeaderTitleStyle)
-                                .text("Détails")
-                                .build()
-                        })
-                )
+                })
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
