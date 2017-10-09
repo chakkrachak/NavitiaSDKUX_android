@@ -80,13 +80,18 @@ class DetailsComponentSpec {
     static ComponentLayout.ContainerBuilder getIntermediateStops(ComponentContext c, Section section) {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
+        int lastIndex = section.getStopDateTimes().size() - 1;
+        int index = 0;
         for (StopDateTime stopDateTime : section.getStopDateTimes()) {
-            builder.child(
-                IntermediateStopPointComponent.create(c)
-                    .stopDateTime(stopDateTime)
-                    .color(section.getDisplayInformations().getColor())
-                    .build()
-            );
+            if (index > 0 && index < lastIndex) {
+                builder.child(
+                    IntermediateStopPointComponent.create(c)
+                        .stopDateTime(stopDateTime)
+                        .color(section.getDisplayInformations().getColor())
+                        .build()
+                );
+            }
+            index++;
         }
 
         return builder;
