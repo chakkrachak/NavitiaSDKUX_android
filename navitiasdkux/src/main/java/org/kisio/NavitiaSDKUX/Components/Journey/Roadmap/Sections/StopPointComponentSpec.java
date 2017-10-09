@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
+import android.util.Log;
+
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -37,6 +39,11 @@ public class StopPointComponentSpec {
             stopPointLabel = section.getTo().getName();
         }
 
+        String pointColor = "000000";
+        if (section.getType().contains("public_transport")) {
+            pointColor = section.getDisplayInformations().getColor();
+        }
+
         final LayoutComponent.Builder builder = LayoutComponent.create(c)
             .testKey(testKey)
             .firstComponent(TimeComponent.create(c)
@@ -44,7 +51,7 @@ public class StopPointComponentSpec {
                 .build())
             .secondComponent(
                 LineDiagramComponent.create(c)
-                    .color(section.getDisplayInformations().getColor())
+                    .color(pointColor)
                     .sectionWay(sectionWay)
             )
             .thirdComponent(DescriptionComponent.create(c)
