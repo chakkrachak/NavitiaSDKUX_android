@@ -16,7 +16,6 @@ import java.util.Map;
 
 @LayoutSpec
 public class PlainComponentSpec {
-
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
@@ -25,7 +24,7 @@ public class PlainComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
 
-        lineStyles.put("backgroundColor", Color.getColorFromHexadecimal(color));
+        lineStyles.put("borderColor",  Color.getColorFromHexadecimal(color));
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, lineStyles);
         return styledBuilder.build();
@@ -38,5 +37,6 @@ public class PlainComponentSpec {
         lineStyles.put("top", 28);
         lineStyles.put("bottom", 28);
         lineStyles.put("width", 4);
+        lineStyles.put("borderLeftWidth", 4);
     }
 }
