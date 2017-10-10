@@ -16,6 +16,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTranspor
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class PublicTransportComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             PlainComponent.create(c)
-                .color(section.getDisplayInformations().getColor())
+                .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()))
                 .build()
         ).child(
             SectionLayoutComponent.create(c)

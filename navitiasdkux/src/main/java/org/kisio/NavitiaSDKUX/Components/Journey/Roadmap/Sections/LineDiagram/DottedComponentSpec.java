@@ -14,14 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class PlainComponentSpec {
+public class DottedComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop(optional = true) String testKey,
         @Prop Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
         lineStyles.put("borderColor", color);
 
@@ -35,7 +34,7 @@ public class PlainComponentSpec {
         lineStyles.put("start", 58);
         lineStyles.put("top", 28);
         lineStyles.put("bottom", 28);
-        lineStyles.put("width", 4);
+        lineStyles.put("width", 20);
         lineStyles.put("borderLeftWidth", 4);
     }
 }
