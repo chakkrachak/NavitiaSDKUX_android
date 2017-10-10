@@ -7,8 +7,10 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
-import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
+import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description.ModeDistanceLabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
@@ -24,22 +26,29 @@ public class DescriptionComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles) {
+        @Prop(optional = true) Map<String, Object> styles,
+        @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             SectionRowLayoutComponent.create(c)
+                .styles(containerStyles)
                 .firstComponent(
-                    ContainerComponent.create(c)
-                        .build())
-                .secondComponent(
-                    ContainerComponent.create(c)
+                    ModeIconComponent.create(c)
+                        .section(section)
                         .build())
                 .thirdComponent(
-                    ContainerComponent.create(c)
+                    ModeDistanceLabelComponent.create(c)
+                        .section(section)
                         .build())
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("paddingHorizontal", 4);
+        containerStyles.put("paddingVertical", 24);
     }
 }

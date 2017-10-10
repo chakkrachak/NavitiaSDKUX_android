@@ -41,7 +41,6 @@ public class PublicTransportComponentSpec {
             SectionLayoutComponent.create(c)
                 .header(
                     StopPointComponent.create(c)
-                        .styles(stopPointStyles)
                         .section(section)
                         .sectionWay(SectionStopPointType.departure)
                 )
@@ -59,7 +58,6 @@ public class PublicTransportComponentSpec {
                 )
                 .footer(
                     StopPointComponent.create(c)
-                        .styles(stopPointStyles)
                         .section(section)
                         .sectionWay(SectionStopPointType.arrival)
                 )
@@ -71,12 +69,9 @@ public class PublicTransportComponentSpec {
 
     static Map<String, Object> bodyContainerStyles = new HashMap<>();
     static {
-        bodyContainerStyles.put("padding", 0);
-        bodyContainerStyles.put("zIndex", 1);
-    }
-
-    static Map<String, Object> stopPointStyles = new HashMap<>();
-    static {
-        stopPointStyles.put("zIndex", 2);
+        bodyContainerStyles.put("paddingTop", 12);
+        bodyContainerStyles.put("paddingBottom", 12);
+        bodyContainerStyles.put("paddingLeft", 0);
+        bodyContainerStyles.put("paddingRight", 0);
     }
 }

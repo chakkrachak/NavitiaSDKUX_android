@@ -40,7 +40,7 @@ class DescriptionComponentSpec {
                         .build())
                 .thirdComponent(
                     ContainerComponent.create(c)
-                        .styles(containerStyle)
+                        .styles(containerStyles)
                         .children(new Component<?>[] {
                             ModeLineLabelComponent.create(c)
                                 .section(section)
@@ -55,9 +55,9 @@ class DescriptionComponentSpec {
         return styledBuilder.build();
     }
 
-    static Map<String, Object> containerStyle = new HashMap<>();
+    static Map<String, Object> containerStyles = new HashMap<>();
     static {
-        containerStyle.put("paddingHorizontal", 4);
-        containerStyle.put("paddingVertical", 12);
+        containerStyles.put("paddingHorizontal", 4);
+        containerStyles.put("paddingVertical", 12);
     }
 }

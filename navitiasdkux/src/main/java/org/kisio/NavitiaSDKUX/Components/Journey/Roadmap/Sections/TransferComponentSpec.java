@@ -10,6 +10,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -39,6 +40,11 @@ public class TransferComponentSpec {
                     StopPointComponent.create(c)
                         .section(section)
                         .sectionWay(SectionStopPointType.departure)
+                        .build()
+                )
+                .body(
+                    DescriptionComponent.create(c)
+                        .section(section)
                         .build()
                 )
                 .footer(

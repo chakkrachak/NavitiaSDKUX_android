@@ -14,7 +14,7 @@ import com.facebook.litho.annotations.State;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDK.models.StopDateTime;
 import org.kisio.NavitiaSDKUX.Components.ActionComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details.DetailButtonComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DetailButtonComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
@@ -60,7 +60,6 @@ class DetailsComponentSpec {
                 SectionRowLayoutComponent.create(c)
                     .thirdComponent(
                         DetailButtonComponent.create(c)
-                            .section(section)
                             .collapsed(collapsed)
                 )
             )

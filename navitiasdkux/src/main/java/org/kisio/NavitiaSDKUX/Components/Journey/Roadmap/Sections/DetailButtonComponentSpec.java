@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
@@ -12,7 +12,6 @@ import com.facebook.yoga.YogaAlign;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
@@ -30,8 +29,7 @@ class DetailButtonComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Boolean collapsed,
-        @Prop Section section) {
+        @Prop Boolean collapsed) {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             HorizontalContainerComponent.create(c)
