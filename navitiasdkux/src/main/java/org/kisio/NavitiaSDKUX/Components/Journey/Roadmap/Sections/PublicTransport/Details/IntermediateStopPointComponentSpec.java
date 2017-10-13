@@ -48,7 +48,7 @@ class IntermediateStopPointComponentSpec {
                     TextComponent.create(c)
                         .styles(stopPointLabelStyles)
                         .text(stopDateTime.getStopPoint().getLabel())
-            )
+                )
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);

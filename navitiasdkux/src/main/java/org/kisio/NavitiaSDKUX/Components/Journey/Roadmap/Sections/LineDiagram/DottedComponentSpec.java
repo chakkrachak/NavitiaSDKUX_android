@@ -22,19 +22,20 @@ public class DottedComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
+        Map<String, Object> lineStyles = new HashMap<>(lineBaseStyles);
         lineStyles.put("borderColor", color);
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, lineStyles);
         return styledBuilder.build();
     }
 
-    static Map<String, Object> lineStyles = new HashMap<>();
+    static Map<String, Object> lineBaseStyles = new HashMap<>();
     static {
-        lineStyles.put("position", YogaPositionType.ABSOLUTE);
-        lineStyles.put("start", 58);
-        lineStyles.put("top", 28);
-        lineStyles.put("bottom", 28);
-        lineStyles.put("width", 20);
-        lineStyles.put("borderLeftWidth", 4);
+        lineBaseStyles.put("position", YogaPositionType.ABSOLUTE);
+        lineBaseStyles.put("start", 58);
+        lineBaseStyles.put("top", 28);
+        lineBaseStyles.put("bottom", 28);
+        lineBaseStyles.put("width", 20);
+        lineBaseStyles.put("borderLeftWidth", 4);
     }
 }

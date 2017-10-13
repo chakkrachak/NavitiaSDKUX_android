@@ -69,9 +69,7 @@ public class PublicTransportComponentSpec {
 
     static Map<String, Object> bodyContainerStyles = new HashMap<>();
     static {
-        bodyContainerStyles.put("paddingTop", 12);
-        bodyContainerStyles.put("paddingBottom", 12);
-        bodyContainerStyles.put("paddingLeft", 0);
-        bodyContainerStyles.put("paddingRight", 0);
+        bodyContainerStyles.put("paddingVertical", 12);
+        bodyContainerStyles.put("paddingHorizontal", 0);
     }
 }
