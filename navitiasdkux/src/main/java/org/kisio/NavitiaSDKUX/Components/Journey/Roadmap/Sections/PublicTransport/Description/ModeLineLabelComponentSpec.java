@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Content;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-class ModeComponentSpec {
+class ModeLineLabelComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,

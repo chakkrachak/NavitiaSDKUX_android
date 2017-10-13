@@ -133,6 +133,18 @@ public class StylizedComponent {
                 case "borderWidth":
                     builder.borderWidthDip(YogaEdge.ALL, (int) value);
                     break;
+                case "borderLeftWidth":
+                    builder.borderWidthDip(YogaEdge.LEFT, (int) value);
+                    break;
+                case "borderRightWidth":
+                    builder.borderWidthDip(YogaEdge.RIGHT, (int) value);
+                    break;
+                case "borderTopWidth":
+                    builder.borderWidthDip(YogaEdge.TOP, (int) value);
+                    break;
+                case "borderBottomWidth":
+                    builder.borderWidthDip(YogaEdge.BOTTOM, (int) value);
+                    break;
                 case "alignSelf":
                     builder.alignSelf((YogaAlign) value);
                     break;

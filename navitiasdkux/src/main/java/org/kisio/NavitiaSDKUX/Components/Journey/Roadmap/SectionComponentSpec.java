@@ -14,6 +14,7 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DefaultComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransportComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.TransferComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -46,6 +47,10 @@ public class SectionComponentSpec {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
+                    .section(section)
+                    .build();
+            case "transfer":
+                return TransferComponent.create(c)
                     .section(section)
                     .build();
             default:

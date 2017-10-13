@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Details;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details;
 
 import android.text.TextUtils;
 
@@ -10,8 +10,8 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.StopDateTime;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Diagram.LineDiagramForIntermediateStopPointComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LayoutComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
@@ -36,11 +36,13 @@ class IntermediateStopPointComponentSpec {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
 
         builder.child(
-            LayoutComponent.create(c)
+            SectionRowLayoutComponent.create(c)
+                .styles(containerStyles)
                 .secondComponent(
-                    LineDiagramForIntermediateStopPointComponent.create(c)
+                    StopPointIconComponent.create(c)
                         .color(color)
-                        .build()
+                        .outerFontSize(12)
+                        .innerFontSize(0)
                 )
                 .thirdComponent(
                     TextComponent.create(c)
@@ -51,6 +53,11 @@ class IntermediateStopPointComponentSpec {
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
+    }
+
+    static Map<String, Object> containerStyles = new HashMap<>();
+    static {
+        containerStyles.put("paddingBottom", 10);
     }
 
     static Map<String, Object> stopPointLabelStyles = new HashMap<>();

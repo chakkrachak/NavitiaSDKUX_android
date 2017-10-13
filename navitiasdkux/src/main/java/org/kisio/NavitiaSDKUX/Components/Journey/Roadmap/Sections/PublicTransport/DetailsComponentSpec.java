@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -14,9 +14,9 @@ import com.facebook.litho.annotations.State;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDK.models.StopDateTime;
 import org.kisio.NavitiaSDKUX.Components.ActionComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Details.FooterComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Details.HeaderComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Description.Details.IntermediateStopPointComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DetailButtonComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
@@ -57,15 +57,14 @@ class DetailsComponentSpec {
                 DetailsComponent.updateCollapsedAsync(c);
                 return null;
             }}).child(
-                HeaderComponent.create(c)
-                    .section(section)
-                    .collapsed(collapsed)
+                SectionRowLayoutComponent.create(c)
+                    .thirdComponent(
+                        DetailButtonComponent.create(c)
+                            .collapsed(collapsed)
+                )
             )
         ).child(
             intermediateStopsComponent
-        ).child(
-            FooterComponent.create(c)
-                .section(section)
         );
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
@@ -80,13 +79,18 @@ class DetailsComponentSpec {
     static ComponentLayout.ContainerBuilder getIntermediateStops(ComponentContext c, Section section) {
         final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
+        int lastIndex = section.getStopDateTimes().size() - 1;
+        int index = 0;
         for (StopDateTime stopDateTime : section.getStopDateTimes()) {
-            builder.child(
-                IntermediateStopPointComponent.create(c)
-                    .stopDateTime(stopDateTime)
-                    .color(section.getDisplayInformations().getColor())
-                    .build()
-            );
+            if (index > 0 && index < lastIndex) {
+                builder.child(
+                    IntermediateStopPointComponent.create(c)
+                        .stopDateTime(stopDateTime)
+                        .color(section.getDisplayInformations().getColor())
+                        .build()
+                );
+            }
+            index++;
         }
 
         return builder;
