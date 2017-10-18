@@ -5,4 +5,10 @@
     <string name="component.DateTimeButtonComponent.representation.departure">Departure:</string>
     <string name="screen.JourneySolutionsScreen.error">No journey found</string>
     <string name="controller.JourneySolutionRoadmapController.title">Roadmap</string>
+    <string name="journey.roadmap.action.walk">walk</string>
+    <string name="journey.roadmap.action.wait">wait</string>
+    <string name="units.minute">minute</string>
+    <string name="units.minute.plural">minutes</string>
+    <string name="units.meter">meter</string>
+    <string name="units.meter.plural">meters</string>
 </resources>

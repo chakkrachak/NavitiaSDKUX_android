@@ -6,4 +6,10 @@
     <string name="component.JourneyWalkingAbstractComponent.walking">à pied</string>
     <string name="component.JourneyWalkingAbstractComponent.With">Dont</string>
     <string name="controller.JourneySolutionRoadmapController.title">Feuille de route</string>
+    <string name="journey.roadmap.action.walk">de marche</string>
+    <string name="journey.roadmap.action.wait">d'attente</string>
+    <string name="units.minute">minute</string>
+    <string name="units.minute.plural">minutes</string>
+    <string name="units.meter">mètre</string>
+    <string name="units.meter.plural">mètres</string>
 </resources>

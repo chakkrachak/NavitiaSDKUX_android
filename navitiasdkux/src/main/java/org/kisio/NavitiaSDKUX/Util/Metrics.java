@@ -46,7 +46,7 @@ public class Metrics {
             return "< 1 min";
         } else if (seconds < 3600) {
             Integer minutes = seconds / 60;
-            return String.valueOf(minutes) + " min";
+            return String.valueOf(minutes) + " minutes";
         } else {
             Integer hours = seconds / 3600;
             Integer remainingMinutes = (seconds / 60) - (hours * 60);

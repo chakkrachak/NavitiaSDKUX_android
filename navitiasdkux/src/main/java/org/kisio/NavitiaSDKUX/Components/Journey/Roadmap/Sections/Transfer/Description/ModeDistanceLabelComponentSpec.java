@@ -12,6 +12,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class ModeDistanceLabelComponentSpec {
         builder
             .child(
                 TextComponent.create(c)
-                    .text(timeLabel + " à pied")
+                    .text(timeLabel + " " + c.getString(R.string.journey_roadmap_action_walk))
                     .styles(labelStyles));
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);

@@ -13,6 +13,7 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class WaitingComponentSpec {
         return SectionRowLayoutComponent.create(c).thirdComponent(
             TextComponent.create(c)
                 .styles(containerStyles)
-                .text(Metrics.durationText(section.getDuration()) + " d'attente")
+                .text(Metrics.durationText(section.getDuration()) + " " + c.getString(R.string.journey_roadmap_action_wait))
                 .build()
         ).buildWithLayout();
     }

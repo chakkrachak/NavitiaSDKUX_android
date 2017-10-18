@@ -36,7 +36,7 @@ public class WalkingAbstractComponentSpec {
             )
             .child(
                 TextComponent.create(c)
-                    .text(String.valueOf(duration / 60) + " min")
+                    .text(String.valueOf(duration / 60) + " minutes")
                     .styles(durationStyles)
             )
             .child(
