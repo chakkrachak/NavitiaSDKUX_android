@@ -16,7 +16,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.OnEvent;
 import com.facebook.litho.annotations.Prop;
 
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.concurrent.Callable;
 
@@ -31,7 +31,7 @@ public class ActionComponentSpec {
         @Prop Component<?> child,
         @Prop Callable<?> actionToCall) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
 
         return builder
             .child(child)

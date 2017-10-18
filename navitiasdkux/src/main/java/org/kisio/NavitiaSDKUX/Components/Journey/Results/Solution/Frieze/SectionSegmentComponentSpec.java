@@ -9,7 +9,7 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
@@ -32,7 +32,7 @@ public class SectionSegmentComponentSpec {
             color = Color.getColorFromHexadecimal(section.getDisplayInformations().getColor());
         }
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
         Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
         containerStyles.put("backgroundColor", color);
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(containerStyles, styles);

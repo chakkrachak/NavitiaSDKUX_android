@@ -8,7 +8,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaPositionType;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class DottedComponentSpec {
         ComponentContext c,
         @Prop Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
 
         Map<String, Object> lineStyles = new HashMap<>(lineBaseStyles);
         lineStyles.put("borderColor", color);

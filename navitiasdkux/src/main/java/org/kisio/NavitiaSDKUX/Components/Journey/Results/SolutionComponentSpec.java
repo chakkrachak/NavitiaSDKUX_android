@@ -18,7 +18,7 @@ import org.kisio.NavitiaSDKUX.Components.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.RowComponent;
 import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
@@ -64,7 +64,7 @@ public class SolutionComponentSpec {
 
             styledBuilder = StylizedComponent.applyStyles(actionBuilder.withLayout(), new HashMap<String, Object>());
         } else {
-            styledBuilder = ViewComponent.create(c).child(listRowBuilder);
+            styledBuilder = BaseViewComponent.create(c).child(listRowBuilder);
         }
 
         return styledBuilder.build();
@@ -76,12 +76,6 @@ public class SolutionComponentSpec {
         listStyles.put("padding", Configuration.metrics.marginL);
         listStyles.put("paddingTop", 4);
         listStyles.put("marginBottom", Configuration.metrics.margin);
-        /*
-        listStyles.put("shadowRadius", 2);
-        listStyles.put("shadowOpacity", 0.12);
-        listStyles.put("shadowOffset", new int[]{0, 0});
-        listStyles.put("shadowColor", Color.BLACK);
-        */
     }
 
     static Integer getWalkingDistance(List<Section> sections) {

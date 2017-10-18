@@ -11,7 +11,7 @@ import com.facebook.yoga.YogaJustify;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ModeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ class ModeIconComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
 
         builder.child(
             ModeComponent.create(c)

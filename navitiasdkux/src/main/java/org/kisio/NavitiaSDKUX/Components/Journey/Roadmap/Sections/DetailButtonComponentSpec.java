@@ -9,11 +9,10 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
 
-import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -31,7 +30,7 @@ class DetailButtonComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Boolean collapsed) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             HorizontalContainerComponent.create(c)
                 .styles(detailsHeaderContainerStyle)
                 .children(new Component<?>[] {

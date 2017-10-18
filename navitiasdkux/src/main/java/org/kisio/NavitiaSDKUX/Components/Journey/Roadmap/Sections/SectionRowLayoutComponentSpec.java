@@ -10,7 +10,7 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,19 +30,19 @@ public class SectionRowLayoutComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c).testKey(testKey);
 
-        final ComponentLayout.ContainerBuilder builderFirstComponent = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builderFirstComponent = BaseViewComponent.create(c);
         if (firstComponent != null) {
             builderFirstComponent.child(firstComponent);
         }
         builder.child(StylizedComponent.applyStyles(builderFirstComponent, firstComponentStyles));
 
-        final ComponentLayout.ContainerBuilder builderSecondComponent = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builderSecondComponent = BaseViewComponent.create(c);
         if (secondComponent != null) {
             builderSecondComponent.child(secondComponent);
         }
         builder.child(StylizedComponent.applyStyles(builderSecondComponent, secondComponentStyles));
 
-        final ComponentLayout.ContainerBuilder builderThirdComponent = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builderThirdComponent = BaseViewComponent.create(c);
         if (thirdComponent != null) {
             builderThirdComponent.child(thirdComponent);
         }

@@ -27,18 +27,14 @@ public class StopPointComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
-        @Prop SectionStopPointType sectionWay) {
+        @Prop SectionStopPointType sectionWay,
+        @Prop Integer color) {
 
         String stopPointLabel;
         if (sectionWay == SectionStopPointType.departure) {
             stopPointLabel = section.getFrom().getName();
         } else {
             stopPointLabel = section.getTo().getName();
-        }
-
-        String pointColor = "000000";
-        if (section.getType().contains("public_transport")) {
-            pointColor = section.getDisplayInformations().getColor();
         }
 
         final SectionRowLayoutComponent.Builder builder = SectionRowLayoutComponent.create(c)
@@ -49,7 +45,7 @@ public class StopPointComponentSpec {
                     .build())
             .secondComponent(
                 StopPointIconComponent.create(c)
-                    .color(pointColor)
+                    .color(color)
             )
             .thirdComponent(
                 PlaceComponent.create(c)

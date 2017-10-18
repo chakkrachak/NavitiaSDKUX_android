@@ -12,8 +12,7 @@ import com.facebook.yoga.YogaPositionType;
 
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
-import org.kisio.NavitiaSDKUX.Util.Color;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +25,11 @@ public class StopPointIconComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop String color,
+        @Prop Integer color,
         @Prop(optional = true) Integer outerFontSize,
         @Prop(optional = true) Integer innerFontSize) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
 
         builder
             .child(
@@ -44,11 +43,11 @@ public class StopPointIconComponentSpec {
         return styledBuilder.build();
     }
 
-    static private ComponentLayout.Builder getOuterCircleContainer(ComponentContext c, String color, Integer outerFontSize) {
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+    static private ComponentLayout.Builder getOuterCircleContainer(ComponentContext c, Integer color, Integer outerFontSize) {
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
 
         Map<String, Object> outerCircleStyle = new HashMap<>();
-        outerCircleStyle.put("color", Color.getColorFromHexadecimal(color));
+        outerCircleStyle.put("color", color);
         outerCircleStyle.put("fontSize", outerFontSize);
 
         builder.child(
@@ -61,7 +60,7 @@ public class StopPointIconComponentSpec {
     }
 
     static private ComponentLayout.Builder getInnerCircleContainer(ComponentContext c, Integer innerFontSize) {
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
 
         innerCircleStyle.put("fontSize", innerFontSize);
 

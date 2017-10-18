@@ -9,7 +9,7 @@ import com.facebook.yoga.YogaJustify;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -21,7 +21,7 @@ class ShimCardContentComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(ComponentContext c) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
         builder
             .child(
                 getJourneyHeaderComponent(c)
@@ -42,7 +42,7 @@ class ShimCardContentComponentSpec {
     }
 
     static ComponentLayout.ContainerBuilder getJourneyHeaderComponent(ComponentContext c) {
-        final ComponentLayout.ContainerBuilder durationBuilder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder durationBuilder = BaseViewComponent.create(c);
         durationBuilder
             .child(
                 ShimComponent.create(c)

@@ -18,7 +18,8 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DetailButtonCo
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Details.IntermediateStopPointComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
+import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,12 +48,12 @@ class DetailsComponentSpec {
         ComponentLayout.ContainerBuilder intermediateStopsComponent;
 
         if (collapsed) {
-            intermediateStopsComponent = ViewComponent.create(c);
+            intermediateStopsComponent = BaseViewComponent.create(c);
         } else {
             intermediateStopsComponent = getIntermediateStops(c, section);
         }
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ActionComponent.create(c).actionToCall(new Callable<Void>() { public Void call() {
                 DetailsComponent.updateCollapsedAsync(c);
                 return null;
@@ -77,7 +78,7 @@ class DetailsComponentSpec {
     }
 
     static ComponentLayout.ContainerBuilder getIntermediateStops(ComponentContext c, Section section) {
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
 
         int lastIndex = section.getStopDateTimes().size() - 1;
         int index = 0;
@@ -86,7 +87,7 @@ class DetailsComponentSpec {
                 builder.child(
                     IntermediateStopPointComponent.create(c)
                         .stopDateTime(stopDateTime)
-                        .color(section.getDisplayInformations().getColor())
+                        .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()))
                         .build()
                 );
             }
