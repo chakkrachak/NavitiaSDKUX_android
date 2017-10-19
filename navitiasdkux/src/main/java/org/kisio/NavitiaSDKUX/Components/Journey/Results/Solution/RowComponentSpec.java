@@ -38,11 +38,12 @@ public class RowComponentSpec {
         @Prop Integer totalDuration,
         @Prop Integer walkingDuration,
         @Prop Integer walkingDistance,
-        @Prop List<Section> sections) {
+        @Prop List<Section> sections,
+        @Prop Boolean hasArrow) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
         builder
-            .child(getHeaderComponent(c, departureTime, arrivalTime, totalDuration))
+            .child(getHeaderComponent(c, departureTime, arrivalTime, totalDuration, hasArrow))
             .child(SeparatorComponent.create(c))
             .child(
                 FriezeComponent.create(c)
@@ -57,7 +58,7 @@ public class RowComponentSpec {
         return styledBuilder.build();
     }
 
-    static ComponentLayout.ContainerBuilder getHeaderComponent(ComponentContext c, String departureTime, String arrivalTime, Integer totalDuration) {
+    static ComponentLayout.ContainerBuilder getHeaderComponent(ComponentContext c, String departureTime, String arrivalTime, Integer totalDuration, Boolean hasArrow) {
         final String timesText = Metrics.timeText(departureTime) + " - " + Metrics.timeText(arrivalTime);
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder
@@ -70,6 +71,7 @@ public class RowComponentSpec {
                 DurationComponent.create(c)
                     .seconds(totalDuration)
                     .styles(durationStyles)
+                    .hasArrow(hasArrow)
             );
 
         return StylizedComponent.applyStyles(builder, journeyHeaderStyles);
