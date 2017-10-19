@@ -3,8 +3,8 @@
     <string name="component.DateTimeButtonComponent.representation.departure">Depart :</string>
     <string name="screen.JourneySolutionsScreen.error">Aucun itinéraire trouvé</string>
     <string name="controller.JourneySolutionsController.title">Itinéraires</string>
-    <string name="component.JourneyWalkingAbstractComponent.walking">à pied</string>
-    <string name="component.JourneyWalkingAbstractComponent.With">Dont</string>
+    <string name="component.JourneyWalkingSummaryComponent.walking">à pied</string>
+    <string name="component.JourneyWalkingSummaryComponent.With">Dont</string>
     <string name="controller.JourneySolutionRoadmapController.title">Feuille de route</string>
     <string name="journey.roadmap.action.walk">de marche</string>
     <string name="journey.roadmap.action.wait">d\'attente</string>

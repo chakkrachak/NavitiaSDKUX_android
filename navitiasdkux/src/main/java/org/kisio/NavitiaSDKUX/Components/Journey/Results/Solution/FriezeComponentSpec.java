@@ -8,7 +8,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.Frieze.SectionAbstractComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.Frieze.SectionSummaryComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
@@ -54,8 +54,8 @@ public class FriezeComponentSpec {
         return StylizedComponent.applyStyles(builder, computedStyles);
     }
 
-    static SectionAbstractComponent.Builder getSectionComponents(ComponentContext c, Section section) {
-        return SectionAbstractComponent.create(c)
+    static SectionSummaryComponent.Builder getSectionComponents(ComponentContext c, Section section) {
+        return SectionSummaryComponent.create(c)
             .section(section);
     }
 
