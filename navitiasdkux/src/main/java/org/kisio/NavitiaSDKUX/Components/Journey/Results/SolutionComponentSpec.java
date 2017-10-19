@@ -51,6 +51,7 @@ public class SolutionComponentSpec {
                 .walkingDuration(journey.getDurations().getWalking())
                 .walkingDistance(getWalkingDistance(journey.getSections()))
                 .sections(journey.getSections())
+                .hasArrow(isTouchable)
                 .build()
         );
 

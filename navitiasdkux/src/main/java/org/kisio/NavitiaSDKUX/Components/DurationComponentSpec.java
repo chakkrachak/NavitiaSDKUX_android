@@ -26,13 +26,15 @@ import java.util.Map;
 public class DurationComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
     @PropDefault static final Integer seconds = 0;
+    @PropDefault static final Boolean hasArrow = false;
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop(optional = true) Integer seconds) {
+        @Prop(optional = true) Integer seconds,
+        @Prop(optional = true) Boolean hasArrow) {
 
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c).testKey(testKey);
 
@@ -54,15 +56,17 @@ public class DurationComponentSpec {
                 ).child(
                     TextComponent.create(c)
                         .text("min")
-                    .styles(abbrStyles)
+                        .styles(abbrStyles)
                 );
         }
 
-        builder.child(
-            IconComponent.create(c)
-                .name("arrow-right")
-                .styles(arrowStyles)
-        );
+        if (hasArrow) {
+            builder.child(
+                IconComponent.create(c)
+                    .name("arrow-right")
+                    .styles(arrowStyles)
+            );
+        }
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
