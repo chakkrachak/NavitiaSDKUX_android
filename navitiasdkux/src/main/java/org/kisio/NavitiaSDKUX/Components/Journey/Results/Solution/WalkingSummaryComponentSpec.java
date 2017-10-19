@@ -41,7 +41,7 @@ public class WalkingSummaryComponentSpec {
             )
             .child(
                 TextComponent.create(c)
-                    .text(" " + c.getString(R.string.component_JourneyWalkingSummaryComponent_walking) + " (" + Metrics.distanceText(distance) + ")")
+                    .text(" " + c.getString(R.string.component_JourneyWalkingSummaryComponent_walking) + " (" + Metrics.distanceText(c, distance) + ")")
             )
         ;
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
