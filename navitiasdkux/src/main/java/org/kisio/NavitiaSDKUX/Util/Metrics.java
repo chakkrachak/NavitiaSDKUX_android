@@ -7,6 +7,7 @@ import org.kisio.NavitiaSDKUX.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * NavitiaSDKUX_android
@@ -40,7 +41,9 @@ public class Metrics {
         if (meters < 1000) {
             return meters + " " + c.getString(R.string.units_meter_plural);
         } else {
-            return String.valueOf(meters / 1000) + " " + c.getString(R.string.units_kilometer_abbr);
+            Locale locale = Locale.getDefault();
+            String distance = String.format(locale, "%1$.1f", meters / 1000.f);
+            return distance + " " + c.getString(R.string.units_kilometer_abbr);
         }
     }
 
