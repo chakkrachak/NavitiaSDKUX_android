@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class SectionAbstractComponentSpec {
+public class SectionSummaryComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
@@ -61,7 +61,6 @@ public class SectionAbstractComponentSpec {
 
     static Map<String, Object> containerBaseStyles = new HashMap<>();
     static {
-        // containerBaseStyles.put("fontSize", 16);
         containerBaseStyles.put("marginEnd", Configuration.metrics.margin);
     }
 

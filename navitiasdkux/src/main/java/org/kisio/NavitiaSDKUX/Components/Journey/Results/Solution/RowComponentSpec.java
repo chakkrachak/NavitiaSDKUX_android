@@ -49,7 +49,7 @@ public class RowComponentSpec {
                     .sections(sections)
             )
             .child(
-                WalkingAbstractComponent.create(c)
+                WalkingSummaryComponent.create(c)
                     .distance(walkingDistance)
                     .duration(walkingDuration)
             );

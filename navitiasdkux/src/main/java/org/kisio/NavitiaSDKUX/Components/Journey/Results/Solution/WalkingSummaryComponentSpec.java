@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class WalkingAbstractComponentSpec {
+public class WalkingSummaryComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
@@ -32,7 +32,7 @@ public class WalkingAbstractComponentSpec {
         builder
             .child(
                 TextComponent.create(c)
-                    .text(c.getString(R.string.component_JourneyWalkingAbstractComponent_With) + " ")
+                    .text(c.getString(R.string.component_JourneyWalkingSummaryComponent_With) + " ")
             )
             .child(
                 TextComponent.create(c)
@@ -41,7 +41,7 @@ public class WalkingAbstractComponentSpec {
             )
             .child(
                 TextComponent.create(c)
-                    .text(" " + c.getString(R.string.component_JourneyWalkingAbstractComponent_walking) + " (" + Metrics.distanceText(c, distance) + ")")
+                    .text(" " + c.getString(R.string.component_JourneyWalkingSummaryComponent_walking) + " (" + Metrics.distanceText(c, distance) + ")")
             )
         ;
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
