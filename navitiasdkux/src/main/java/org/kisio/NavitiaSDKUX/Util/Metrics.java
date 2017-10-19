@@ -1,6 +1,9 @@
 package org.kisio.NavitiaSDKUX.Util;
 
+import com.facebook.litho.ComponentContext;
+
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,20 +36,20 @@ public class Metrics {
         return new SimpleDateFormat(pattern).format(datetime);
     }
 
-    public static String distanceText(Integer meters) {
+    public static String distanceText(ComponentContext c, Integer meters) {
         if (meters < 1000) {
-            return meters + "m";
+            return meters + " " + c.getString(R.string.units_meter_plural);
         } else {
-            return String.valueOf(meters / 1000) + " km";
+            return String.valueOf(meters / 1000) + " " + c.getString(R.string.units_kilometer_abbr);
         }
     }
 
-    public static String durationText(Integer seconds) {
+    public static String durationText(ComponentContext c, Integer seconds) {
         if (seconds < 60) {
-            return "< 1 min";
+            return "< 1 " + c.getString(R.string.units_minute);
         } else if (seconds < 3600) {
             Integer minutes = seconds / 60;
-            return String.valueOf(minutes) + " minutes";
+            return String.valueOf(minutes) + " " + c.getString(R.string.units_minute_plural);
         } else {
             Integer hours = seconds / 3600;
             Integer remainingMinutes = (seconds / 60) - (hours * 60);
@@ -54,7 +57,7 @@ public class Metrics {
             if (remainingMinutes < 10) {
                 minutes = "0" + String.valueOf(remainingMinutes);
             }
-            return String.valueOf(hours) + "h" + minutes;
+            return String.valueOf(hours) + c.getString(R.string.units_hour_abbr) + minutes;
         }
     }
 }

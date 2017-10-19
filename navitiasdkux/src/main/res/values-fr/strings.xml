@@ -7,9 +7,17 @@
     <string name="component.JourneyWalkingAbstractComponent.With">Dont</string>
     <string name="controller.JourneySolutionRoadmapController.title">Feuille de route</string>
     <string name="journey.roadmap.action.walk">de marche</string>
-    <string name="journey.roadmap.action.wait">d'attente</string>
+    <string name="journey.roadmap.action.wait">d\'attente</string>
+    <string name="units.hour">heure</string>
+    <string name="units.hour.plural">heures</string>
+    <string name="units.hour.abbr">h</string>
     <string name="units.minute">minute</string>
     <string name="units.minute.plural">minutes</string>
+    <string name="units.minute.abbr">min</string>
     <string name="units.meter">mètre</string>
     <string name="units.meter.plural">mètres</string>
+    <string naùe="units.meter.abbr">m</string>
+    <string name="units.kilometer">kilomètre</string>
+    <string name="units.kilometer.plural">kilomètres</string>
+    <string name="units.kilometer.abbr">km</string>
 </resources>

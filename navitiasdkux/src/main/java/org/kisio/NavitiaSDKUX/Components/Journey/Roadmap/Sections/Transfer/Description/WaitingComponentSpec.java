@@ -34,7 +34,7 @@ public class WaitingComponentSpec {
         return SectionRowLayoutComponent.create(c).thirdComponent(
             TextComponent.create(c)
                 .styles(containerStyles)
-                .text(Metrics.durationText(section.getDuration()) + " " + c.getString(R.string.journey_roadmap_action_wait))
+                .text(Metrics.durationText(c, section.getDuration()) + " " + c.getString(R.string.journey_roadmap_action_wait))
                 .build()
         ).buildWithLayout();
     }

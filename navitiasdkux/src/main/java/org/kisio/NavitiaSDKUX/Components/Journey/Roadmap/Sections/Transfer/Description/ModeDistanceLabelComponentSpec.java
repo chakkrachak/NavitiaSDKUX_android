@@ -30,7 +30,7 @@ public class ModeDistanceLabelComponentSpec {
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
-        final String timeLabel = Metrics.durationText(section.getDuration());
+        final String timeLabel = Metrics.durationText(c, section.getDuration());
 
         builder
             .child(

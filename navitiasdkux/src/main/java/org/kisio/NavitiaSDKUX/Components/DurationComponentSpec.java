@@ -38,7 +38,7 @@ public class DurationComponentSpec {
 
 
         if (seconds >= 3600) {
-            final String text = Metrics.durationText(seconds);
+            final String text = Metrics.durationText(c, seconds);
             builder
                 .child(
                     TextComponent.create(c)
