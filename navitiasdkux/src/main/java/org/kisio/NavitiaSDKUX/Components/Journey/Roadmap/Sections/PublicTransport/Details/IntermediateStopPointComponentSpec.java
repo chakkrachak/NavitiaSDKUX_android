@@ -13,7 +13,7 @@ import org.kisio.NavitiaSDK.models.StopDateTime;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.StopPointIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -31,9 +31,9 @@ class IntermediateStopPointComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop StopDateTime stopDateTime,
-        @Prop String color) {
+        @Prop Integer color) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
 
         builder.child(
             SectionRowLayoutComponent.create(c)

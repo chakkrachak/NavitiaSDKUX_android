@@ -14,7 +14,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.SectionComponent;
 import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -30,7 +30,7 @@ public class JourneySolutionRoadmapScreenSpec {
         ComponentContext c,
         @Prop Journey journey) {
 
-        return ViewComponent.create(c).testKey("roadmap").child(
+        return BaseViewComponent.create(c).testKey("roadmap").child(
             ContainerComponent.create(c)
                 .styles(headerStyles)
                 .children(new Component<?>[]{})
@@ -57,12 +57,17 @@ public class JourneySolutionRoadmapScreenSpec {
 
         int index = 0;
         for (Section section : journey.getSections()) {
-            components.add(ListRowComponent.create(c).child(
-                SectionComponent.create(c)
+            if (!section.getType().contains("waiting") && !section.getType().contains("crow_fly")) {
+                SectionComponent.Builder sectionComponentBuilder = SectionComponent.create(c)
                     .key("journey_roadmap_section_" + index)
-                    .section(section)
-                    .build()
-            ).build());
+                    .section(section);
+                if (section.getType().contains("transfer")) {
+                    sectionComponentBuilder.destinationSection(journey.getSections().get(index + 1));
+                }
+                components.add(ListRowComponent.create(c).child(
+                    sectionComponentBuilder.build()
+                ).build());
+            }
             index++;
         }
 

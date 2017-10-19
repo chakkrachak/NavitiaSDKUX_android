@@ -12,7 +12,7 @@ import org.kisio.NavitiaSDKUX.Components.LineCodeComponent;
 import org.kisio.NavitiaSDKUX.Components.ModeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class SectionAbstractComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
         Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
         containerStyles.put("flexGrow", section.getDuration());
         builder

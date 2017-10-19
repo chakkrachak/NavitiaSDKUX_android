@@ -9,7 +9,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class ContainerComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) Component<?>[] children) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
 
         if (children != null) {
             for (Component<?> child : children) {

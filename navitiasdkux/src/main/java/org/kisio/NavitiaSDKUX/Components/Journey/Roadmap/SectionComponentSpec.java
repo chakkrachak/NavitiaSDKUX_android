@@ -16,7 +16,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DefaultCompone
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransportComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.TransferComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -24,26 +24,27 @@ import java.util.Map;
 
 @LayoutSpec
 public class SectionComponentSpec {
-    @PropDefault
-    static final Map<String, Object> styles = new HashMap<>();
+    @PropDefault static final Map<String, Object> styles = new HashMap<>();
+    @PropDefault static final Section destinationSection = null;
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop(optional = true) Section destinationSection) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section)
+                getTypedSectionComponent(c, section, destinationSection)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
@@ -52,6 +53,7 @@ public class SectionComponentSpec {
             case "transfer":
                 return TransferComponent.create(c)
                     .section(section)
+                    .waitingSection(destinationSection)
                     .build();
             default:
                 return DefaultComponent.create(c)
@@ -63,8 +65,7 @@ public class SectionComponentSpec {
     static Map<String, Object> containerStyles = new HashMap<>();
     static {
         containerStyles.put("backgroundColor", Color.WHITE);
-        containerStyles.put("padding", 0);
-        containerStyles.put("paddingTop", 4);
-        containerStyles.put("marginBottom", Configuration.metrics.margin);
+        containerStyles.put("paddingHorizontal", 4);
+        containerStyles.put("paddingVertical", 4);
     }
 }

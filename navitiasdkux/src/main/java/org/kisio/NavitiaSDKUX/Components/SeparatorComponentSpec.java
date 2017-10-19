@@ -8,7 +8,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class SeparatorComponentSpec {
         ComponentContext c,
         @Prop(optional = true) Map<String, Object> styles) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(lineStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();

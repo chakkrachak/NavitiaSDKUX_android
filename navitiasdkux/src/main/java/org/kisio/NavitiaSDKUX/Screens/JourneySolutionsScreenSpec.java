@@ -25,7 +25,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Results.FormComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.LoadingComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -112,7 +112,7 @@ public class JourneySolutionsScreenSpec {
             };
         }
 
-        return ViewComponent.create(c)
+        return BaseViewComponent.create(c)
             .child(
                 ScreenHeaderComponent.create(c)
                     .styles(headerStyles)

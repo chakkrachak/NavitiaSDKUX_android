@@ -11,7 +11,7 @@ import com.facebook.yoga.YogaAlign;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ButtonComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class AutocompleteInputComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder.child(
-            ViewComponent.create(c)
+            BaseViewComponent.create(c)
                 .child(
                     AutocompleteInputComponentSpec.getRowComponent(c, icon, iconColor, placeName)
                 )
@@ -76,7 +76,7 @@ public class AutocompleteInputComponentSpec {
     static ComponentLayout.Builder getLabelComponent(ComponentContext c, String placeName) {
         final PlaceComponent.Builder labelBuilder = PlaceComponent.create(c);
 
-        return ViewComponent.create(c)
+        return BaseViewComponent.create(c)
             .child(
                 labelBuilder.name(placeName)
             );

@@ -14,8 +14,8 @@ import com.facebook.litho.ComponentLayout;
  * Copyright © 2017 Kisio. All rights reserved.
  */
 
-public class ViewComponent {
-    private ViewComponent() {
+public class BaseViewComponent {
+    private BaseViewComponent() {
     }
 
     public static ComponentLayout.ContainerBuilder create(

@@ -15,7 +15,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.Pl
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.DetailsComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.DescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class PublicTransportComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             PlainComponent.create(c)
                 .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()))
                 .build()
@@ -41,6 +41,7 @@ public class PublicTransportComponentSpec {
             SectionLayoutComponent.create(c)
                 .header(
                     StopPointComponent.create(c)
+                        .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()))
                         .section(section)
                         .sectionWay(SectionStopPointType.departure)
                 )
@@ -58,6 +59,7 @@ public class PublicTransportComponentSpec {
                 )
                 .footer(
                     StopPointComponent.create(c)
+                        .color(Color.getColorFromHexadecimal(section.getDisplayInformations().getColor()))
                         .section(section)
                         .sectionWay(SectionStopPointType.arrival)
                 )
