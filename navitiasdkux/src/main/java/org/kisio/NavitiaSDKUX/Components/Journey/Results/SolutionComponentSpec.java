@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import static org.kisio.NavitiaSDKUX.Util.Metrics.sectionLength;
+
 @LayoutSpec
 public class SolutionComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
@@ -83,9 +85,7 @@ public class SolutionComponentSpec {
         int distance = 0;
         for (Section section : sections) {
             if (section.getType().equals("street_network") && section.getMode().equals("walking")) {
-                for (Path segment : section.getPath()) {
-                    distance += segment.getLength();
-                }
+                distance += sectionLength(section.getPath());
             }
         }
         return distance;

@@ -20,4 +20,8 @@
     <string name="units.kilometer">kilomètre</string>
     <string name="units.kilometer.plural">kilomètres</string>
     <string name="units.kilometer.abbr">km</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.walking">à pied</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">en vélo</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">en voiture</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">en %s</string>
 </resources>

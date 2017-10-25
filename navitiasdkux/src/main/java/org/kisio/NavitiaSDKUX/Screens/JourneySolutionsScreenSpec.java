@@ -33,6 +33,7 @@ import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -195,6 +196,8 @@ public class JourneySolutionsScreenSpec {
                 .withFrom(originId)
                 .withTo(destinationId)
                 .withDatetime(Metrics.getIsoDatetime(datetime))
+                .withFirstSectionMode(Arrays.asList("bike"))
+                .withLastSectionMode(Arrays.asList("car"))
                 .get(new ApiCallback<Journeys>() {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {

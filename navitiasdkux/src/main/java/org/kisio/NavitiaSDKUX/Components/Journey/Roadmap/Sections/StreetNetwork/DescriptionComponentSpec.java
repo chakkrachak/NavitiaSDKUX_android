@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -10,9 +10,9 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description.ModeDurationLabelComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.Description.ModeDistanceLabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class DescriptionComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
             SectionRowLayoutComponent.create(c)
                 .styles(containerStyles)
                 .firstComponent(
@@ -37,7 +37,7 @@ public class DescriptionComponentSpec {
                         .section(section)
                         .build())
                 .thirdComponent(
-                    ModeDurationLabelComponent.create(c)
+                    ModeDistanceLabelComponent.create(c)
                         .section(section)
                         .build())
         );

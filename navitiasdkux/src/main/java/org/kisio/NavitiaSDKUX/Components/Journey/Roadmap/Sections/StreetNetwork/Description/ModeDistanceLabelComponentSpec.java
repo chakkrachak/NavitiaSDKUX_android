@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.Description;
 
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -9,7 +9,7 @@ import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
@@ -29,13 +29,12 @@ public class ModeDistanceLabelComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section) {
 
-        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c);
-        final String timeLabel = Metrics.durationText(c, section.getDuration());
+        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c);
 
         builder
             .child(
                 TextComponent.create(c)
-                    .text(timeLabel + " " + c.getString(R.string.journey_roadmap_action_walk))
+                    .text(getDistanceLabel(c, section))
                     .styles(labelStyles));
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
@@ -46,5 +45,27 @@ public class ModeDistanceLabelComponentSpec {
     static {
         labelStyles.put("fontSize", 15);
         labelStyles.put("color", Configuration.colors.getDarkGray());
+    }
+
+    private static String getDistanceLabel(ComponentContext c, Section section) {
+        String distanceLabel = Metrics.distanceText(Metrics.sectionLength(section.getPath()));
+        switch (section.getMode()) {
+            case "walking":
+                distanceLabel += " " + c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_walking);
+                break;
+            case "bike":
+                distanceLabel += " " + c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_bike);
+                break;
+            case "car":
+                distanceLabel += " " + c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_car);
+                break;
+            case "bss":
+                final String template = c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_bss);
+                distanceLabel += " " + String.format(template, section);
+                break;
+            default:
+                break;
+        }
+        return distanceLabel;
     }
 }
