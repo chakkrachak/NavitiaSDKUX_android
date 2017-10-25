@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.kisio.sdk:navitia-sdk:0.2.0'
+    compile 'org.kisio.sdk:navitia-sdk:0.3.0'
 
     // Litho
     compile 'com.facebook.litho:litho-core:0.6.1'

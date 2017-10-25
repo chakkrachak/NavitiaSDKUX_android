@@ -16,6 +16,7 @@ import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Descr
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
@@ -46,13 +47,13 @@ public class TransferComponentSpec {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             DottedComponent.create(c)
-                .color(Color.getColorFromHexadecimal("888888"))
+                .color(Configuration.colors.getGray())
                 .build()
         ).child(
             SectionLayoutComponent.create(c)
                 .header(
                     StopPointComponent.create(c)
-                        .color(Color.getColorFromHexadecimal("888888"))
+                        .color(Configuration.colors.getGray())
                         .section(section)
                         .sectionWay(SectionStopPointType.departure)
                         .build()
@@ -68,7 +69,7 @@ public class TransferComponentSpec {
                 )
                 .footer(
                     StopPointComponent.create(c)
-                        .color(Color.getColorFromHexadecimal("888888"))
+                        .color(Configuration.colors.getGray())
                         .section(section)
                         .sectionWay(SectionStopPointType.arrival)
                         .build()

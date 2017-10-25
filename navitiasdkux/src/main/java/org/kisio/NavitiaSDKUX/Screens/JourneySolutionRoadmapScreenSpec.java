@@ -17,6 +17,8 @@ import org.kisio.NavitiaSDKUX.Components.ListViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,12 +59,20 @@ public class JourneySolutionRoadmapScreenSpec {
 
         int index = 0;
         for (Section section : journey.getSections()) {
-            if (!section.getType().contains("waiting") && !section.getType().contains("crow_fly")) {
+            if (!section.getType().equals("waiting") && !section.getType().equals("crow_fly")) {
                 SectionComponent.Builder sectionComponentBuilder = SectionComponent.create(c)
                     .key("journey_roadmap_section_" + index)
                     .section(section);
-                if (section.getType().contains("transfer")) {
+                if (section.getType().equals("transfer")) {
                     sectionComponentBuilder.destinationSection(journey.getSections().get(index + 1));
+                } else if (section.getType().equals("street_network")) {
+                    String mode = section.getMode();
+                    String network = null;
+                    if (section.getFrom().getPoi() != null && section.getFrom().getPoi().getProperties().containsKey("network")) {
+                        network = section.getFrom().getPoi().getProperties().get("network");
+                    }
+                    Integer distance = Metrics.sectionLength(section.getPath());
+                    sectionComponentBuilder.description(getDistanceLabel(c, network, mode, distance));
                 }
                 components.add(ListRowComponent.create(c).child(
                     sectionComponentBuilder.build()
@@ -72,6 +82,35 @@ public class JourneySolutionRoadmapScreenSpec {
         }
 
         return components.toArray(new Component<?>[components.size()]);
+    }
+
+    private static String getDistanceLabel(ComponentContext c, String network, String mode, Integer distance) {
+        String distanceText = Metrics.distanceText(c, distance);
+        String distanceLabel = "";
+
+        switch (mode) {
+            case "walking":
+                final String walkingStringTemplate = c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_walking);
+                distanceLabel += String.format(walkingStringTemplate, distanceText);
+                break;
+            case "bike":
+                if (network == null) {
+                    final String bikeStringTemplate = c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_bike);
+                    distanceLabel += String.format(bikeStringTemplate, distanceText);
+                } else {
+                    final String bssStringTemplate = c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_bss);
+                    distanceLabel += String.format(bssStringTemplate, distanceText, network);
+                }
+                break;
+            case "car":
+                final String carStringTemplate = c.getString(R.string.component_Journey_Roadmap_Sections_StreetNetwork_Description_mode_car);
+                distanceLabel += String.format(carStringTemplate, distanceText);
+                break;
+            default:
+                break;
+        }
+
+        return distanceLabel;
     }
 
     static Map<String, Object> headerStyles = new HashMap<>();

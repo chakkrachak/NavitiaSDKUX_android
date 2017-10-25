@@ -2,6 +2,8 @@ package org.kisio.NavitiaSDKUX.Util;
 
 import com.facebook.litho.ComponentContext;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
@@ -26,16 +28,10 @@ public class Metrics {
         return hours + ":" + minutes;
     }
 
-    public static String longDateText(Date datetime) {
+    public static String longDateText(DateTime datetime) {
         String pattern = Configuration.metrics.longDateFormat;
 
-        return new SimpleDateFormat(pattern).format(datetime);
-    }
-
-    public static String getIsoDatetime(Date datetime) {
-        String pattern = "yyyyMMdd'T'HHmmss";
-
-        return new SimpleDateFormat(pattern).format(datetime);
+        return DateTimeFormat.forPattern(pattern).print(datetime);
     }
 
     public static String distanceText(ComponentContext c, Integer meters) {

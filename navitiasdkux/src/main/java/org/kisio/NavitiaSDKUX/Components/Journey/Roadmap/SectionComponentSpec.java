@@ -34,18 +34,19 @@ public class SectionComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
-        @Prop(optional = true) Section destinationSection) {
+        @Prop(optional = true) Section destinationSection,
+        @Prop(optional = true) String description) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section, destinationSection)
+                getTypedSectionComponent(c, section, destinationSection, description)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection, String description) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
@@ -54,6 +55,7 @@ public class SectionComponentSpec {
             case "street_network":
                 return StreetNetworkComponent.create(c)
                     .section(section)
+                    .description(description)
                     .build();
             case "transfer":
                 return TransferComponent.create(c)

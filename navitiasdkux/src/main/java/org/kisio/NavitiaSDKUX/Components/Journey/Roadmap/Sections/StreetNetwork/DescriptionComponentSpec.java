@@ -10,9 +10,10 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.Description.ModeDistanceLabelComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
+import org.kisio.NavitiaSDKUX.Components.TextComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +28,10 @@ public class DescriptionComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop String description) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             SectionRowLayoutComponent.create(c)
                 .styles(containerStyles)
                 .firstComponent(
@@ -37,8 +39,9 @@ public class DescriptionComponentSpec {
                         .section(section)
                         .build())
                 .thirdComponent(
-                    ModeDistanceLabelComponent.create(c)
-                        .section(section)
+                    TextComponent.create(c)
+                        .text(description)
+                        .styles(labelStyles)
                         .build())
         );
 
@@ -50,5 +53,11 @@ public class DescriptionComponentSpec {
     static {
         containerStyles.put("paddingHorizontal", 4);
         containerStyles.put("paddingVertical", 24);
+    }
+
+    static Map<String, Object> labelStyles = new HashMap<>();
+    static {
+        labelStyles.put("fontSize", 15);
+        labelStyles.put("color", Configuration.colors.getDarkGray());
     }
 }

@@ -11,8 +11,8 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent;
+import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -28,9 +28,10 @@ public class StreetNetworkComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop String description) {
 
-        final ComponentLayout.ContainerBuilder builder = ViewComponent.create(c).testKey(testKey).child(
+        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             DottedComponent.create(c)
                 .color(Configuration.colors.getGray())
                 .build()
@@ -39,17 +40,20 @@ public class StreetNetworkComponentSpec {
                 .header(
                     StopPointComponent.create(c)
                         .section(section)
+                        .color(Configuration.colors.getGray())
                         .sectionWay(SectionStopPointType.departure)
                         .build()
                 )
                 .body(
                     DescriptionComponent.create(c)
                         .section(section)
+                        .description(description)
                         .build()
                 )
                 .footer(
                     StopPointComponent.create(c)
                         .section(section)
+                        .color(Configuration.colors.getGray())
                         .sectionWay(SectionStopPointType.arrival)
                         .build()
                 )
