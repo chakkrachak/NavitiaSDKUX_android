@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections;
 
+import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -11,8 +12,7 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
+import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -31,35 +31,37 @@ public class StreetNetworkComponentSpec {
         @Prop Section section,
         @Prop String description) {
 
-        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
-            DottedComponent.create(c)
-                .color(Configuration.colors.getGray())
-                .build()
-        ).child(
-            SectionLayoutComponent.create(c)
-                .header(
-                    StopPointComponent.create(c)
-                        .section(section)
-                        .color(Configuration.colors.getGray())
-                        .sectionWay(SectionStopPointType.departure)
-                        .build()
-                )
-                .body(
-                    DescriptionComponent.create(c)
-                        .section(section)
-                        .description(description)
-                        .build()
-                )
-                .footer(
-                    StopPointComponent.create(c)
-                        .section(section)
-                        .color(Configuration.colors.getGray())
-                        .sectionWay(SectionStopPointType.arrival)
-                        .build()
-                )
-        );
+        final ViewComponent.Builder builder = ViewComponent.create(c)
+            .testKey(testKey)
+            .styles(styles)
+            .children(new Component<?>[]{
+                DottedComponent.create(c)
+                    .color(Configuration.colors.getGray())
+                    .build(),
+                SectionLayoutComponent.create(c)
+                    .header(
+                        StopPointComponent.create(c)
+                            .section(section)
+                            .color(Configuration.colors.getGray())
+                            .sectionWay(SectionStopPointType.departure)
+                            .build()
+                    )
+                    .body(
+                        DescriptionComponent.create(c)
+                            .section(section)
+                            .description(description)
+                            .build()
+                    )
+                    .footer(
+                        StopPointComponent.create(c)
+                            .section(section)
+                            .color(Configuration.colors.getGray())
+                            .sectionWay(SectionStopPointType.arrival)
+                            .build()
+                    )
+                    .build()
+            });
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
-        return styledBuilder.build();
+        return builder.buildWithLayout();
     }
 }

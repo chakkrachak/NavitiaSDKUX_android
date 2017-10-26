@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork;
 
+import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -10,9 +11,8 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
+import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
@@ -31,22 +31,25 @@ public class DescriptionComponentSpec {
         @Prop Section section,
         @Prop String description) {
 
-        final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
-            SectionRowLayoutComponent.create(c)
-                .styles(containerStyles)
-                .firstComponent(
-                    ModeIconComponent.create(c)
-                        .section(section)
-                        .build())
-                .thirdComponent(
-                    TextComponent.create(c)
-                        .text(description)
-                        .styles(labelStyles)
-                        .build())
-        );
+        final ViewComponent.Builder builder = ViewComponent.create(c)
+            .testKey(testKey)
+            .styles(styles)
+            .children(new Component<?>[]{
+                SectionRowLayoutComponent.create(c)
+                    .styles(containerStyles)
+                    .firstComponent(
+                        ModeIconComponent.create(c)
+                            .section(section)
+                            .build())
+                    .thirdComponent(
+                        TextComponent.create(c)
+                            .text(description)
+                            .styles(labelStyles)
+                            .build())
+                    .build()
+            });
 
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
-        return styledBuilder.build();
+        return builder.buildWithLayout();
     }
 
     static Map<String, Object> containerStyles = new HashMap<>();

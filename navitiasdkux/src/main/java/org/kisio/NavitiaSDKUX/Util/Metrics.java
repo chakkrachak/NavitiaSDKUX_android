@@ -38,7 +38,7 @@ public class Metrics {
         if (meters < 1000) {
             return meters + " " + c.getString(R.string.units_meter_plural);
         } else {
-            return String.format("%.1f", (double) meters / 1000) + " " + c.getString(R.string.units_kilometer_abbr);
+            return String.format("%.1f", meters / 1000.f) + " " + c.getString(R.string.units_kilometer_abbr);
         }
     }
 
