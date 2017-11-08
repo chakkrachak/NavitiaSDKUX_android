@@ -36,7 +36,7 @@ public class WalkingSummaryComponentSpec {
             )
             .child(
                 TextComponent.create(c)
-                    .text(String.valueOf(duration / 60) + " minutes")
+                    .text(Metrics.durationText(c, duration))
                     .styles(durationStyles)
             )
             .child(
