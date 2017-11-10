@@ -197,8 +197,8 @@ public class JourneySolutionsScreenSpec {
                 .withFrom(originId)
                 .withTo(destinationId)
                 .withDatetime(datetime)
-                .withFirstSectionMode(Arrays.asList("bss"))
-                .withLastSectionMode(Arrays.asList("bike"))
+                .withFirstSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
+                .withLastSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
                 .get(new ApiCallback<Journeys>() {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
