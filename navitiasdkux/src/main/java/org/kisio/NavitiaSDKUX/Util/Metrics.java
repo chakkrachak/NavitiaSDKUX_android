@@ -45,6 +45,8 @@ public class Metrics {
     public static String durationText(ComponentContext c, Integer seconds) {
         if (seconds < 60) {
             return "< 1 " + c.getString(R.string.units_minute);
+        } else if (seconds < 120) {
+            return "1 " + c.getString(R.string.units_minute);
         } else if (seconds < 3600) {
             Integer minutes = seconds / 60;
             return String.valueOf(minutes) + " " + c.getString(R.string.units_minute_plural);
