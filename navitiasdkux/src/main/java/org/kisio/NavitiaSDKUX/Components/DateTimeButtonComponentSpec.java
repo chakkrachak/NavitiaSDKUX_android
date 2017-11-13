@@ -9,6 +9,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 import com.facebook.litho.widget.Text;
 
+import org.joda.time.DateTime;
 import org.kisio.NavitiaSDKUX.Components.Primitive.ButtonComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.LabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
@@ -35,21 +36,22 @@ public class DateTimeButtonComponentSpec {
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
-        @Prop(optional = true) Map<String, Object> styles) {
+        @Prop(optional = true) Map<String, Object> styles,
+        @Prop DateTime datetime) {
 
         final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder
             .child(
-                DateTimeButtonComponentSpec.getLabelComponent(c)
+                DateTimeButtonComponentSpec.getLabelComponent(c, datetime)
             );
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(buttonStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
     }
 
-    static ComponentLayout.Builder getLabelComponent(ComponentContext c) {
+    static ComponentLayout.Builder getLabelComponent(ComponentContext c, DateTime datetime) {
         Text.Builder builder = LabelComponent.create(c)
-            .text(c.getString(R.string.component_DateTimeButtonComponent_representation_departure) + " " + Metrics.longDateText(new Date()));
+            .text(c.getString(R.string.component_DateTimeButtonComponent_representation_departure) + " " + Metrics.longDateText(datetime));
 
         return StylizedComponent.applyStyles(builder, textStyles);
     }

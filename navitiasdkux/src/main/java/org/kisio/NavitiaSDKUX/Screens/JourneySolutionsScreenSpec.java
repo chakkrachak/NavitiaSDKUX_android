@@ -12,6 +12,7 @@ import com.facebook.litho.annotations.Param;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.State;
 
+import org.joda.time.DateTime;
 import org.kisio.NavitiaSDK.NavitiaConfiguration;
 import org.kisio.NavitiaSDK.NavitiaSDK;
 import org.kisio.NavitiaSDK.invokers.ApiCallback;
@@ -30,10 +31,9 @@ import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
-import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +57,7 @@ public class JourneySolutionsScreenSpec {
         StateValue<Journeys> journeys,
         StateValue<Boolean> loaded,
         StateValue<Boolean> error,
-        StateValue<Date> datetime,
+        StateValue<DateTime> datetime,
         @Prop(optional = true) String initOrigin,
         @Prop String initOriginId,
         @Prop(optional = true) String initDestination,
@@ -69,7 +69,7 @@ public class JourneySolutionsScreenSpec {
         destinationId.set(initDestinationId);
         loaded.set(false);
         error.set(false);
-        datetime.set(new Date());
+        datetime.set(new DateTime());
 
         final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration(Configuration.token);
         try {
@@ -89,7 +89,7 @@ public class JourneySolutionsScreenSpec {
         @State String originId,
         @State String destination,
         @State String destinationId,
-        @State Date datetime,
+        @State DateTime datetime,
         @State Journeys journeys,
         @State Boolean loaded,
         @State Boolean error) {
@@ -123,7 +123,9 @@ public class JourneySolutionsScreenSpec {
                                 .origin(origin.isEmpty()? originId : origin)
                                 .destination(destination.isEmpty()? destinationId : destination)
                                 .build(),
-                            DateTimeButtonComponent.create(c).build(),
+                            DateTimeButtonComponent.create(c)
+                                .datetime(datetime)
+                                .build(),
                         }).build()
                     })
             )
@@ -189,12 +191,14 @@ public class JourneySolutionsScreenSpec {
 
     // Http
 
-    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, String originId, String destinationId, Date datetime) {
+    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, String originId, String destinationId, DateTime datetime) {
         try {
             navitiaSDK.journeysApi.newJourneysRequestBuilder()
                 .withFrom(originId)
                 .withTo(destinationId)
-                .withDatetime(Metrics.getIsoDatetime(datetime))
+                .withDatetime(datetime)
+                .withFirstSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
+                .withLastSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
                 .get(new ApiCallback<Journeys>() {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {

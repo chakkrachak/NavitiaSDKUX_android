@@ -2,11 +2,15 @@ package org.kisio.NavitiaSDKUX.Util;
 
 import com.facebook.litho.ComponentContext;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * NavitiaSDKUX_android
@@ -24,23 +28,17 @@ public class Metrics {
         return hours + ":" + minutes;
     }
 
-    public static String longDateText(Date datetime) {
+    public static String longDateText(DateTime datetime) {
         String pattern = Configuration.metrics.longDateFormat;
 
-        return new SimpleDateFormat(pattern).format(datetime);
-    }
-
-    public static String getIsoDatetime(Date datetime) {
-        String pattern = "yyyyMMdd'T'HHmmss";
-
-        return new SimpleDateFormat(pattern).format(datetime);
+        return DateTimeFormat.forPattern(pattern).print(datetime);
     }
 
     public static String distanceText(ComponentContext c, Integer meters) {
         if (meters < 1000) {
             return meters + " " + c.getString(R.string.units_meter_plural);
         } else {
-            return String.valueOf(meters / 1000) + " " + c.getString(R.string.units_kilometer_abbr);
+            return String.format("%.1f", meters / 1000.f) + " " + c.getString(R.string.units_kilometer_abbr);
         }
     }
 
@@ -59,5 +57,15 @@ public class Metrics {
             }
             return String.valueOf(hours) + c.getString(R.string.units_hour_abbr) + minutes;
         }
+    }
+
+    public static Integer sectionLength(List<Path> paths) {
+        int distance = 0;
+
+        for (Path segment : paths) {
+            distance += segment.getLength();
+        }
+
+        return distance;
     }
 }

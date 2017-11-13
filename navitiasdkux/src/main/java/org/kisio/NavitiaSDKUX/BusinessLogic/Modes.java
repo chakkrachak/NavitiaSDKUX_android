@@ -21,6 +21,8 @@ public class Modes {
                 return section.getTransferType();
             case "waiting":
                 return section.getType();
+            case "street_network":
+                return getStreetNetworkMode(section).toLowerCase();
             default:
                 return section.getMode();
         }
@@ -30,6 +32,16 @@ public class Modes {
         final String id = getPhysicalModeId(section.getLinks());
         final String[] modeData = id.split(":");
         return (modeData.length > 1) ? modeData[1] : "";
+    }
+
+    private static String getStreetNetworkMode(Section section) {
+        if (section.getMode().equals("bike")) {
+            if (section.getFrom().getPoi() != null && section.getFrom().getPoi().getProperties().containsKey("network")) {
+                return "bss";
+            }
+        }
+
+        return section.getMode();
     }
 
     private static String getPhysicalModeId(List<LinkSchema> links) {

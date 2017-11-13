@@ -14,6 +14,7 @@ import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DefaultComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransportComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetworkComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.TransferComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
@@ -33,22 +34,28 @@ public class SectionComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
-        @Prop(optional = true) Section destinationSection) {
+        @Prop(optional = true) Section destinationSection,
+        @Prop(optional = true) String description) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section, destinationSection)
+                getTypedSectionComponent(c, section, destinationSection, description)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection, String description) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
                     .section(section)
+                    .build();
+            case "street_network":
+                return StreetNetworkComponent.create(c)
+                    .section(section)
+                    .description(description)
                     .build();
             case "transfer":
                 return TransferComponent.create(c)

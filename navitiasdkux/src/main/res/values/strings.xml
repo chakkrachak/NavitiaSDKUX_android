@@ -19,4 +19,8 @@
     <string name="units.kilometer">kilometer</string>
     <string name="units.kilometer.plural">kilometers</string>
     <string name="units.kilometer.abbr">km</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.walking">A %s walk</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">A %s ride</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">A %s drive</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">A %s ride on a %s</string>
 </resources>

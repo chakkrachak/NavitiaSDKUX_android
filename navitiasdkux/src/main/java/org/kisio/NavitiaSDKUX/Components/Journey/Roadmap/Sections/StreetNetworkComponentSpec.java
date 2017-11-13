@@ -11,10 +11,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.LineDiagram.DottedComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description.WaitingComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.DescriptionComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
-import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetwork.DescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
@@ -22,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class TransferComponentSpec {
-    @PropDefault static final Map<String, Object> styles = new HashMap<>();
-    @PropDefault static final Section waitingSection = null;
+public class StreetNetworkComponentSpec {
+    @PropDefault
+    static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
@@ -32,17 +29,7 @@ public class TransferComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
-        @Prop(optional = true) Section waitingSection) {
-
-        Component<?> waitingComponent;
-        if (waitingSection != null) {
-            waitingComponent = WaitingComponent.create(c)
-                .section(waitingSection)
-                .build();
-        } else {
-            waitingComponent = ViewComponent.create(c)
-                .build();
-        }
+        @Prop String description) {
 
         final ViewComponent.Builder builder = ViewComponent.create(c)
             .testKey(testKey)
@@ -54,24 +41,21 @@ public class TransferComponentSpec {
                 SectionLayoutComponent.create(c)
                     .header(
                         StopPointComponent.create(c)
-                            .color(Configuration.colors.getGray())
                             .section(section)
+                            .color(Configuration.colors.getGray())
                             .sectionWay(SectionStopPointType.departure)
                             .build()
                     )
                     .body(
-                        ViewComponent.create(c)
-                            .children(new Component<?>[]{
-                                DescriptionComponent.create(c)
-                                    .section(section)
-                                    .build(),
-                                waitingComponent
-                            })
+                        DescriptionComponent.create(c)
+                            .section(section)
+                            .description(description)
+                            .build()
                     )
                     .footer(
                         StopPointComponent.create(c)
-                            .color(Configuration.colors.getGray())
                             .section(section)
+                            .color(Configuration.colors.getGray())
                             .sectionWay(SectionStopPointType.arrival)
                             .build()
                     )

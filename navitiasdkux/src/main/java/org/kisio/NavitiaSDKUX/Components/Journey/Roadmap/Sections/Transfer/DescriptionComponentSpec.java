@@ -10,7 +10,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description.ModeDistanceLabelComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description.ModeDurationLabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
@@ -37,7 +37,7 @@ public class DescriptionComponentSpec {
                         .section(section)
                         .build())
                 .thirdComponent(
-                    ModeDistanceLabelComponent.create(c)
+                    ModeDurationLabelComponent.create(c)
                         .section(section)
                         .build())
         );
