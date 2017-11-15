@@ -9,6 +9,7 @@ import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,29 @@ import java.util.List;
  */
 
 public class Metrics {
+    public static Date navitiaDate(String isoString) {
+        final String[] timeData = isoString.split("T");
+        final String year = timeData[0].substring(0, 4);
+        final String month = timeData[0].substring(4, 6);
+        final String day = timeData[0].substring(6, 8);
+        final String hours = timeData[1].substring(0, 2);
+        final String minutes = timeData[1].substring(2, 4);
+        final String seconds = timeData[1].substring(4, 6);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, Integer.valueOf(year));
+        cal.set(Calendar.MONTH, Integer.valueOf(month) - 1);
+        cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(day));
+        cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(hours));
+        cal.set(Calendar.MINUTE, Integer.valueOf(minutes));
+        cal.set(Calendar.SECOND, Integer.valueOf(seconds));
+        cal.set(Calendar.MILLISECOND, 0);
+
+        Date converted = cal.getTime();
+
+        return converted;
+    }
+
     public static String timeText(String isoString) {
         final String[] timeData = isoString.split("T");
         final String hours = timeData[1].substring(0, 2);

@@ -1,0 +1,104 @@
+package org.kisio.NavitiaSDKUX;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+import org.kisio.NavitiaSDK.models.Disruption;
+import org.kisio.NavitiaSDK.models.Journeys;
+import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionMatcher;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class SectionMatcherTest {
+    private Journeys journeysResponse;
+
+    @Before
+    public void setup() {
+        try {
+            Path jsonFilePath = Paths.get(System.getProperty("user.dir") + "/navitiasdkux/src/test/java/org/kisio/NavitiaSDKUX/journeysWithDisruptionsResponse.json");
+            Gson gson = new Gson();
+            journeysResponse = gson.fromJson(new String(Files.readAllBytes(jsonFilePath)), Journeys.class);
+        } catch (IOException e) {
+            assertTrue("Test file not loaded", false);
+        } catch (JsonSyntaxException e) {
+            assertTrue("JSON parsing error", false);
+        }
+    }
+
+    @Test
+    public void testExtensionSectionWithValidDisruptionsAndIncludedDate() throws Exception {
+        Section section = journeysResponse.getJourneys().get(0).getSections().get(1);
+        List<Disruption> matchingDisruptions = SectionMatcher.getMatchingDisruptions(
+            section,
+            journeysResponse.getDisruptions(),
+            new Date()
+        );
+
+        assertEquals(matchingDisruptions.size(), 1);
+        assertEquals(matchingDisruptions.get(0).getCause(), "Travaux");
+        assertEquals(matchingDisruptions.get(0).getStatus(), Disruption.StatusEnum.ACTIVE);
+        assertEquals(matchingDisruptions.get(0).getMessages().get(0).getText(), "En raison de travaux rue Henri Dunant et rue Chevalier de Kermelec, du lundi 02 octobre 2017 au vendredi 01 décembre 2017, la ligne 10 est déviée dans les deux sens.   Les arrêts \"J.Loth\" sont reportés aux arrêts \"Savina\" - Non Accessible PMR  L?arrêt \"Sécurité Sociale\" en direction de Kervouyec est reporté au poteau provisoire situé rue de la République. - Non Accessible PMR");
+        assertEquals(matchingDisruptions.get(0).getApplicationPeriods().get(0).getBegin(), "20170928T140500");
+        assertEquals(matchingDisruptions.get(0).getApplicationPeriods().get(0).getEnd(), "20171201T194459");
+    }
+
+    @Test
+    public void testExtensionSectionWithEmptyDisruptions() throws Exception {
+        Section section = journeysResponse.getJourneys().get(0).getSections().get(1);
+        List<Disruption> matchingDisruptions = SectionMatcher.getMatchingDisruptions(
+            section,
+            new ArrayList<Disruption>(),
+            new Date()
+        );
+
+        assertEquals(matchingDisruptions.size(), 0);
+    }
+
+    @Test
+    public void testExtensionSectionWithNullDisruptions() throws Exception {
+        Section section = journeysResponse.getJourneys().get(0).getSections().get(1);
+        List<Disruption> matchingDisruptions = SectionMatcher.getMatchingDisruptions(
+            section,
+            null,
+            new Date()
+        );
+
+        assertEquals(matchingDisruptions.size(), 0);
+    }
+
+    @Test
+    public void testExtensionSectionWithValidDisruptionsAndDateBefore() throws Exception {
+        Section section = journeysResponse.getJourneys().get(0).getSections().get(1);
+        List<Disruption> matchingDisruptions = SectionMatcher.getMatchingDisruptions(
+            section,
+            journeysResponse.getDisruptions(),
+            Metrics.navitiaDate("20160928T140500")
+        );
+
+        assertEquals(matchingDisruptions.size(), 0);
+    }
+
+    @Test
+    public void testExtensionSectionWithValidDisruptionsAndDateAfter() throws Exception {
+        Section section = journeysResponse.getJourneys().get(0).getSections().get(1);
+        List<Disruption> matchingDisruptions = SectionMatcher.getMatchingDisruptions(
+            section,
+            journeysResponse.getDisruptions(),
+            Metrics.navitiaDate("20180928T140500")
+        );
+
+        assertEquals(matchingDisruptions.size(), 0);
+    }
+}
