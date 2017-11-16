@@ -150,7 +150,6 @@ public class Configuration {
         iconFontCodes.put("arrow-right-long", "\uea0b");
         iconFontCodes.put("arrow-right", "\uea0c");
         iconFontCodes.put("bike", "\uea0d");
-        iconFontCodes.put("circle-filled", "\ue901");
         iconFontCodes.put("ferry", "\uea0e");
         iconFontCodes.put("bss", "\uea0f");
         iconFontCodes.put("bus", "\uea10");
@@ -177,5 +176,10 @@ public class Configuration {
         iconFontCodes.put("tramway", "\uea24");
         iconFontCodes.put("walking", "\uea25");
         iconFontCodes.put("work", "\uea26");
+        iconFontCodes.put("circle-filled", "\uea27");
+        iconFontCodes.put("circle", "\uea28");
+        iconFontCodes.put("disruption-blocking", "\uea29");
+        iconFontCodes.put("disruption-non-blocking", "\uea2a");
+        iconFontCodes.put("disruption-information", "\uea2b");
     }
 }

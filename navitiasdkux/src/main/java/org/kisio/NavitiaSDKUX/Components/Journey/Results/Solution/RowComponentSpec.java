@@ -9,6 +9,7 @@ import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaJustify;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.DurationComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
@@ -39,6 +40,7 @@ public class RowComponentSpec {
         @Prop Integer walkingDuration,
         @Prop Integer walkingDistance,
         @Prop List<Section> sections,
+        @Prop List<Disruption> journeyDisruptions,
         @Prop Boolean hasArrow) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
@@ -47,6 +49,7 @@ public class RowComponentSpec {
             .child(SeparatorComponent.create(c))
             .child(
                 FriezeComponent.create(c)
+                    .journeyDisruptions(journeyDisruptions)
                     .sections(sections)
             )
             .child(

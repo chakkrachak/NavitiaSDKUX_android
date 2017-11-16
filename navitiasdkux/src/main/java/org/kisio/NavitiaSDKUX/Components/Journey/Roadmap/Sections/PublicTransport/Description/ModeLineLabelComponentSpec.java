@@ -7,14 +7,18 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaAlign;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.Modes;
 import org.kisio.NavitiaSDKUX.Components.LineCodeComponent;
+import org.kisio.NavitiaSDKUX.Components.LineCodeWithDisruptionStatusComponent;
+import org.kisio.NavitiaSDKUX.Components.LineCodeWithDisruptionStatusComponentSpec;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @LayoutSpec
@@ -22,7 +26,8 @@ class ModeLineLabelComponentSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop List<Disruption> disruptions) {
 
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
 
@@ -32,7 +37,8 @@ class ModeLineLabelComponentSpec {
                     .text(Modes.getPhysicalMode(section))
                     .styles(modeStyles))
             .child(
-                LineCodeComponent.create(c)
+                LineCodeWithDisruptionStatusComponent.create(c)
+                    .disruptions(disruptions)
                     .section(section));
 
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, containerStyles);

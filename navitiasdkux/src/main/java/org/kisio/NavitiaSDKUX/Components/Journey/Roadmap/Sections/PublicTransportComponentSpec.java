@@ -8,6 +8,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.SectionStopPointType;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
@@ -19,6 +20,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @LayoutSpec
@@ -31,7 +33,8 @@ public class PublicTransportComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop List<Disruption> disruptions) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             PlainComponent.create(c)
@@ -51,6 +54,7 @@ public class PublicTransportComponentSpec {
                         .children(new Component<?>[] {
                             DescriptionComponent.create(c)
                                 .section(section)
+                                .disruptions(disruptions)
                                 .build(),
                             DetailsComponent.create(c)
                                 .section(section)
