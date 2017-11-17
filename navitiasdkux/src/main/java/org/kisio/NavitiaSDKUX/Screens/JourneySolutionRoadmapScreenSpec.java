@@ -10,6 +10,7 @@ import com.facebook.litho.annotations.Prop;
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionMatcher;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.SectionComponent;
@@ -22,6 +23,7 @@ import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,10 +65,14 @@ public class JourneySolutionRoadmapScreenSpec {
         int index = 0;
         for (Section section : journey.getSections()) {
             if (!section.getType().equals("waiting") && !section.getType().equals("crow_fly")) {
+                List<Disruption> sectionDisruptions = new ArrayList<>();
+                if (section.getType().equals("public_transport") && disruptions != null && disruptions.size() > 0) {
+                    sectionDisruptions = SectionMatcher.getMatchingDisruptions(section, disruptions, new Date());
+                }
                 SectionComponent.Builder sectionComponentBuilder = SectionComponent.create(c)
                     .key("journey_roadmap_section_" + index)
                     .section(section)
-                    .disruptions(disruptions);
+                    .disruptions(sectionDisruptions);
                 if (section.getType().equals("transfer")) {
                     sectionComponentBuilder.destinationSection(journey.getSections().get(index + 1));
                 } else if (section.getType().equals("street_network")) {
