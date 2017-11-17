@@ -16,7 +16,7 @@ public class Disruptions implements Parcelable {
     }
 
     public void setDisruptions(List<Disruption> disruptions) {
-        disruptions = disruptions;
+        this.disruptions = disruptions;
     }
 
     public int describeContents() {
@@ -44,7 +44,7 @@ public class Disruptions implements Parcelable {
     }
 
     Disruptions(Parcel in) {
-        disruptions = in.readArrayList(null);
+        disruptions = (List<Disruption>)in.readArrayList(Disruption.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Disruptions> CREATOR = new Parcelable.Creator<Disruptions>() {

@@ -44,7 +44,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("NO_SERVICE");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.disrupt, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.blocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("REDUCED_SERVICE");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("STOP_MOVED");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("DETOUR");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("SIGNIFICANT_DELAYS");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("ADDITIONAL_SERVICE");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class DisruptionMatcherTest {
         severity.setEffect("MODIFIED_SERVICE");
         disruption.setSeverity(severity);
 
-        assertEquals(DisruptionLevel.warning, DisruptionMatcher.getLevel(disruption));
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getLevel(disruption));
     }
 
     @Test

@@ -17,8 +17,11 @@ import org.kisio.NavitiaSDK.NavitiaConfiguration;
 import org.kisio.NavitiaSDK.NavitiaSDK;
 import org.kisio.NavitiaSDK.invokers.ApiCallback;
 import org.kisio.NavitiaSDK.invokers.ApiException;
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Journeys;
+import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionMatcher;
 import org.kisio.NavitiaSDKUX.Components.AlertComponent;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.DateTimeButtonComponent;
@@ -148,6 +151,7 @@ public class JourneySolutionsScreenSpec {
                 SolutionComponent.create(c)
                     .testKey("result-" + index)
                     .journey(journey)
+                    .disruptions(journeys.getDisruptions())
                     .isTouchable(true)
                     .build()
             );

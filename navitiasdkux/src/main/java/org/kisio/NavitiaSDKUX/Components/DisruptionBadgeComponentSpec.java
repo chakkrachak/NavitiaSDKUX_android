@@ -11,6 +11,8 @@ import com.facebook.yoga.YogaJustify;
 import com.facebook.yoga.YogaPositionType;
 
 import org.kisio.NavitiaSDK.models.Disruption;
+import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
+import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.HashMap;
@@ -26,6 +28,9 @@ public class DisruptionBadgeComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop List<Disruption> disruptions) {
 
+        DisruptionLevel highestDisruptionLevel = DisruptionMatcher.getHighestDisruptionLevel(disruptions);
+        iconStyles.put("color", Color.getColorFromHexadecimal(highestDisruptionLevel.toColor()));
+
         return ViewComponent.create(c)
             .styles(containerStyles)
             .children(new Component<?>[] {
@@ -34,7 +39,8 @@ public class DisruptionBadgeComponentSpec {
                     .name("circle-filled")
                     .build(),
                 IconComponent.create(c)
-                    .name("disruption-")
+                    .styles(iconStyles)
+                    .name("disruption-" + highestDisruptionLevel.toString())
                     .build(),
             })
             .buildWithLayout();
@@ -53,5 +59,13 @@ public class DisruptionBadgeComponentSpec {
     static {
         circleStyles.put("color", Color.getColorFromHexadecimal("FFFFFF"));
         circleStyles.put("fontSize", 18);
+    }
+
+    static Map<String, Object> iconStyles = new HashMap<>();
+    static {
+        iconStyles.put("fontSize", 16);
+        iconStyles.put("position", YogaPositionType.ABSOLUTE);
+        iconStyles.put("top", 0);
+        iconStyles.put("end", 0);
     }
 }

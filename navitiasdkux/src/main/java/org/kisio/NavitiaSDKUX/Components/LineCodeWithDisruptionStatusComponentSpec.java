@@ -23,14 +23,19 @@ public class LineCodeWithDisruptionStatusComponentSpec {
         @Prop Section section,
         @Prop List<Disruption> disruptions) {
 
+        Component disruptionBadgeComponent = ViewComponent.create(c).build();
+        if (disruptions != null && disruptions.size() > 0) {
+            disruptionBadgeComponent = DisruptionBadgeComponent.create(c)
+                .disruptions(disruptions)
+                .build();
+        }
+
         return ViewComponent.create(c)
             .children(new Component<?>[] {
                 LineCodeComponent.create(c)
                     .section(section)
                     .build(),
-                DisruptionBadgeComponent.create(c)
-                    .disruptions(disruptions)
-                    .build(),
+                disruptionBadgeComponent
             }).buildWithLayout();
     }
 }
