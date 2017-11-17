@@ -6,6 +6,9 @@ import org.kisio.NavitiaSDK.models.Severity;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class DisruptionMatcherTest {
@@ -125,5 +128,62 @@ public class DisruptionMatcherTest {
         disruption.setSeverity(severity);
 
         assertEquals(DisruptionLevel.information, DisruptionMatcher.getLevel(disruption));
+    }
+
+    @Test
+    public void testHighestLevelIsBlocking() throws Exception {
+        List<Disruption> disruptions = new ArrayList<>();
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+
+        Severity blockingSeverity = new Severity();
+        blockingSeverity.setEffect("NO_SERVICE");
+
+        Severity nonblockingSeverity = new Severity();
+        nonblockingSeverity.setEffect("DETOUR");
+
+        disruptions.get(0).setSeverity(blockingSeverity);
+        disruptions.get(1).setSeverity(nonblockingSeverity);
+        disruptions.get(2).setSeverity(nonblockingSeverity);
+
+        assertEquals(DisruptionLevel.blocking, DisruptionMatcher.getHighestDisruptionLevel(disruptions));
+    }
+
+    @Test
+    public void testHighestLevelIsNonBlocking() throws Exception {
+        List<Disruption> disruptions = new ArrayList<>();
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+
+        Severity infoSeverity = new Severity();
+        infoSeverity.setEffect("OTHER_EFFECT");
+
+        Severity nonblockingSeverity = new Severity();
+        nonblockingSeverity.setEffect("DETOUR");
+
+        disruptions.get(0).setSeverity(infoSeverity);
+        disruptions.get(1).setSeverity(nonblockingSeverity);
+        disruptions.get(2).setSeverity(infoSeverity);
+
+        assertEquals(DisruptionLevel.nonblocking, DisruptionMatcher.getHighestDisruptionLevel(disruptions));
+    }
+
+    @Test
+    public void testHighestLevelIsInfo() throws Exception {
+        List<Disruption> disruptions = new ArrayList<>();
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+        disruptions.add(new Disruption());
+
+        Severity infoSeverity = new Severity();
+        infoSeverity.setEffect("OTHER_EFFECT");
+
+        disruptions.get(0).setSeverity(infoSeverity);
+        disruptions.get(1).setSeverity(infoSeverity);
+        disruptions.get(2).setSeverity(infoSeverity);
+
+        assertEquals(DisruptionLevel.information, DisruptionMatcher.getHighestDisruptionLevel(disruptions));
     }
 }
