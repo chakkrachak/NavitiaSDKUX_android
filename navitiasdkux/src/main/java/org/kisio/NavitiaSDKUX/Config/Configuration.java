@@ -179,7 +179,7 @@ public class Configuration {
         iconFontCodes.put("circle-filled", "\uea27");
         iconFontCodes.put("circle", "\uea28");
         iconFontCodes.put("disruption-blocking", "\uea29");
-        iconFontCodes.put("disruption-non-blocking", "\uea2a");
+        iconFontCodes.put("disruption-nonblocking", "\uea2a");
         iconFontCodes.put("disruption-information", "\uea2b");
     }
 }

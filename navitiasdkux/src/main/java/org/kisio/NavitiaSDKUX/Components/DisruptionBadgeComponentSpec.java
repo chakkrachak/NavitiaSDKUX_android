@@ -29,7 +29,7 @@ public class DisruptionBadgeComponentSpec {
         @Prop List<Disruption> disruptions) {
 
         DisruptionLevel highestDisruptionLevel = DisruptionMatcher.getHighestDisruptionLevel(disruptions);
-        iconStyles.put("color", Color.getColorFromHexadecimal(highestDisruptionLevel.toColor()));
+        iconStyles.put("color", Color.getColorFromHexadecimal(highestDisruptionLevel.getIconColor()));
 
         return ViewComponent.create(c)
             .styles(containerStyles)
@@ -40,7 +40,7 @@ public class DisruptionBadgeComponentSpec {
                     .build(),
                 IconComponent.create(c)
                     .styles(iconStyles)
-                    .name("disruption-" + highestDisruptionLevel.toString())
+                    .name(highestDisruptionLevel.getIconName())
                     .build(),
             })
             .buildWithLayout();
