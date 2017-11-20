@@ -7,8 +7,11 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.LineCodeComponent;
+import org.kisio.NavitiaSDKUX.Components.LineCodeWithDisruptionStatusComponent;
+import org.kisio.NavitiaSDKUX.Components.LineCodeWithDisruptionStatusComponentSpec;
 import org.kisio.NavitiaSDKUX.Components.ModeComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
@@ -16,6 +19,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @LayoutSpec
@@ -27,14 +31,15 @@ public class SectionSummaryComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop List<Disruption> disruptions) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
         Map<String, Object> containerStyles = new HashMap<>(containerBaseStyles);
         containerStyles.put("flexGrow", section.getDuration());
         builder
             .child(
-                getSymbolComponents(c, section)
+                getSymbolComponents(c, section, disruptions)
             )
             .child(
                 SectionSegmentComponent.create(c)
@@ -46,14 +51,15 @@ public class SectionSummaryComponentSpec {
         return styledBuilder.build();
     }
 
-    static ComponentLayout.ContainerBuilder getSymbolComponents(ComponentContext c, Section section) {
+    static ComponentLayout.ContainerBuilder getSymbolComponents(ComponentContext c, Section section, List<Disruption> disruptions) {
         final ComponentLayout.ContainerBuilder builder = HorizontalViewComponent.create(c);
         builder.child(
             ModeComponent.create(c)
                 .section(section)
                 .styles(modeStyles)
         ).child(
-            LineCodeComponent.create(c)
+            LineCodeWithDisruptionStatusComponent.create(c)
+                .disruptions(disruptions)
                 .section(section)
         );
         return StylizedComponent.applyStyles(builder, viewStyles);

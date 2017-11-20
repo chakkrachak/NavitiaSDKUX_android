@@ -12,6 +12,7 @@ import com.facebook.litho.ComponentContext;
 import com.facebook.litho.LithoView;
 
 import org.kisio.NavitiaSDK.models.Journey;
+import org.kisio.NavitiaSDKUX.Controllers.IntentDataContainers.Disruptions;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionRoadmapScreen;
 
@@ -59,8 +60,10 @@ public class JourneySolutionRoadmapActivity extends AppCompatActivity {
         final Intent intent = getIntent();
 
         final Journey journey = intent.getParcelableExtra("journey");
+        final Disruptions disruptions = intent.getParcelableExtra("disruptions");
         if (journey != null) {
             builder.journey(journey);
+            builder.disruptions(disruptions.getDisruptions());
         }
     }
 }

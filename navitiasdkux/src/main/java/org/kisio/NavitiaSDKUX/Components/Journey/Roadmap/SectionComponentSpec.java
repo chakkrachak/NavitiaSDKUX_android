@@ -10,6 +10,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DefaultComponent;
@@ -21,6 +22,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @LayoutSpec
@@ -34,22 +36,24 @@ public class SectionComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
+        @Prop List<Disruption> disruptions,
         @Prop(optional = true) Section destinationSection,
         @Prop(optional = true) String description) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section, destinationSection, description)
+                getTypedSectionComponent(c, section, disruptions, destinationSection, description)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, Section destinationSection, String description) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, List<Disruption> disruptions, Section destinationSection, String description) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
+                    .disruptions(disruptions)
                     .section(section)
                     .build();
             case "street_network":

@@ -8,6 +8,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent;
@@ -18,6 +19,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @LayoutSpec
@@ -30,7 +32,8 @@ class DescriptionComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop Section section) {
+        @Prop Section section,
+        @Prop List<Disruption> disruptions) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             SectionRowLayoutComponent.create(c)
@@ -43,6 +46,7 @@ class DescriptionComponentSpec {
                         .styles(containerStyles)
                         .children(new Component<?>[] {
                             ModeLineLabelComponent.create(c)
+                                .disruptions(disruptions)
                                 .section(section)
                                 .build(),
                             DirectionComponent.create(c)

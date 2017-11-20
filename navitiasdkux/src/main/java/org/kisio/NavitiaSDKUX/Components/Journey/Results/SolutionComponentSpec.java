@@ -11,8 +11,8 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
-import org.kisio.NavitiaSDK.models.Path;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ActionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution.RowComponent;
@@ -20,6 +20,7 @@ import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Controllers.IntentDataContainers.Disruptions;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
 
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class SolutionComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop final Journey journey,
+        @Prop final List<Disruption> disruptions,
         @Prop Boolean isTouchable) {
 
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);
@@ -53,14 +55,18 @@ public class SolutionComponentSpec {
                 .walkingDuration(journey.getDurations().getWalking())
                 .walkingDistance(getWalkingDistance(journey.getSections()))
                 .sections(journey.getSections())
+                .journeyDisruptions(disruptions)
                 .hasArrow(isTouchable)
                 .build()
         );
 
         if (isTouchable) {
             ActionComponent.Builder actionBuilder = ActionComponent.create(c).testKey(testKey).actionToCall(new Callable<Void>() { public Void call() {
+                final Disruptions disruptionDataContainer = new Disruptions();
+                disruptionDataContainer.setDisruptions(disruptions);
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
                 intent.putExtra("journey", journey);
+                intent.putExtra("disruptions", disruptionDataContainer);
                 context.startActivity(intent);
                 return null;
             }}).child(listRowBuilder);

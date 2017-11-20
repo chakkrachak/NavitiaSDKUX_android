@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components;
 
+import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -8,6 +9,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.litho.annotations.PropDefault;
 
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Color;
@@ -15,23 +17,20 @@ import org.kisio.NavitiaSDKUX.Util.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 28/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
-
 @LayoutSpec
 public class LineCodeComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
+
+    @PropDefault
+    static final DisruptionLevel disruptionLevel = DisruptionLevel.none;
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
+        @Prop(optional = true) DisruptionLevel disruptionLevel,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
@@ -44,9 +43,12 @@ public class LineCodeComponentSpec {
             textStyles.put("color", Color.getColorFromHexadecimal(section.getDisplayInformations().getTextColor()));
 
             builder.child(
-                TextComponent.create(c)
-                    .text(code)
-                    .styles(textStyles)
+                ViewComponent.create(c).children(new Component<?>[] {
+                    TextComponent.create(c)
+                        .text(code)
+                        .styles(textStyles)
+                        .build()
+                })
             );
 
             final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(codeStyles, styles);

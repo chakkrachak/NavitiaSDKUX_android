@@ -7,8 +7,10 @@ import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Section;
+import org.kisio.NavitiaSDKUX.BusinessLogic.SectionMatcher;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Results.SolutionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.SectionComponent;
@@ -21,6 +23,7 @@ import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +33,8 @@ public class JourneySolutionRoadmapScreenSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop Journey journey) {
+        @Prop Journey journey,
+        @Prop List<Disruption> disruptions) {
 
         return BaseViewComponent.create(c).testKey("roadmap").child(
             ContainerComponent.create(c)
@@ -44,25 +48,31 @@ public class JourneySolutionRoadmapScreenSpec {
                 .children(new Component<?>[]{
                     SolutionComponent.create(c)
                         .journey(journey)
+                        .disruptions(disruptions)
                         .isTouchable(false)
                         .build()})
                 .build()
         ).child(
             ScrollViewComponent.create(c).child(ListViewComponent.create(c).children(
-                getJourneySectionComponents(c, journey)
+                getJourneySectionComponents(c, journey, disruptions)
             ).build())
         ).build();
     }
 
-    static Component<?>[] getJourneySectionComponents(ComponentContext c, Journey journey) {
+    static Component<?>[] getJourneySectionComponents(ComponentContext c, Journey journey, List<Disruption> disruptions) {
         List<Component<?>> components = new ArrayList<>();
 
         int index = 0;
         for (Section section : journey.getSections()) {
             if (!section.getType().equals("waiting") && !section.getType().equals("crow_fly")) {
+                List<Disruption> sectionDisruptions = new ArrayList<>();
+                if (section.getType().equals("public_transport") && disruptions != null && disruptions.size() > 0) {
+                    sectionDisruptions = SectionMatcher.getMatchingDisruptions(section, disruptions, new Date());
+                }
                 SectionComponent.Builder sectionComponentBuilder = SectionComponent.create(c)
                     .key("journey_roadmap_section_" + index)
-                    .section(section);
+                    .section(section)
+                    .disruptions(sectionDisruptions);
                 if (section.getType().equals("transfer")) {
                     sectionComponentBuilder.destinationSection(journey.getSections().get(index + 1));
                 } else if (section.getType().equals("street_network")) {
