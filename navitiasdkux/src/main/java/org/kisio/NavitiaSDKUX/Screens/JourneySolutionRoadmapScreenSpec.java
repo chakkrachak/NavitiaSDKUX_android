@@ -64,7 +64,7 @@ public class JourneySolutionRoadmapScreenSpec {
 
         int index = 0;
         for (Section section : journey.getSections()) {
-            if (!section.getType().equals("waiting") && !section.getType().equals("crow_fly")) {
+            if (section.getType().equals("street_network") || section.getType().equals("public_transport")) {
                 List<Disruption> sectionDisruptions = new ArrayList<>();
                 if (section.getType().equals("public_transport") && disruptions != null && disruptions.size() > 0) {
                     sectionDisruptions = SectionMatcher.getMatchingDisruptions(section, disruptions, new Date());
@@ -80,6 +80,8 @@ public class JourneySolutionRoadmapScreenSpec {
                     String network = null;
                     if (section.getFrom().getPoi() != null && section.getFrom().getPoi().getProperties().containsKey("network")) {
                         network = section.getFrom().getPoi().getProperties().get("network");
+                        sectionComponentBuilder.departureTime(journey.getSections().get(index - 1).getDepartureDateTime());
+                        sectionComponentBuilder.arrivalTime(journey.getSections().get(index + 1).getArrivalDateTime());
                     }
                     Integer distance = Metrics.sectionLength(section.getPath());
                     sectionComponentBuilder.description(getDistanceLabel(c, network, mode, distance));

@@ -29,6 +29,8 @@ public class StreetNetworkComponentSpec {
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
+        @Prop(optional = true) String departureTime,
+        @Prop(optional = true) String arrivalTime,
         @Prop String description) {
 
         final ViewComponent.Builder builder = ViewComponent.create(c)
@@ -44,6 +46,7 @@ public class StreetNetworkComponentSpec {
                             .section(section)
                             .color(Configuration.colors.getGray())
                             .sectionWay(SectionStopPointType.departure)
+                            .time(departureTime)
                             .build()
                     )
                     .body(
@@ -57,6 +60,7 @@ public class StreetNetworkComponentSpec {
                             .section(section)
                             .color(Configuration.colors.getGray())
                             .sectionWay(SectionStopPointType.arrival)
+                            .time(arrivalTime)
                             .build()
                     )
                     .build()

@@ -38,18 +38,20 @@ public class SectionComponentSpec {
         @Prop Section section,
         @Prop List<Disruption> disruptions,
         @Prop(optional = true) Section destinationSection,
+        @Prop(optional = true) String departureTime,
+        @Prop(optional = true) String arrivalTime,
         @Prop(optional = true) String description) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey).child(
             ContainerComponent.create(c).styles(containerStyles).children(new Component<?>[] {
-                getTypedSectionComponent(c, section, disruptions, destinationSection, description)
+                getTypedSectionComponent(c, section, disruptions, destinationSection, description, departureTime, arrivalTime)
             })
         );
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
 
-    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, List<Disruption> disruptions, Section destinationSection, String description) {
+    static Component<?> getTypedSectionComponent(ComponentContext c, Section section, List<Disruption> disruptions, Section destinationSection, String description, String departureTime, String arrivalTime) {
         switch (section.getType()) {
             case "public_transport":
                 return PublicTransportComponent.create(c)
@@ -60,6 +62,8 @@ public class SectionComponentSpec {
                 return StreetNetworkComponent.create(c)
                     .section(section)
                     .description(description)
+                    .departureTime(departureTime)
+                    .arrivalTime(arrivalTime)
                     .build();
             case "transfer":
                 return TransferComponent.create(c)
