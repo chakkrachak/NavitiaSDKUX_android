@@ -28,6 +28,7 @@ public class StopPointComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop Section section,
         @Prop SectionStopPointType sectionWay,
+        @Prop(optional = true) String time,
         @Prop Integer color) {
 
         String stopPointLabel;
@@ -41,7 +42,7 @@ public class StopPointComponentSpec {
             .testKey(testKey)
             .firstComponent(
                 TimeComponent.create(c)
-                    .dateTime(sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime())
+                    .dateTime(time != null ? time : (sectionWay == SectionStopPointType.departure ? section.getDepartureDateTime() : section.getArrivalDateTime()))
                     .build())
             .secondComponent(
                 StopPointIconComponent.create(c)
