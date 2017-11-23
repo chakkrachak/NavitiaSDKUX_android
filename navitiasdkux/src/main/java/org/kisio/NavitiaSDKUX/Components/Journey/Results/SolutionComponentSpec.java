@@ -63,7 +63,7 @@ public class SolutionComponentSpec {
         if (isTouchable) {
             ActionComponent.Builder actionBuilder = ActionComponent.create(c).testKey(testKey).actionToCall(new Callable<Void>() { public Void call() {
                 final Disruptions disruptionDataContainer = new Disruptions();
-                // disruptionDataContainer.setDisruptions(disruptions);
+                disruptionDataContainer.setDisruptions(disruptions);
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
                 intent.putExtra("journey", journey);
                 intent.putExtra("disruptions", disruptionDataContainer);
