@@ -46,7 +46,7 @@ public class RowComponentSpec {
         @Prop Boolean hasArrow) {
 
         Component walkingSummaryComponent = ViewComponent.create(c).build();
-        if (walkingDuration > 0) {
+        if (sections.size() > 1 || walkingDuration > 0) {
             walkingSummaryComponent = WalkingSummaryComponent.create(c)
                 .distance(walkingDistance)
                 .duration(walkingDuration)
