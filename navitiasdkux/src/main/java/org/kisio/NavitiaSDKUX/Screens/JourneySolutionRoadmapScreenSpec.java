@@ -64,7 +64,7 @@ public class JourneySolutionRoadmapScreenSpec {
 
         int index = 0;
         for (Section section : journey.getSections()) {
-            if (section.getType().equals("street_network") || section.getType().equals("public_transport")) {
+            if (section.getType().equals("street_network") || section.getType().equals("public_transport") || section.getType().equals("transfer")) {
                 List<Disruption> sectionDisruptions = new ArrayList<>();
                 if (section.getType().equals("public_transport") && disruptions != null && disruptions.size() > 0) {
                     sectionDisruptions = SectionMatcher.getMatchingDisruptions(section, disruptions, new Date());
