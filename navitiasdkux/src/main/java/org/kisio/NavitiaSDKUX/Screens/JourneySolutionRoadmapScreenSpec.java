@@ -33,8 +33,8 @@ public class JourneySolutionRoadmapScreenSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @Prop(optional = true) Journey journey,
-        @Prop(optional = true) List<Disruption> disruptions) {
+        @Prop Journey journey,
+        @Prop List<Disruption> disruptions) {
 
         return BaseViewComponent.create(c).testKey("roadmap").child(
             ContainerComponent.create(c)
