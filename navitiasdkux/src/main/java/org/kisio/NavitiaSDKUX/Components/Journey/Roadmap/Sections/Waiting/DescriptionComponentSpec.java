@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Waiting;
 
+import android.graphics.Color;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -7,7 +8,7 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 
 import org.kisio.NavitiaSDK.models.Section;
-import org.kisio.NavitiaSDKUX.Components.IconComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Waiting.Description.WaitingIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.HorizontalViewComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -28,9 +29,8 @@ class DescriptionComponentSpec {
 
         builder
             .child(
-                IconComponent.create(c)
-                    .name("clock")
-                    .styles(iconStyles)
+                WaitingIconComponent.create(c)
+                    .styles(iconContainerStyles)
                     .build())
             .child(
                 TextComponent.create(c)
@@ -42,11 +42,15 @@ class DescriptionComponentSpec {
         return builder.build();
     }
 
-    static Map<String, Object> iconStyles = new HashMap<>();
+    static Map<String, Object> iconContainerStyles = new HashMap<>();
+    static {
+        iconContainerStyles.put("width", 50);
+    }
+
     static Map<String, Object> labelStyles = new HashMap<>();
     static {
-        iconStyles.put("color", Configuration.colors.getDarkGray());
         labelStyles.put("fontSize", 15);
         labelStyles.put("color", Configuration.colors.getDarkGray());
+        labelStyles.put("padding", 6);
     }
 }
