@@ -1,5 +1,6 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Results.Solution;
 
+import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
@@ -17,6 +18,7 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.SeparatorComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
+import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
@@ -43,6 +45,14 @@ public class RowComponentSpec {
         @Prop List<Disruption> journeyDisruptions,
         @Prop Boolean hasArrow) {
 
+        Component walkingSummaryComponent = ViewComponent.create(c).build();
+        if (sections.size() > 1 || walkingDuration > 0) {
+            walkingSummaryComponent = WalkingSummaryComponent.create(c)
+                .distance(walkingDistance)
+                .duration(walkingDuration)
+                .build();
+        }
+
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);
         builder
             .child(getHeaderComponent(c, departureTime, arrivalTime, totalDuration, hasArrow))
@@ -52,11 +62,7 @@ public class RowComponentSpec {
                     .journeyDisruptions(journeyDisruptions)
                     .sections(sections)
             )
-            .child(
-                WalkingSummaryComponent.create(c)
-                    .distance(walkingDistance)
-                    .duration(walkingDuration)
-            );
+            .child(walkingSummaryComponent);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, styles);
         return styledBuilder.build();
     }
