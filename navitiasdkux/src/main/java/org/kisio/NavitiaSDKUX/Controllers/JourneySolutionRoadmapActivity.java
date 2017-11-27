@@ -13,7 +13,6 @@ import com.facebook.litho.LithoView;
 
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
-import org.kisio.NavitiaSDKUX.Controllers.IntentDataContainers.Disruptions;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionRoadmapScreen;
 import org.kisio.NavitiaSDKUX.Util.JourneySolutionCache;
