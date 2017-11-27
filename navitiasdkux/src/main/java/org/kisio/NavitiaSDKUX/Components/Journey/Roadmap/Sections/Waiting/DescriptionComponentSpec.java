@@ -50,7 +50,7 @@ class DescriptionComponentSpec {
     static Map<String, Object> labelStyles = new HashMap<>();
     static {
         labelStyles.put("fontSize", 15);
-        labelStyles.put("color", Configuration.colors.getDarkGray());
+        labelStyles.put("color", Configuration.colors.getGray());
         labelStyles.put("padding", 6);
     }
 }

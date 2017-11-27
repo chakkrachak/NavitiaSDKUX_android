@@ -62,7 +62,7 @@ class WaitingIconComponentSpec {
 
     static Map<String, Object> iconStyles = new HashMap<>();
     static {
-        iconStyles.put("color", Configuration.colors.getDarkGray());
+        iconStyles.put("color", Configuration.colors.getGray());
     }
 
     static Map<String, Object> paddingCenteringStyle = new HashMap<>();
