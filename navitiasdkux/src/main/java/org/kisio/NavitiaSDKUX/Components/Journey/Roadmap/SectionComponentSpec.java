@@ -13,10 +13,7 @@ import com.facebook.litho.annotations.PropDefault;
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.DefaultComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransportComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.StreetNetworkComponent;
-import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.TransferComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.*;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
@@ -67,9 +64,12 @@ public class SectionComponentSpec {
                     .build();
             case "transfer":
                 return TransferComponent.create(c)
-                    .section(section)
-                    .waitingSection(destinationSection)
-                    .build();
+                        .section(section)
+                        .build();
+            case "waiting":
+                return WaitingComponent.create(c)
+                        .section(section)
+                        .build();
             default:
                 return DefaultComponent.create(c)
                     .section(section)

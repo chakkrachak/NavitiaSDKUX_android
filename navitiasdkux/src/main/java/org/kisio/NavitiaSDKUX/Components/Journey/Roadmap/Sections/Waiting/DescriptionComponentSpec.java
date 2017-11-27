@@ -1,4 +1,4 @@
-package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Transfer.Description;
+package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.Waiting;
 
 import android.graphics.Bitmap;
 
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @LayoutSpec
-public class WaitingComponentSpec {
+public class DescriptionComponentSpec {
     @PropDefault
     static final Map<String, Object> styles = new HashMap<>();
 

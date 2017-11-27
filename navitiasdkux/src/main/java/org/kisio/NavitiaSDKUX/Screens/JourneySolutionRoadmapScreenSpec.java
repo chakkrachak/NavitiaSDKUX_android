@@ -22,11 +22,7 @@ import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @LayoutSpec
 public class JourneySolutionRoadmapScreenSpec {
@@ -64,7 +60,7 @@ public class JourneySolutionRoadmapScreenSpec {
 
         int index = 0;
         for (Section section : journey.getSections()) {
-            if (section.getType().equals("street_network") || section.getType().equals("public_transport") || section.getType().equals("transfer")) {
+            if (Arrays.asList( "street_network", "public_transport", "transfer", "waiting" ).contains(section.getType())) {
                 List<Disruption> sectionDisruptions = new ArrayList<>();
                 if (section.getType().equals("public_transport") && disruptions != null && disruptions.size() > 0) {
                     sectionDisruptions = SectionMatcher.getMatchingDisruptions(section, disruptions, new Date());
