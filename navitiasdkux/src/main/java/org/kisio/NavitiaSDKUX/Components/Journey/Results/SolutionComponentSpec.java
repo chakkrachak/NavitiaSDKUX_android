@@ -39,8 +39,8 @@ public class SolutionComponentSpec {
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop final Journey journey,
-        @Prop final List<Disruption> disruptions,
+        @Prop(optional = true) final Journey journey,
+        @Prop(optional = true) final List<Disruption> disruptions,
         @Prop Boolean isTouchable) {
 
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(listStyles, styles);

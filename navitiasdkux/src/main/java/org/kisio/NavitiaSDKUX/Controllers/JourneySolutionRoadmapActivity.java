@@ -60,13 +60,13 @@ public class JourneySolutionRoadmapActivity extends AppCompatActivity {
     }
 
     private void setProps(JourneySolutionRoadmapScreen.Builder builder) {
-        final Intent intent = getIntent();
-
         final Journey journey = JourneySolutionCache.getInstance().getCurrentJourney();
         final List<Disruption> disruptions = JourneySolutionCache.getInstance().getCurrentDisruptions();
         if (journey != null) {
             builder.journey(journey);
             builder.disruptions(disruptions);
+        } else {
+            finish();
         }
     }
 }
