@@ -11,10 +11,13 @@ import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.LithoView;
 
+import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
-import org.kisio.NavitiaSDKUX.Controllers.IntentDataContainers.Disruptions;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionRoadmapScreen;
+import org.kisio.NavitiaSDKUX.Util.JourneySolutionCache;
+
+import java.util.List;
 
 public class JourneySolutionRoadmapActivity extends AppCompatActivity {
     private static final String TAG = JourneySolutionRoadmapActivity.class.getName();
@@ -57,13 +60,13 @@ public class JourneySolutionRoadmapActivity extends AppCompatActivity {
     }
 
     private void setProps(JourneySolutionRoadmapScreen.Builder builder) {
-        final Intent intent = getIntent();
-
-        final Journey journey = intent.getParcelableExtra("journey");
-        final Disruptions disruptions = intent.getParcelableExtra("disruptions");
+        final Journey journey = JourneySolutionCache.getInstance().getCurrentJourney();
+        final List<Disruption> disruptions = JourneySolutionCache.getInstance().getCurrentDisruptions();
         if (journey != null) {
             builder.journey(journey);
-            builder.disruptions(disruptions.getDisruptions());
+            builder.disruptions(disruptions);
+        } else {
+            finish();
         }
     }
 }

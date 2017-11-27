@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), JourneySolutionsActivity.class);
 
-                intent.putExtra("initOriginId", "2.495689;48.742459");
-                intent.putExtra("initDestinationId", "2.119853;48.820835");
+                intent.putExtra(JourneySolutionsActivity.IntentParameters.initOriginId.name(), "2.495689;48.742459");
+                intent.putExtra(JourneySolutionsActivity.IntentParameters.initDestinationId.name(), "2.119853;48.820835");
 
                 startActivity(intent);
             }

@@ -20,8 +20,8 @@ import org.kisio.NavitiaSDKUX.Components.ListRowComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.StylizedComponent;
 import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
-import org.kisio.NavitiaSDKUX.Controllers.IntentDataContainers.Disruptions;
 import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionRoadmapActivity;
+import org.kisio.NavitiaSDKUX.Util.JourneySolutionCache;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,11 +62,9 @@ public class SolutionComponentSpec {
 
         if (isTouchable) {
             ActionComponent.Builder actionBuilder = ActionComponent.create(c).testKey(testKey).actionToCall(new Callable<Void>() { public Void call() {
-                final Disruptions disruptionDataContainer = new Disruptions();
-                // disruptionDataContainer.setDisruptions(disruptions);
                 final Intent intent = new Intent(context, JourneySolutionRoadmapActivity.class);
-                intent.putExtra("journey", journey);
-                intent.putExtra("disruptions", disruptionDataContainer);
+                JourneySolutionCache.getInstance().setCurrentJourney(journey);
+                JourneySolutionCache.getInstance().setCurrentDisruptions(disruptions);
                 context.startActivity(intent);
                 return null;
             }}).child(listRowBuilder);

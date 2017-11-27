@@ -18,6 +18,13 @@ import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Screens.JourneySolutionsScreen;
 
 public class JourneySolutionsActivity extends AppCompatActivity {
+    public enum IntentParameters {
+        initOrigin,
+        initOriginId,
+        initDestination,
+        initDestinationId
+    }
+
     private static final String TAG = JourneySolutionsActivity.class.getName();
 
     @Override
@@ -66,22 +73,22 @@ public class JourneySolutionsActivity extends AppCompatActivity {
     private void setProps(JourneySolutionsScreen.Builder builder) {
         final Intent intent = getIntent();
 
-        final String origin = intent.getStringExtra("initOrigin");
+        final String origin = intent.getStringExtra(IntentParameters.initOrigin.name());
         if (origin != null) {
             builder.initOrigin(origin);
         }
 
-        final String originId = intent.getStringExtra("initOriginId");
+        final String originId = intent.getStringExtra(IntentParameters.initOriginId.name());
         if (originId != null) {
             builder.initOriginId(originId);
         }
 
-        final String destination = intent.getStringExtra("initDestination");
+        final String destination = intent.getStringExtra(IntentParameters.initDestination.name());
         if (destination != null) {
             builder.initDestination(destination);
         }
 
-        final String destinationId = intent.getStringExtra("initDestinationId");
+        final String destinationId = intent.getStringExtra(IntentParameters.initDestinationId.name());
         if (destinationId != null) {
             builder.initDestinationId(destinationId);
         }
