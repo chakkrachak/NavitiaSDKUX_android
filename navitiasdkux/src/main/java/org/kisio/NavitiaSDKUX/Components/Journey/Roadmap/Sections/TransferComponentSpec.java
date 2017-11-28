@@ -47,7 +47,7 @@ public class TransferComponentSpec {
                     .body(
                         ViewComponent.create(c)
                             .children(new Component<?>[]{
-                                    DescriptionComponent.create(c)
+                                DescriptionComponent.create(c)
                                     .section(section)
                                     .build()
                             })
