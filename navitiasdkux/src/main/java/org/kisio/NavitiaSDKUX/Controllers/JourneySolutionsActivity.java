@@ -19,10 +19,7 @@ import org.kisio.NavitiaSDKUX.Screens.JourneySolutionsScreen;
 
 public class JourneySolutionsActivity extends AppCompatActivity {
     public enum IntentParameters {
-        initOrigin,
-        initOriginId,
-        initDestination,
-        initDestinationId
+        parameters
     }
 
     private static final String TAG = JourneySolutionsActivity.class.getName();
@@ -73,24 +70,9 @@ public class JourneySolutionsActivity extends AppCompatActivity {
     private void setProps(JourneySolutionsScreen.Builder builder) {
         final Intent intent = getIntent();
 
-        final String origin = intent.getStringExtra(IntentParameters.initOrigin.name());
-        if (origin != null) {
-            builder.initOrigin(origin);
-        }
-
-        final String originId = intent.getStringExtra(IntentParameters.initOriginId.name());
-        if (originId != null) {
-            builder.initOriginId(originId);
-        }
-
-        final String destination = intent.getStringExtra(IntentParameters.initDestination.name());
-        if (destination != null) {
-            builder.initDestination(destination);
-        }
-
-        final String destinationId = intent.getStringExtra(IntentParameters.initDestinationId.name());
-        if (destinationId != null) {
-            builder.initDestinationId(destinationId);
+        final JourneySolutionsInParameters parameters = intent.getParcelableExtra(IntentParameters.parameters.name());
+        if (parameters != null) {
+            builder.initParameters(parameters);
         }
     }
 

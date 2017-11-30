@@ -3,6 +3,7 @@
     <string name="component.JourneyWalkingSummaryComponent.With">With</string>
     <string name="component.JourneyWalkingSummaryComponent.walking">walking</string>
     <string name="component.DateTimeButtonComponent.representation.departure">Departure:</string>
+    <string name="component.DateTimeButtonComponent.representation.arrival">Arrival:</string>
     <string name="screen.JourneySolutionsScreen.error">No journey found</string>
     <string name="controller.JourneySolutionRoadmapController.title">Roadmap</string>
     <string name="journey.roadmap.action.walk">walk</string>

@@ -15,13 +15,11 @@ import com.facebook.litho.annotations.State;
 import org.joda.time.DateTime;
 import org.kisio.NavitiaSDK.NavitiaConfiguration;
 import org.kisio.NavitiaSDK.NavitiaSDK;
+import org.kisio.NavitiaSDK.apis.JourneysApi;
 import org.kisio.NavitiaSDK.invokers.ApiCallback;
 import org.kisio.NavitiaSDK.invokers.ApiException;
-import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Journey;
 import org.kisio.NavitiaSDK.models.Journeys;
-import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
-import org.kisio.NavitiaSDKUX.BusinessLogic.SectionMatcher;
 import org.kisio.NavitiaSDKUX.Components.AlertComponent;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.DateTimeButtonComponent;
@@ -33,51 +31,33 @@ import org.kisio.NavitiaSDKUX.Components.Primitive.BaseViewComponent;
 import org.kisio.NavitiaSDKUX.Components.ScreenHeaderComponent;
 import org.kisio.NavitiaSDKUX.Components.ScrollViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.Controllers.JourneySolutionsInParameters;
 import org.kisio.NavitiaSDKUX.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 23/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
 
 @LayoutSpec
 public class JourneySolutionsScreenSpec {
     @OnCreateInitialState
     static void createInitialState(
         ComponentContext c,
-        StateValue<String> origin,
-        StateValue<String> originId,
-        StateValue<String> destination,
-        StateValue<String> destinationId,
+        StateValue<JourneySolutionsInParameters> parameters,
         StateValue<Journeys> journeys,
         StateValue<Boolean> loaded,
         StateValue<Boolean> error,
-        StateValue<DateTime> datetime,
-        @Prop(optional = true) String initOrigin,
-        @Prop String initOriginId,
-        @Prop(optional = true) String initDestination,
-        @Prop String initDestinationId) {
+        @Prop JourneySolutionsInParameters initParameters) {
 
-        origin.set((initOrigin != null) ? initOrigin : "");
-        originId.set(initOriginId);
-        destination.set((initDestination != null) ? initDestination : "");
-        destinationId.set(initDestinationId);
+        parameters.set(initParameters);
         loaded.set(false);
         error.set(false);
-        datetime.set(new DateTime());
 
         final NavitiaConfiguration navitiaConfiguration = new NavitiaConfiguration(Configuration.token);
         try {
             final NavitiaSDK navitiaSDK = new NavitiaSDK(navitiaConfiguration);
-            retrieveJourneys(c, navitiaSDK, originId.get(), destinationId.get(), datetime.get());
+            retrieveJourneys(c, navitiaSDK, parameters.get());
         } catch (Exception e) {
             error.set(true);
             loaded.set(true);
@@ -88,11 +68,7 @@ public class JourneySolutionsScreenSpec {
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
-        @State String origin,
-        @State String originId,
-        @State String destination,
-        @State String destinationId,
-        @State DateTime datetime,
+        @State JourneySolutionsInParameters parameters,
         @State Journeys journeys,
         @State Boolean loaded,
         @State Boolean error) {
@@ -123,12 +99,10 @@ public class JourneySolutionsScreenSpec {
                         ContainerComponent.create(c)
                             .children(new Component<?>[]{
                             FormComponent.create(c)
-                                .origin(origin.isEmpty()? originId : origin)
-                                .destination(destination.isEmpty()? destinationId : destination)
+                                .origin(parameters.originLabel.isEmpty()? parameters.originId : parameters.originLabel)
+                                .destination(parameters.destinationLabel.isEmpty()? parameters.destinationId : parameters.destinationLabel)
                                 .build(),
-                            DateTimeButtonComponent.create(c)
-                                .datetime(datetime)
-                                .build(),
+                                getDatetimeButtonBuilder(c, parameters),
                         }).build()
                     })
             )
@@ -141,6 +115,19 @@ public class JourneySolutionsScreenSpec {
             )
             .build()
         ;
+    }
+
+    private static Component<DateTimeButtonComponent> getDatetimeButtonBuilder(ComponentContext c, JourneySolutionsInParameters parameters) {
+        final DateTimeButtonComponent.Builder builder = DateTimeButtonComponent.create(c);
+        DateTime datetime = parameters.datetime;
+        if (datetime == null) {
+            datetime = DateTime.now();
+        }
+        builder.datetime(datetime);
+        if (parameters.datetimeRepresents != null) {
+            builder.datetimeRepresents(parameters.datetimeRepresents);
+        }
+        return builder.build();
     }
 
     static Component<?>[] getJourneyComponent(ComponentContext c, Journeys journeys) {
@@ -169,7 +156,7 @@ public class JourneySolutionsScreenSpec {
     // State Update
 
     @OnUpdateState
-    static void updateJourneys(StateValue<Journeys> journeys, StateValue<Boolean> loaded, StateValue<String> origin, StateValue<String> destination, @Param Journeys result) {
+    static void updateJourneys(StateValue<Journeys> journeys, StateValue<Boolean> loaded, StateValue<JourneySolutionsInParameters> parameters, @Param Journeys result) {
         journeys.set(result);
         loaded.set(true);
 
@@ -177,12 +164,14 @@ public class JourneySolutionsScreenSpec {
             final Journey journey = result.getJourneys().get(0);
 
             if (journey.getSections().isEmpty() == false) {
-                if (origin.get().isEmpty()) {
-                    origin.set(journey.getSections().get(0).getFrom().getName());
+                final JourneySolutionsInParameters parametersValue = parameters.get();
+                if (parametersValue.originLabel.isEmpty()) {
+                    parametersValue.originLabel = journey.getSections().get(0).getFrom().getName();
                 }
-                if (destination.get().isEmpty()) {
-                    destination.set(journey.getSections().get(journey.getSections().size() - 1).getFrom().getName());
+                if (parametersValue.destinationLabel.isEmpty()) {
+                    parametersValue.destinationLabel = journey.getSections().get(journey.getSections().size() - 1).getFrom().getName();
                 }
+                parameters.set(parametersValue);
             }
         }
     }
@@ -195,14 +184,42 @@ public class JourneySolutionsScreenSpec {
 
     // Http
 
-    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, String originId, String destinationId, DateTime datetime) {
+    static void retrieveJourneys(final ComponentContext c, NavitiaSDK navitiaSDK, JourneySolutionsInParameters parameters) {
         try {
-            navitiaSDK.journeysApi.newJourneysRequestBuilder()
-                .withFrom(originId)
-                .withTo(destinationId)
-                .withDatetime(datetime)
-                .withFirstSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
-                .withLastSectionMode(Arrays.asList("bss", "bike", "car", "walking"))
+            final JourneysApi.JourneysRequestBuilder journeysRequestBuilder = navitiaSDK.journeysApi.newJourneysRequestBuilder();
+
+            if (parameters.originId != null) {
+                journeysRequestBuilder.withFrom(parameters.originId);
+            }
+            if (parameters.destinationId != null) {
+                journeysRequestBuilder.withTo(parameters.destinationId);
+            }
+            if (parameters.datetime != null) {
+                journeysRequestBuilder.withDatetime(parameters.datetime);
+            }
+            if (parameters.datetimeRepresents != null) {
+                journeysRequestBuilder.withDatetimeRepresents(parameters.datetimeRepresents);
+            }
+            if (parameters.forbiddenUris != null) {
+                journeysRequestBuilder.withForbiddenUris(parameters.forbiddenUris);
+            }
+            if (parameters.firstSectionModes != null) {
+                journeysRequestBuilder.withFirstSectionMode(parameters.firstSectionModes);
+            }
+            if (parameters.lastSectionModes != null) {
+                journeysRequestBuilder.withLastSectionMode(parameters.lastSectionModes);
+            }
+            if (parameters.count != null) {
+                journeysRequestBuilder.withCount(parameters.count);
+            }
+            if (parameters.minNbJourneys != null) {
+                journeysRequestBuilder.withMinNbJourneys(parameters.minNbJourneys);
+            }
+            if (parameters.maxNbJourneys != null) {
+                journeysRequestBuilder.withMaxNbJourneys(parameters.maxNbJourneys);
+            }
+
+            journeysRequestBuilder
                 .get(new ApiCallback<Journeys>() {
                     @Override
                     public void onFailure(ApiException e, int statusCode, Map<String, List<String>> responseHeaders) {
@@ -211,7 +228,11 @@ public class JourneySolutionsScreenSpec {
 
                     @Override
                     public void onSuccess(Journeys result, int statusCode, Map<String, List<String>> responseHeaders) {
-                        JourneySolutionsScreen.updateJourneysAsync(c, result);
+                        if (result.getError() != null) {
+                            JourneySolutionsScreen.updateErrorAsync(c, true);
+                        } else {
+                            JourneySolutionsScreen.updateJourneysAsync(c, result);
+                        }
                     }
 
                     @Override
