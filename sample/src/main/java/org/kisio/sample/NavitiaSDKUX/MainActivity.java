@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 parameters.originLabel = "Chez moi";
                 parameters.destinationId = "2.2979169;48.8848719";
                 parameters.destinationLabel = "Au travail";
-                final DateTime dateTime = DateTime.now();
-                parameters.datetime = dateTime.plusDays(1);
+                parameters.datetime = DateTime.now().plusDays(1);
                 parameters.datetimeRepresents = "departure";
                 parameters.forbiddenUris = Arrays.asList("physical_mode:Bus");
                 parameters.firstSectionModes = Arrays.asList("bss");
