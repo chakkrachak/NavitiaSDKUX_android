@@ -17,41 +17,41 @@ import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * NavitiaSDKUX_android
- *
- * Created by Johan Rouve on 23/08/2017.
- * Copyright © 2017 Kisio. All rights reserved.
- */
 
 @LayoutSpec
 public class DateTimeButtonComponentSpec {
     @PropDefault static final Map<String, Object> styles = new HashMap<>();
+    @PropDefault static final String datetimeRepresents = "departure";
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop DateTime datetime) {
+        @Prop DateTime datetime,
+        @Prop(optional = true) String datetimeRepresents) {
 
         final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder
             .child(
-                DateTimeButtonComponentSpec.getLabelComponent(c, datetime)
+                DateTimeButtonComponentSpec.getLabelComponent(c, datetime, datetimeRepresents)
             );
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(buttonStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
         return styledBuilder.build();
     }
 
-    static ComponentLayout.Builder getLabelComponent(ComponentContext c, DateTime datetime) {
+    static Map<String, Integer> datetimeRepresentsLabel = new HashMap<>();
+    static {
+        datetimeRepresentsLabel.put("departure", R.string.component_DateTimeButtonComponent_representation_departure);
+        datetimeRepresentsLabel.put("arrival", R.string.component_DateTimeButtonComponent_representation_arrival);
+    }
+
+    static ComponentLayout.Builder getLabelComponent(ComponentContext c, DateTime datetime, String datetimeRepresents) {
         Text.Builder builder = LabelComponent.create(c)
-            .text(c.getString(R.string.component_DateTimeButtonComponent_representation_departure) + " " + Metrics.longDateText(datetime));
+            .text(c.getString(datetimeRepresentsLabel.get(datetimeRepresents)) + " " + Metrics.longDateText(datetime));
 
         return StylizedComponent.applyStyles(builder, textStyles);
     }
