@@ -12,7 +12,6 @@ import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
-import org.kisio.NavitiaSDKUX.Components.DisruptionBadgeComponent;
 import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
@@ -54,15 +53,17 @@ class DisruptionDescriptionComponentSpec {
         final ArrayList<Disruption> disruptions = new ArrayList<>();
         disruptions.add(disruption);
 
-        Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
         DisruptionLevel disruptionLevel = DisruptionMatcher.getLevel(disruption);
+        Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
         causeStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
+        Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
+        iconStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
 
         return HorizontalContainerComponent.create(c)
-            .styles(disruptionContainerStyles)
+            .styles(disruptionTitleStyles)
             .children(new Component<?>[]{
                 IconComponent.create(c)
-                    .styles(causeStyles)
+                    .styles(iconStyles)
                     .name(disruptionLevel.getIconName())
                     .build(),
                 TextComponent.create(c)
@@ -75,18 +76,23 @@ class DisruptionDescriptionComponentSpec {
 
     static Map<String, Object> containerStyles = new HashMap<>();
     static {
-        containerStyles.put("paddingTop", 24);
+        containerStyles.put("marginTop", 26);
     }
 
-    static Map<String, Object> disruptionContainerStyles = new HashMap<>();
+    static Map<String, Object> disruptionTitleStyles = new HashMap<>();
     static {
-        disruptionContainerStyles.put("alignItems", YogaAlign.CENTER);
+        disruptionTitleStyles.put("alignItems", YogaAlign.CENTER);
+    }
+
+    static Map<String, Object> iconBaseStyles = new HashMap<>();
+    static {
+        iconBaseStyles.put("fontSize", 14);
     }
 
     static Map<String, Object> causeBaseStyles = new HashMap<>();
     static {
-        causeBaseStyles.put("fontSize", 15);
-        causeBaseStyles.put("paddingLeft", 5);
+        causeBaseStyles.put("marginLeft", 4);
+        causeBaseStyles.put("fontSize", 12);
         causeBaseStyles.put("fontWeight", "bold");
     }
 }
