@@ -6,10 +6,14 @@ import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
+import com.facebook.yoga.YogaAlign;
+import com.facebook.yoga.YogaJustify;
+import com.facebook.yoga.YogaPositionType;
 
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +31,7 @@ public class LineCodeWithDisruptionStatusComponentSpec {
         if (disruptions != null && disruptions.size() > 0) {
             disruptionBadgeComponent = DisruptionBadgeComponent.create(c)
                 .disruptions(disruptions)
+                .styles(disruptionBadgeStyles)
                 .build();
         }
 
@@ -37,5 +42,12 @@ public class LineCodeWithDisruptionStatusComponentSpec {
                     .build(),
                 disruptionBadgeComponent
             }).buildWithLayout();
+    }
+
+    static Map<String, Object> disruptionBadgeStyles = new HashMap<>();
+    static {
+        disruptionBadgeStyles.put("position", YogaPositionType.ABSOLUTE);
+        disruptionBadgeStyles.put("top", -9);
+        disruptionBadgeStyles.put("end", -11);
     }
 }

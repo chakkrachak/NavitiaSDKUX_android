@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Insert your Navitia token
-        Configuration.token = "";
+        Configuration.token = "bc03f9b8-04d1-458c-bedd-7d78e76376f2";
 
         setContentView(R.layout.activity_main);
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
                 final Intent intent = new Intent(v.getContext(), JourneySolutionsActivity.class);
 
                 final JourneySolutionsInParameters parameters = new JourneySolutionsInParameters();
-                parameters.originId = "2.3665844;48.8465337";
+                parameters.originId = "stop_area:QUI:SA:ARCOMQUIKVYC";
                 parameters.originLabel = "Chez moi";
-                parameters.destinationId = "2.2979169;48.8848719";
+                parameters.destinationId = "stop_area:QUI:SA:ARCOMQUIVIOL";
                 parameters.destinationLabel = "Au travail";
                 parameters.datetime = DateTime.now().plusDays(1);
                 parameters.datetimeRepresents = "departure";
