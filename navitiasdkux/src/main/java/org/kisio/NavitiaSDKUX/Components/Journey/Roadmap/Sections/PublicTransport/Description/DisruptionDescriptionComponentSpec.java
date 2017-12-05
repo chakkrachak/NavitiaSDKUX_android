@@ -10,6 +10,8 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaAlign;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Period;
 import org.kisio.NavitiaSDK.models.Section;
@@ -21,6 +23,7 @@ import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Color;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.*;
 
@@ -86,7 +89,7 @@ class DisruptionDescriptionComponentSpec {
         for (Period period : disruption.getApplicationPeriods()) {
             disruptionBlocks.add(TextComponent.create(c)
                     .styles(disruptionPeriodStyles)
-                    .text(period.getBegin())
+                    .text(Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin()))))
                     .build()
             );
         }

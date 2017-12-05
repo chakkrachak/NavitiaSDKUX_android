@@ -52,6 +52,12 @@ public class Metrics {
         return hours + ":" + minutes;
     }
 
+    public static String shortDateText(DateTime datetime) {
+        String pattern = Configuration.metrics.shortDateFormat;
+
+        return DateTimeFormat.forPattern(pattern).print(datetime);
+    }
+
     public static String longDateText(DateTime datetime) {
         String pattern = Configuration.metrics.longDateFormat;
 
