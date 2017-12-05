@@ -9,6 +9,7 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaAlign;
 
 import org.kisio.NavitiaSDK.models.Disruption;
+import org.kisio.NavitiaSDK.models.Period;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
@@ -80,6 +81,14 @@ class DisruptionDescriptionComponentSpec {
             );
         }
 
+        for (Period period : disruption.getApplicationPeriods()) {
+            disruptionBlocks.add(TextComponent.create(c)
+                    .styles(disruptionPeriodStyles)
+                    .text(period.getBegin())
+                    .build()
+            );
+        }
+
         Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
         disruptionBlocksArray = (Component[]) disruptionBlocks.toArray(disruptionBlocksArray);
         return builder
@@ -116,5 +125,14 @@ class DisruptionDescriptionComponentSpec {
         disruptionTextStyles.put("marginBottom", 6);
         disruptionTextStyles.put("color", Configuration.colors.getGray());
         disruptionTextStyles.put("fontSize", 12);
+    }
+
+    static Map<String, Object> disruptionPeriodStyles = new HashMap<>();
+    static {
+        disruptionPeriodStyles.put("marginLeft", 18);
+        disruptionPeriodStyles.put("marginTop", 6);
+        disruptionPeriodStyles.put("fontSize", 12);
+        disruptionPeriodStyles.put("fontWeight", "bold");
+        disruptionPeriodStyles.put("color", Configuration.colors.getDarkText());
     }
 }
