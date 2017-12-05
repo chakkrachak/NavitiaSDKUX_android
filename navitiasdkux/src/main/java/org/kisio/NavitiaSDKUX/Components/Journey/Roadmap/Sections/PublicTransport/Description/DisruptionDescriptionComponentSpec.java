@@ -16,6 +16,7 @@ import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
 import java.util.*;
@@ -57,19 +58,27 @@ class DisruptionDescriptionComponentSpec {
         iconStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
 
         disruptionBlocks.add(HorizontalContainerComponent.create(c)
-            .styles(disruptionTitleStyles)
-            .children(new Component<?>[]{
-                IconComponent.create(c)
-                    .styles(iconStyles)
-                    .name(disruptionLevel.getIconName())
-                    .build(),
-                TextComponent.create(c)
-                    .styles(causeStyles)
-                    .text(disruption.getCause())
-                    .build()
-            })
-            .build()
+                .styles(disruptionTitleStyles)
+                .children(new Component<?>[]{
+                        IconComponent.create(c)
+                                .styles(iconStyles)
+                                .name(disruptionLevel.getIconName())
+                                .build(),
+                        TextComponent.create(c)
+                                .styles(causeStyles)
+                                .text(disruption.getCause())
+                                .build()
+                })
+                .build()
         );
+
+        if (disruption.getMessages() != null && disruption.getMessages().size() > 0 && !"".equals(disruption.getMessages().get(0).getText())) {
+            disruptionBlocks.add(TextComponent.create(c)
+                .styles(disruptionTextStyles)
+                .text(disruption.getMessages().get(0).getText())
+                .build()
+            );
+        }
 
         Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
         disruptionBlocksArray = (Component[]) disruptionBlocks.toArray(disruptionBlocksArray);
@@ -98,5 +107,14 @@ class DisruptionDescriptionComponentSpec {
         causeBaseStyles.put("marginLeft", 4);
         causeBaseStyles.put("fontSize", 12);
         causeBaseStyles.put("fontWeight", "bold");
+    }
+
+    static Map<String, Object> disruptionTextStyles = new HashMap<>();
+    static {
+        disruptionTextStyles.put("marginLeft", 18);
+        disruptionTextStyles.put("marginTop", 13);
+        disruptionTextStyles.put("marginBottom", 6);
+        disruptionTextStyles.put("color", Configuration.colors.getGray());
+        disruptionTextStyles.put("fontSize", 12);
     }
 }
