@@ -87,9 +87,11 @@ class DisruptionDescriptionComponentSpec {
         }
 
         for (Period period : disruption.getApplicationPeriods()) {
+            String beginText = Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin())));
+            String endText = Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getEnd())));
             disruptionBlocks.add(TextComponent.create(c)
                     .styles(disruptionPeriodStyles)
-                    .text(Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin()))))
+                    .text(beginText + " -> " + endText)
                     .build()
             );
         }
