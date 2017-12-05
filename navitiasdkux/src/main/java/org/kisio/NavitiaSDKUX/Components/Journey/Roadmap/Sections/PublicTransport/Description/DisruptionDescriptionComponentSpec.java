@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description;
 
+import android.text.Html;
+import android.text.TextUtils;
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -76,7 +78,7 @@ class DisruptionDescriptionComponentSpec {
         if (disruption.getMessages() != null && disruption.getMessages().size() > 0 && !"".equals(disruption.getMessages().get(0).getText())) {
             disruptionBlocks.add(TextComponent.create(c)
                 .styles(disruptionTextStyles)
-                .text(disruption.getMessages().get(0).getText())
+                .text(Html.fromHtml(disruption.getMessages().get(0).getText()).toString())
                 .build()
             );
         }
