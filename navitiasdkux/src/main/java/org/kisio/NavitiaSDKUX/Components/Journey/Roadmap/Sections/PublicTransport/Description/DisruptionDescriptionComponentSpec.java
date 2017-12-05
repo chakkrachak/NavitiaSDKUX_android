@@ -18,10 +18,7 @@ import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Util.Color;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @LayoutSpec
 class DisruptionDescriptionComponentSpec {
@@ -50,8 +47,8 @@ class DisruptionDescriptionComponentSpec {
     }
 
     private static Component<?> getDisruptionComponent(ComponentContext c, Disruption disruption) {
-        final ArrayList<Disruption> disruptions = new ArrayList<>();
-        disruptions.add(disruption);
+        final ViewComponent.Builder builder = ViewComponent.create(c);
+        List<Component> disruptionBlocks = new ArrayList<>();
 
         DisruptionLevel disruptionLevel = DisruptionMatcher.getLevel(disruption);
         Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
@@ -59,7 +56,7 @@ class DisruptionDescriptionComponentSpec {
         Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
         iconStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
 
-        return HorizontalContainerComponent.create(c)
+        disruptionBlocks.add(HorizontalContainerComponent.create(c)
             .styles(disruptionTitleStyles)
             .children(new Component<?>[]{
                 IconComponent.create(c)
@@ -71,6 +68,13 @@ class DisruptionDescriptionComponentSpec {
                     .text(disruption.getCause())
                     .build()
             })
+            .build()
+        );
+
+        Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
+        disruptionBlocksArray = (Component[]) disruptionBlocks.toArray(disruptionBlocksArray);
+        return builder
+            .children(disruptionBlocksArray)
             .build();
     }
 
