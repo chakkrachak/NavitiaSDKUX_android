@@ -22,6 +22,7 @@ import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
 import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Color;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
@@ -86,12 +87,18 @@ class DisruptionDescriptionComponentSpec {
             );
         }
 
+        String fromText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_from);
+        String toText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_to);
+        String undefinedToText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_to_fallback);
         for (Period period : disruption.getApplicationPeriods()) {
-            String beginText = Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin())));
-            String endText = Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getEnd())));
+            String beginText = fromText + " " + Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin())));
+            String endText = undefinedToText;
+            if (period.getEnd() != null) {
+                endText = toText + " " + Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getEnd())));
+            }
             disruptionBlocks.add(TextComponent.create(c)
                 .styles(disruptionPeriodStyles)
-                .text(beginText + " -> " + endText)
+                .text(beginText + " " + endText)
                 .build()
             );
         }
