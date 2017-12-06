@@ -126,6 +126,8 @@ public class JourneySolutionsScreenSpec {
         builder.datetime(datetime);
         if (parameters.datetimeRepresents != null) {
             builder.datetimeRepresents(parameters.datetimeRepresents);
+        } else {
+            builder.datetimeRepresents("departure");
         }
         return builder.build();
     }
