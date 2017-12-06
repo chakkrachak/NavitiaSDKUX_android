@@ -17,7 +17,6 @@
     <string name="units.minute.abbr">min</string>
     <string name="units.meter">meter</string>
     <string name="units.meter.plural">meters</string>
-    <string naùe="units.meter.abbr">m</string>
     <string name="units.kilometer">kilometer</string>
     <string name="units.kilometer.plural">kilometers</string>
     <string name="units.kilometer.abbr">km</string>

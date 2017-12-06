@@ -11,7 +11,6 @@ import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaAlign;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Period;
 import org.kisio.NavitiaSDK.models.Section;
@@ -26,7 +25,10 @@ import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Color;
 import org.kisio.NavitiaSDKUX.Util.Metrics;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @LayoutSpec
 class DisruptionDescriptionComponentSpec {
@@ -55,31 +57,31 @@ class DisruptionDescriptionComponentSpec {
     }
 
     private static Component<?> getDisruptionComponent(ComponentContext c, Disruption disruption) {
-        final ViewComponent.Builder builder = ViewComponent.create(c);
         List<Component> disruptionBlocks = new ArrayList<>();
 
         DisruptionLevel disruptionLevel = DisruptionMatcher.getLevel(disruption);
         Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
-        causeStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
+        Integer disruptionLevelColor = Color.getColorFromHexadecimal(disruptionLevel.getLevelColor());
+        causeStyles.put("color", disruptionLevelColor);
         Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
-        iconStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
+        iconStyles.put("color", disruptionLevelColor);
 
         disruptionBlocks.add(HorizontalContainerComponent.create(c)
-                .styles(disruptionTitleStyles)
-                .children(new Component<?>[]{
-                        IconComponent.create(c)
-                                .styles(iconStyles)
-                                .name(disruptionLevel.getIconName())
-                                .build(),
-                        TextComponent.create(c)
-                                .styles(causeStyles)
-                                .text(disruption.getCause())
-                                .build()
-                })
-                .build()
+            .styles(disruptionTitleStyles)
+            .children(new Component<?>[]{
+                IconComponent.create(c)
+                    .styles(iconStyles)
+                    .name(disruptionLevel.getIconName())
+                    .build(),
+                TextComponent.create(c)
+                    .styles(causeStyles)
+                    .text(disruption.getCause())
+                    .build()
+            })
+            .build()
         );
 
-        if (disruption.getMessages() != null && disruption.getMessages().size() > 0 && !"".equals(disruption.getMessages().get(0).getText())) {
+        if (disruption.getMessages() != null && disruption.getMessages().size() > 0 && !TextUtils.isEmpty(disruption.getMessages().get(0).getText())) {
             disruptionBlocks.add(TextComponent.create(c)
                 .styles(disruptionTextStyles)
                 .text(Html.fromHtml(disruption.getMessages().get(0).getText()).toString())
@@ -104,8 +106,8 @@ class DisruptionDescriptionComponentSpec {
         }
 
         Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
-        disruptionBlocksArray = (Component[]) disruptionBlocks.toArray(disruptionBlocksArray);
-        return builder
+        disruptionBlocksArray = disruptionBlocks.toArray(disruptionBlocksArray);
+        return ViewComponent.create(c)
             .children(disruptionBlocksArray)
             .build();
     }
