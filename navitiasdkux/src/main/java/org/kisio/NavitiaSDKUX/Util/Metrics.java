@@ -53,9 +53,7 @@ public class Metrics {
     }
 
     public static String shortDateText(DateTime datetime) {
-        String pattern = Configuration.metrics.shortDateFormat;
-
-        return DateTimeFormat.forPattern(pattern).print(datetime);
+        return DateTimeFormat.forStyle("S-").print(datetime);
     }
 
     public static String longDateText(DateTime datetime) {
