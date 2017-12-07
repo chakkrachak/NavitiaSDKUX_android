@@ -67,7 +67,10 @@ public class JourneySolutionsInParameters implements Parcelable {
         }
     }
 
-    public JourneySolutionsInParameters() {}
+    public JourneySolutionsInParameters(String originId, String destinationId) {
+        this.originId = originId;
+        this.destinationId = destinationId;
+    }
 
     public JourneySolutionsInParameters(Parcel in) {
         readFromParcel(in);

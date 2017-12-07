@@ -29,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent = new Intent(v.getContext(), JourneySolutionsActivity.class);
 
-                final JourneySolutionsInParameters parameters = new JourneySolutionsInParameters();
-                parameters.originId = "stop_area:QUI:SA:ARCOMQUIKVYC";
+                final JourneySolutionsInParameters parameters = new JourneySolutionsInParameters("2.3665844;48.8465337", "2.2979169;48.8848719");
                 parameters.originLabel = "Chez moi";
-                parameters.destinationId = "stop_area:QUI:SA:ARCOMQUIVIOL";
                 parameters.destinationLabel = "Au travail";
                 parameters.datetime = DateTime.now().plusDays(1);
                 parameters.datetimeRepresents = "departure";
