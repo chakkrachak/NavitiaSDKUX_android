@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="controller.JourneySolutionsController.title">Journeys</string>
     <string name="component.JourneyWalkingSummaryComponent.With">With</string>
@@ -16,7 +17,6 @@
     <string name="units.minute.abbr">min</string>
     <string name="units.meter">meter</string>
     <string name="units.meter.plural">meters</string>
-    <string naùe="units.meter.abbr">m</string>
     <string name="units.kilometer">kilometer</string>
     <string name="units.kilometer.plural">kilometers</string>
     <string name="units.kilometer.abbr">km</string>
@@ -24,4 +24,7 @@
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">A %s ride</string>
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">A %s drive</string>
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">A %s ride on a %s</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.from">From</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to">to</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to.fallback">until further notice</string>
 </resources>

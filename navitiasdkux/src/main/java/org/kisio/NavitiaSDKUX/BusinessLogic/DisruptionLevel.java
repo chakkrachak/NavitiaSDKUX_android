@@ -3,7 +3,7 @@ package org.kisio.NavitiaSDKUX.BusinessLogic;
 public enum DisruptionLevel {
     none, information, nonblocking, blocking;
 
-    public String getIconColor() {
+    public String getLevelColor() {
         switch (this) {
             case blocking:
                 return "A94442";

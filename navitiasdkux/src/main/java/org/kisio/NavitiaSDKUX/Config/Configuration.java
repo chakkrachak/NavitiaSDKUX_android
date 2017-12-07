@@ -22,7 +22,6 @@ public class Configuration {
         public static Integer margin = 8;
         public static Integer marginL = 16;
         public static String timeFormat = "HH:mm";
-        public static String shortDateFormat = "dd/MM/YYYY";
         public static String longDateFormat = "EEE d MMM - HH:mm";
     }
 

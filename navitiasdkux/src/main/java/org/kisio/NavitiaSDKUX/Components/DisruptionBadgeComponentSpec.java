@@ -6,6 +6,7 @@ import com.facebook.litho.ComponentLayout;
 import com.facebook.litho.annotations.LayoutSpec;
 import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
+import com.facebook.litho.annotations.PropDefault;
 import com.facebook.yoga.YogaAlign;
 import com.facebook.yoga.YogaJustify;
 import com.facebook.yoga.YogaPositionType;
@@ -21,6 +22,8 @@ import java.util.Map;
 
 @LayoutSpec
 public class DisruptionBadgeComponentSpec {
+    @PropDefault static final Map<String, Object> styles = new HashMap<>();
+
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
@@ -29,10 +32,10 @@ public class DisruptionBadgeComponentSpec {
         @Prop List<Disruption> disruptions) {
 
         DisruptionLevel highestDisruptionLevel = DisruptionMatcher.getHighestDisruptionLevel(disruptions);
-        iconStyles.put("color", Color.getColorFromHexadecimal(highestDisruptionLevel.getIconColor()));
+        iconStyles.put("color", Color.getColorFromHexadecimal(highestDisruptionLevel.getLevelColor()));
 
         return ViewComponent.create(c)
-            .styles(containerStyles)
+            .styles(styles)
             .children(new Component<?>[] {
                 IconComponent.create(c)
                     .styles(circleStyles)
@@ -44,15 +47,6 @@ public class DisruptionBadgeComponentSpec {
                     .build(),
             })
             .buildWithLayout();
-    }
-
-    static Map<String, Object> containerStyles = new HashMap<>();
-    static {
-        containerStyles.put("position", YogaPositionType.ABSOLUTE);
-        containerStyles.put("alignItems", YogaAlign.CENTER);
-        containerStyles.put("justifyContent", YogaJustify.CENTER);
-        containerStyles.put("top", -9);
-        containerStyles.put("end", -11);
     }
 
     static Map<String, Object> circleStyles = new HashMap<>();

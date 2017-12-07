@@ -12,6 +12,7 @@ import org.kisio.NavitiaSDK.models.Disruption;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.Components.ContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.DirectionComponent;
+import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.DisruptionDescriptionComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeIconComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description.ModeLineLabelComponent;
 import org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.SectionRowLayoutComponent;
@@ -51,6 +52,10 @@ class DescriptionComponentSpec {
                                 .build(),
                             DirectionComponent.create(c)
                                 .section(section)
+                                .build(),
+                            DisruptionDescriptionComponent.create(c)
+                                .section(section)
+                                .disruptions(disruptions)
                                 .build()
                         }))
         );
