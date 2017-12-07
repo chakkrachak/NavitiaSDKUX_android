@@ -17,7 +17,6 @@
     <string name="units.minute.abbr">min</string>
     <string name="units.meter">mètre</string>
     <string name="units.meter.plural">mètres</string>
-    <string naùe="units.meter.abbr">m</string>
     <string name="units.kilometer">kilomètre</string>
     <string name="units.kilometer.plural">kilomètres</string>
     <string name="units.kilometer.abbr">km</string>
@@ -25,4 +24,7 @@
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">%s en vélo</string>
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">%s en voiture</string>
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">%s en %s</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.from">Du</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to">au</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to.fallback">jusqu'à nouvel ordre</string>
 </resources>

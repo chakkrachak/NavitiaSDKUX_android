@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Insert your Navitia token
-        Configuration.token = "bc03f9b8-04d1-458c-bedd-7d78e76376f2";
+        Configuration.token = "";
 
         setContentView(R.layout.activity_main);
 

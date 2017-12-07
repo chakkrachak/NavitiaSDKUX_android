@@ -1,5 +1,7 @@
 package org.kisio.NavitiaSDKUX.Components.Journey.Roadmap.Sections.PublicTransport.Description;
 
+import android.text.Html;
+import android.text.TextUtils;
 import com.facebook.litho.Component;
 import com.facebook.litho.ComponentContext;
 import com.facebook.litho.ComponentLayout;
@@ -8,16 +10,20 @@ import com.facebook.litho.annotations.OnCreateLayout;
 import com.facebook.litho.annotations.Prop;
 import com.facebook.yoga.YogaAlign;
 
+import org.joda.time.DateTime;
 import org.kisio.NavitiaSDK.models.Disruption;
+import org.kisio.NavitiaSDK.models.Period;
 import org.kisio.NavitiaSDK.models.Section;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionLevel;
 import org.kisio.NavitiaSDKUX.BusinessLogic.DisruptionMatcher;
-import org.kisio.NavitiaSDKUX.Components.DisruptionBadgeComponent;
 import org.kisio.NavitiaSDKUX.Components.HorizontalContainerComponent;
 import org.kisio.NavitiaSDKUX.Components.IconComponent;
 import org.kisio.NavitiaSDKUX.Components.TextComponent;
 import org.kisio.NavitiaSDKUX.Components.ViewComponent;
+import org.kisio.NavitiaSDKUX.Config.Configuration;
+import org.kisio.NavitiaSDKUX.R;
 import org.kisio.NavitiaSDKUX.Util.Color;
+import org.kisio.NavitiaSDKUX.Util.Metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,18 +57,20 @@ class DisruptionDescriptionComponentSpec {
     }
 
     private static Component<?> getDisruptionComponent(ComponentContext c, Disruption disruption) {
-        final ArrayList<Disruption> disruptions = new ArrayList<>();
-        disruptions.add(disruption);
+        List<Component> disruptionBlocks = new ArrayList<>();
 
-        Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
         DisruptionLevel disruptionLevel = DisruptionMatcher.getLevel(disruption);
-        causeStyles.put("color", Color.getColorFromHexadecimal(disruptionLevel.getLevelColor()));
+        Map<String, Object> causeStyles = new HashMap<>(causeBaseStyles);
+        Integer disruptionLevelColor = Color.getColorFromHexadecimal(disruptionLevel.getLevelColor());
+        causeStyles.put("color", disruptionLevelColor);
+        Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
+        iconStyles.put("color", disruptionLevelColor);
 
-        return HorizontalContainerComponent.create(c)
-            .styles(disruptionContainerStyles)
+        disruptionBlocks.add(HorizontalContainerComponent.create(c)
+            .styles(disruptionTitleStyles)
             .children(new Component<?>[]{
                 IconComponent.create(c)
-                    .styles(causeStyles)
+                    .styles(iconStyles)
                     .name(disruptionLevel.getIconName())
                     .build(),
                 TextComponent.create(c)
@@ -70,23 +78,77 @@ class DisruptionDescriptionComponentSpec {
                     .text(disruption.getCause())
                     .build()
             })
+            .build()
+        );
+
+        if (disruption.getMessages() != null && disruption.getMessages().size() > 0 && !TextUtils.isEmpty(disruption.getMessages().get(0).getText())) {
+            disruptionBlocks.add(TextComponent.create(c)
+                .styles(disruptionTextStyles)
+                .text(Html.fromHtml(disruption.getMessages().get(0).getText()).toString())
+                .build()
+            );
+        }
+
+        String fromText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_from);
+        String toText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_to);
+        String undefinedToText = c.getString(R.string.component_Journey_Roadmap_Sections_PublicTransport_Description_Disruption_Description_Period_to_fallback);
+        for (Period period : disruption.getApplicationPeriods()) {
+            String beginText = fromText + " " + Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getBegin())));
+            String endText = undefinedToText;
+            if (period.getEnd() != null) {
+                endText = toText + " " + Metrics.shortDateText(new DateTime(Metrics.navitiaDate(period.getEnd())));
+            }
+            disruptionBlocks.add(TextComponent.create(c)
+                .styles(disruptionPeriodStyles)
+                .text(beginText + " " + endText)
+                .build()
+            );
+        }
+
+        Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
+        disruptionBlocksArray = disruptionBlocks.toArray(disruptionBlocksArray);
+        return ViewComponent.create(c)
+            .children(disruptionBlocksArray)
             .build();
     }
 
     static Map<String, Object> containerStyles = new HashMap<>();
     static {
-        containerStyles.put("paddingTop", 24);
+        containerStyles.put("marginTop", 26);
     }
 
-    static Map<String, Object> disruptionContainerStyles = new HashMap<>();
+    static Map<String, Object> disruptionTitleStyles = new HashMap<>();
     static {
-        disruptionContainerStyles.put("alignItems", YogaAlign.CENTER);
+        disruptionTitleStyles.put("alignItems", YogaAlign.CENTER);
+    }
+
+    static Map<String, Object> iconBaseStyles = new HashMap<>();
+    static {
+        iconBaseStyles.put("fontSize", 14);
     }
 
     static Map<String, Object> causeBaseStyles = new HashMap<>();
     static {
-        causeBaseStyles.put("fontSize", 15);
-        causeBaseStyles.put("paddingLeft", 5);
+        causeBaseStyles.put("marginLeft", 4);
+        causeBaseStyles.put("fontSize", 12);
         causeBaseStyles.put("fontWeight", "bold");
+    }
+
+    static Map<String, Object> disruptionTextStyles = new HashMap<>();
+    static {
+        disruptionTextStyles.put("marginLeft", 18);
+        disruptionTextStyles.put("marginTop", 13);
+        disruptionTextStyles.put("marginBottom", 6);
+        disruptionTextStyles.put("color", Configuration.colors.getGray());
+        disruptionTextStyles.put("fontSize", 12);
+    }
+
+    static Map<String, Object> disruptionPeriodStyles = new HashMap<>();
+    static {
+        disruptionPeriodStyles.put("marginLeft", 18);
+        disruptionPeriodStyles.put("marginTop", 6);
+        disruptionPeriodStyles.put("fontSize", 12);
+        disruptionPeriodStyles.put("fontWeight", "bold");
+        disruptionPeriodStyles.put("color", Configuration.colors.getDarkText());
     }
 }
