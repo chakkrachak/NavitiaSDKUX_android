@@ -20,10 +20,10 @@
     <string name="units.kilometer">kilomètre</string>
     <string name="units.kilometer.plural">kilomètres</string>
     <string name="units.kilometer.abbr">km</string>
-    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.walking">%s à pied</string>
-    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">%s en vélo</string>
-    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">%s en voiture</string>
-    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">%s en %s</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.walking">%1$s à pied</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bike">%1$s en vélo</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.car">%1$s en voiture</string>
+    <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">%1$s en %2$s</string>
     <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.from">Du</string>
     <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to">au</string>
     <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to.fallback">jusqu'à nouvel ordre</string>
