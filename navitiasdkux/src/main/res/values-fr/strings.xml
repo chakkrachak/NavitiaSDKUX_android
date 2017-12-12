@@ -26,5 +26,5 @@
     <string name="component.Journey.Roadmap.Sections.StreetNetwork.Description.mode.bss">%1$s en %2$s</string>
     <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.from">Du</string>
     <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to">au</string>
-    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to.fallback">jusqu'à nouvel ordre</string>
+    <string name="component.Journey.Roadmap.Sections.PublicTransport.Description.Disruption.Description.Period.to.fallback">jusqu\'à nouvel ordre</string>
 </resources>
