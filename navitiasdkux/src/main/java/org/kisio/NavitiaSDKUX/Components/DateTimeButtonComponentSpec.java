@@ -36,7 +36,9 @@ public class DateTimeButtonComponentSpec {
         final ComponentLayout.ContainerBuilder builder = ButtonComponent.create(c).testKey(testKey);
         builder
             .child(
-                DateTimeButtonComponentSpec.getLabelComponent(c, datetime, datetimeRepresents)
+                TextComponent.create(c)
+                    .styles(textStyles)
+                    .text(c.getString(datetimeRepresentsLabel.get(datetimeRepresents)) + " " + Metrics.longDateText(datetime))
             );
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(buttonStyles, styles);
         final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
@@ -47,13 +49,6 @@ public class DateTimeButtonComponentSpec {
     static {
         datetimeRepresentsLabel.put("departure", R.string.component_DateTimeButtonComponent_representation_departure);
         datetimeRepresentsLabel.put("arrival", R.string.component_DateTimeButtonComponent_representation_arrival);
-    }
-
-    static ComponentLayout.Builder getLabelComponent(ComponentContext c, DateTime datetime, String datetimeRepresents) {
-        Text.Builder builder = LabelComponent.create(c)
-            .text(c.getString(datetimeRepresentsLabel.get(datetimeRepresents)) + " " + Metrics.longDateText(datetime));
-
-        return StylizedComponent.applyStyles(builder, textStyles);
     }
 
     static Map<String, Object> buttonStyles = new HashMap<>();

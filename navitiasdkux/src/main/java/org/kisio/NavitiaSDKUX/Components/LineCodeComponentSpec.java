@@ -19,18 +19,13 @@ import java.util.Map;
 
 @LayoutSpec
 public class LineCodeComponentSpec {
-    @PropDefault
-    static final Map<String, Object> styles = new HashMap<>();
-
-    @PropDefault
-    static final DisruptionLevel disruptionLevel = DisruptionLevel.none;
+    @PropDefault static final Map<String, Object> styles = new HashMap<>();
 
     @OnCreateLayout
     static ComponentLayout onCreateLayout(
         ComponentContext c,
         @Prop(optional = true) String testKey,
         @Prop(optional = true) Map<String, Object> styles,
-        @Prop(optional = true) DisruptionLevel disruptionLevel,
         @Prop Section section) {
 
         final ComponentLayout.ContainerBuilder builder = BaseViewComponent.create(c).testKey(testKey);

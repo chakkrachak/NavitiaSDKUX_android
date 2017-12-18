@@ -33,13 +33,14 @@ public class IconComponentSpec {
         @Prop(optional = true) Map<String, Object> styles,
         @Prop(optional = true) String name) {
 
-        final Text.Builder builder = LabelComponent.create(c)
-            .text(Icons.fontString(name));
         Map<String, Object> iconStyles = new HashMap<>(iconBaseStyles);
         iconStyles.put("fontFamily", StylizedComponent.getFont(c,"SDKIcons"));
         final Map<String, Object> computedStyles = StylizedComponent.mergeStyles(iconStyles, styles);
-        final ComponentLayout.Builder styledBuilder = StylizedComponent.applyStyles(builder, computedStyles);
-        return styledBuilder.build();
+
+        return TextComponent.create(c)
+            .styles(computedStyles)
+            .text(Icons.fontString(name))
+            .buildWithLayout();
     }
 
     static Map<String, Object> iconBaseStyles = new HashMap<>();
