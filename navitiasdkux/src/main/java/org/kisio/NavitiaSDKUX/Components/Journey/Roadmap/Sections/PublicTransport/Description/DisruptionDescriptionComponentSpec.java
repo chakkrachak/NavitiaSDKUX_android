@@ -41,7 +41,6 @@ class DisruptionDescriptionComponentSpec {
         final ViewComponent.Builder builder = ViewComponent.create(c);
 
         return builder
-            .styles(containerStyles)
             .children(getDisruptionComponents(c, disruptions))
             .buildWithLayout();
     }
@@ -108,6 +107,7 @@ class DisruptionDescriptionComponentSpec {
         Component[] disruptionBlocksArray = new Component[disruptionBlocks.size()];
         disruptionBlocksArray = disruptionBlocks.toArray(disruptionBlocksArray);
         return ViewComponent.create(c)
+            .styles(containerStyles)
             .children(disruptionBlocksArray)
             .build();
     }
